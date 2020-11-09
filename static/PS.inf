@@ -1,0 +1,281 @@
+Constant Story "THE QUEST FOR THE PHILOSOPHER'S STONE^";
+Constant Headline "An Interactive Quest.^
+An original work by HEW (2020).^^";
+
+Constant MAX_CARRIED = 15;
+Constant AMUSING_PROVIDED;
+Constant DEATH_MENTION_UNDO;
+Constant MAX_SCORE = 50;
+
+Serial "427301";
+Release 1;
+Include "Parser";
+Include "VerbLib";
+
+Global armour = 0;
+Global health = 10;
+Global rand = 0;
+
+Class Room
+        has light;
+Class Scenic
+        has scenery static;
+
+[ Initialise; location = field;];
+[ Random; rand = random(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20); print "You rolled ",rand,".^^";];
+[ ArmourSub; "Armour: ",armour,"/10"; ];
+[ HealthSub; "Health: ",health,"/10"; ];
+[ StrikeSub; 
+if (matchbox in player) {
+	give matchbox light; 
+	"You strike and light the match.";} 
+else "You don't have any matches";
+];
+
+Room field "FIELD"
+	with
+	name "grass" "flowers",
+	description 
+	"You stand in a green field containing nothing but grass and flowers. All around you is forest but in the far distance, to your north, 
+	you can see smoke rising through the trees. Life perhaps? The sun shines above bright above you. You can still smell the early morning dew on the grass
+	and hear the songbirds in the trees.",
+	n_to n_forest,
+	e_to e_forest,
+	s_to s_forest,
+	w_to w_forest;
+
+Object -> chest "chest"
+	with
+	name "chest" "of" "possesions" "things",
+	initial "Laying on the grass is a chest filled with your posessions.",
+	description
+	"Your things consist of a copy of Waldeck's guide, several apples, a box of matches and your warriors helmet.",
+	has static container openable;
+
+Object ->-> helmet "helmet"
+	with
+	name "helmet" "armour", 
+	description
+	"Your steel helmet, given to you by the kingdom of Porturia, before you set out on your ^
+	quest.",
+	after [;
+		Wear: armour = armour + 2;
+		"You put on the Helmet. Your armour level is now ", armour, "/10.";
+		
+		Disrobe: armour = armour - 2;
+		remove self;
+		"You take off the Helmet, losing it's strength, it vanishes into the ether. Your armour level is now ", armour, "/10.";
+	],
+	has clothing;
+
+Object ->-> matchbox "matchbox"
+	with
+	name "match" "box" "matchbox",
+	description
+	"An ordinary box of about 50 matches.";
+
+Object ->-> book "book"
+	with
+	name "guide" "book" "of" "waldeck" "waldeck^s" "waldecks",
+	description
+	"A tome of useful information on spells and weapons, created by Waldeck the Warlock.";
+
+Class apple
+	with
+	name "apple" "apples",
+	description "Not quite an ordinary apple, it can heal you after taking damage. Otherwise, pretty bog-standard.",
+	short_name "apple",
+	plural "apples",
+	before [;
+		Eat: remove self;
+		health = health + 2;
+		if (health > 10) health = 10;
+		"Yum, that apple healed you up a bit.";
+	];
+
+apple ->->;
+apple ->->;
+apple ->->;
+
+Scenic smoke "smoke"
+	with
+	name "smoke" "puff" "rising",
+	description
+	"A regular plume of smoke rising above the trees, You can't see its source, it's too well^
+	hidden by the forest",
+	found_in field clearing;
+
+Class Forest
+	with
+	description [; string 14 "A mass of pines trees surround you, thin shafts of light poke through the trees, illmuninating the spot where you are standing. The forest is 
+	so dense, you can't make out anything beyond 100 metres."; print "@14";],
+	cant_go "^FOREST^@14",
+	has light;
+
+Forest n_forest "FOREST"
+	with
+	s_to field,
+	e_to ne_forest,
+	w_to nw_forest;
+
+Forest e_forest "FOREST"
+	with
+	w_to field,
+	n_to ne_forest,
+	s_to se_forest;
+
+Forest s_forest "FOREST"
+	with
+	n_to field,
+	e_to se_forest,
+	w_to sw_forest;
+
+Forest w_forest	"FOREST"
+	with
+	e_to field,
+	n_to nw_forest,
+	s_to sw_forest;
+
+Forest ne_forest "FOREST"
+	with
+	n_to clearing,
+	sw_to field,
+	w_to n_forest,
+	s_to e_forest;
+
+Forest nw_forest "FOREST"
+	with
+	se_to field,
+	e_to n_forest,
+	s_to w_forest;
+
+Forest se_forest "FOREST"
+	with
+	nw_to field,
+	n_to e_forest,
+	w_to s_forest;
+
+Forest sw_forest "FOREST"
+	with
+	ne_to field,
+	n_to w_forest,
+	e_to s_forest;
+
+Scenic trees "trees"
+	with
+	name "tree" "trees" "pine" "forest",
+	description
+	"Behemoth trees, standing 10-15 metres high, covered in dark green pine needles. The trees are clustered close together, blocking some of the light.",
+	found_in n_forest e_forest s_forest w_forest ne_forest nw_forest se_forest sw_forest;
+
+Room clearing "CLEARING"
+	with
+	description
+	"You find yourself in a clearing, standing in front of a little stone cabin. It is built, with a pretty thatched roof and wooden shutters. Above the house, 
+	you can see a plume of smoke, you think this may be a sign of life inside.",
+	n_to cabin_door,
+	sw_to n_forest,
+	s_to ne_forest;
+
+Object -> cabin_door "cabin door"
+	with
+	name "cabin" "door" "planks" "iron" "handle" "wooden" "wood",
+	initial "Right at the front of the house is the door. It is made neatly with 6 wooden planks and a black iron door handle",
+	door_to cabin,
+	door_dir n_to,
+	has static door openable;
+
+Object -> axe "wooden axe"
+	with
+	name "wooden" "wood" "axe",
+	initial "Lying by the door is a wood chopping axe, left on a stack of logs by the owner.";
+
+Room cabin "CABIN"
+	with
+	name "mantlepiece",
+	description
+	"You walk in and find a small cosy room. A fire is burning merrily below the mantlepiece to your right, and to your left a staircase going upstairs.",
+	s_to clearing;
+
+Object -> club "club"
+	with
+	name "troll^s" "club",
+	initial "On the table is the troll's club. It is a hefty piece of crudely carved wood, I'd stay away from it if I were you.";
+
+Object -> troll "troll"
+	with 
+	name "troll",
+	initial "However, a troll sits at the table, slowly eating some stew. It doesn't notice you are there. While trolls are rather thick creatures, they may trade with you
+	upon recieving something",
+	description
+	"The troll is a 7ft tall monster, with leathery skin and black eyes. It is only wearing a loincloth and a vest made with sheep's skin.",
+	life [ rand;
+		Show, Answer, Tell: "The troll gives you the silent treatment.";
+		Give, Ask:
+		Random();
+		print "The troll notices your (somewhat feeble) existence. On acknowledging this, it cracks its knuckles before picking up the large club
+		resting against its leg.";
+		if (rand < 5){
+		print "Whilst not obviously, the troll does want to trade. It grunts a couple of times before passing you its club. It then pauses before taking 
+		all the coins it can find (",score," in your case), at least you have the club I suppose.";
+                move club to player;
+		remove noun;
+		}
+                if (rand > 5){
+                if (rand < 15){
+                print "This time, the troll does not want to trade, he grabs his club and takes a wild swing at you, it hits you and takes 3 hp off your current score.";
+                health = health - 3;
+                move club to troll;
+                }
+                }
+                else{
+                print "The trolls take it's club and strikes you down, it must not want to trade, you fall to the floor, dazed and confused. You have lost a significant amount of heallth";
+                health = health - 5;
+                }
+		Attack:"";
+		ThrowAt: 
+		move noun to location;
+		print "The troll turns its head to face you and grunts angrily.";
+		Kiss:
+		Random();
+		if (rand > 10){
+		print "The troll grabs its club from the table and takes a wild wing at your head. 
+		While it misses you head, it hits your shoulder and sends you tumbling to the ground. You lost 2 hp. ";
+		health = health - 2;
+		}
+		else{
+			print "The troll immediately takes a swing at your head. Fortuantely for you, the troll misses and instead takes
+			out the post next to you. This causes the troll to lose balance for a second, but it stays up and snarls in your face. ";
+		}
+	],
+	has animate;
+
+Scenic fireplace "fireplace"
+	with
+	name "fire" "place" "fireplace",
+	description
+	"A warm crackling fire, burning in a black metal grate.",
+	found_in cabin;
+
+Scenic chair "chair"
+	with
+	name "wood" "wooden" "chair",
+	description
+	"An ordinary woodrn chair",
+	found_in cabin;
+
+Scenic wood_table "table"
+	with
+	name "wood" "wooden" "table",
+	description
+	"An ordinary woodrn chair",
+	found_in cabin;
+
+Verb 'armour'
+	*	-> Armour;
+Verb 'health'
+	*	-> Health;
+Verb 'lightup'
+	*	-> Strike;
+
+include "Grammar";
