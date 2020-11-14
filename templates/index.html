@@ -1,31 +1,76 @@
+
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Quest</title>
-    <script src="{{ url_for('static', filename = 'web/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename = 'web/main.js') }}" type="module"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'web/web.css') }}">
-    <script>
-        parchment_options = {
-            default_story: [ "{{ url_for('static', filename = 'PS.z8') }}" ],
-            lib_path: "{{ url_for('static', filename = 'web') }}",
-            page_title: 0,
-        };
-    </script>
-</head>
-<body>
-    <div id="gameport">
-        <div id="windowport">
-            <noscript>
-                <p>You'll need to turn on Javascript in your web browser to play this game.</p>
-            </noscript>
-        </div>
-        <div id="loadingpane">
-            <img src="{{ url_for('static', filename = 'web/waiting.gif') }}" alt="LOADING"><br>
-            <em>&nbsp;&nbsp;&nbsp;Loading...</em>
-        </div>
-        <div id="errorpane" style="display:none;"><div id="errorcontent">...</div></div>
-    </div>
-</body>
+<html lang="en">
+	<head>
+    <script  type="text/javascript" src="https://codesandbox.io/public/sse-hooks/sse-hooks.js"></script>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="{{ url_for('static', filename = 'web/index.css') }}">
+		<link rel="icon" type="image/png" href="favicon.png" />
+		<script src="{{ url_for('static', filename = 'terminal.js') }}" type="module"></script>
+		<script src="https://unpkg.com/rot-js@2.1.1/dist/rot.js"></script>
+		<title>Parchment</title>
+	</head>
+
+	<body class="theme-green" onload="onload()">
+		<div id="monitor">
+			<div id="screen">
+				<div id="crt" class="off" onClick="handleClick(event)">
+					<div class="scanline"></div>
+					<div class="terminal"></div>
+				</div>
+			</div>
+
+			<div id="slider">
+				<label class="switch">
+					<input type="checkbox" onclick="togglePower()" />
+					<span class="slider"></span>
+				</label>
+			</div>
+
+			<div id="controls">
+				<div id="themes">
+					<button
+						class="theme"
+						data-theme="red"
+						onClick="theme(event)"
+					></button>
+					<button
+						class="theme active"
+						data-theme="green"
+						onClick="theme(event)"
+					></button>
+					<button
+						class="theme"
+						data-theme="blue"
+						onClick="theme(event)"
+					></button>
+				</div>
+				<div id="power">
+					<label class="rocker rocker-small">
+						<input
+							id="switch"
+							type="checkbox"
+							onclick="togglePower()"
+							checked
+						/>
+						<span class="switch-left">O</span>
+						<span class="switch-right">I</span>
+					</label>
+				</div>
+			</div>
+		</div>
+    <iframe id="sb__open-sandbox94" style="
+          position: fixed;
+          margin: 0;
+          padding: 0;
+          bottom: 16px;
+          right: 16px;
+          border: none;
+          width: 118px;
+          height: 36px;
+          z-index: 9999999999999;
+    "></iframe>
+  </body>
 </html>
