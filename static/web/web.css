@@ -7,19 +7,42 @@ body {
     margin: 0;
 }
 #gameport {
-    background: var(--glkote-page-bg);
-    bottom: 0;
+    bottom: 5vh;
     left: 0;
     margin: 0 auto;
     max-width: 900px;
     overflow: hidden;
     position: absolute;
     right: 0;
-    top: 0;
+    top: 5vh;
+    background-color: black;
+    background-image: radial-gradient(
+    rgba(0, 150, 0, 0.75), black 120%
+    );
+    padding: 2rem;
+    color: white;
+    font: 1.3rem Inconsolata, monospace;
+    text-shadow: 0 0 5px #C8C8C8;
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: repeating-linear-gradient(
+        0deg,
+        rgba(black, 0.15),
+        rgba(black, 0.15) 1px,
+         transparent 1px,
+        transparent 2px
+        );
+        pointer-events: none;
+    }
 }
 :root {
-    --glkote-mono-family: retro, Monaco, Courier, monospace;
-    --glkote-prop-family: retro, Georgia, serif;
+    --glkote-mono-family: 1.3rem Inconsolata, monospace;
+    --glkote-prop-family: 1.3rem Inconsolata, monospace;
     --glkote-buffer-bg: #fff;
     --glkote-buffer-fg: #222;
     --glkote-buffer-reverse-bg: #222;
@@ -89,7 +112,7 @@ body {
     color: var(--glkote-grid-fg);
     overflow: hidden;
     font-family: var(--glkote-mono-family);
-    font-size: 14px;
+    font-size: 15px;
     padding: 6px 10px 6px 10px;
 }
 .GridWindow.reverse {
@@ -130,7 +153,6 @@ body {
     outline-width: 0;
     outline-style: none;
     background: 0 0;
-    font-weight: 700;
 }
 .BufferWindow .Input {
     font-family: var(--glkote-prop-family);

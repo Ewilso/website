@@ -2,8 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Parchment</title>
-    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <title>Quest</title>
     <script src="{{ url_for('static', filename = 'web/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename = 'web/main.js') }}" type="module"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename = 'web/web.css') }}">
@@ -11,6 +10,7 @@
         parchment_options = {
             default_story: [ "{{ url_for('static', filename = 'PS.z8') }}" ],
             lib_path: "{{ url_for('static', filename = 'web') }}",
+            page_title: 0,
         };
     </script>
 </head>
