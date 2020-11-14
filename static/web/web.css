@@ -1,44 +1,12 @@
-@font-face{
-    font-family:retro;
-    src: url(../fonts/joystix.ttf);
-}
-body {
-    height: 100%;
-    margin: 0;
-}
 #gameport {
-    bottom: 5vh;
+    bottom: 0;
     left: 0;
     margin: 0 auto;
     max-width: 900px;
-    overflow: hidden;
+    overflow: scroll;
     position: absolute;
     right: 0;
-    top: 5vh;
-    background-color: black;
-    background-image: radial-gradient(
-    rgba(0, 150, 0, 0.75), black 120%
-    );
-    padding: 2rem;
-    color: white;
-    font: 1.3rem Inconsolata, monospace;
-    text-shadow: 0 0 5px #C8C8C8;
-}
-::selection {
-    background: #0080FF;
-    text-shadow: none;
-}
-:root {
-    --glkote-mono-family: 1.3rem Inconsolata, monospace;
-    --glkote-prop-family: 1.3rem Inconsolata, monospace;
-    --glkote-buffer-bg: #fff;
-    --glkote-buffer-fg: #222;
-    --glkote-buffer-reverse-bg: #222;
-    --glkote-buffer-reverse-fg: #ddd;
-    --glkote-grid-bg: #fff;
-    --glkote-grid-fg: #222;
-    --glkote-grid-reverse-bg: #222;
-    --glkote-grid-reverse-fg: #ddd;
+    top: 0;
 }
 #windowport {
     width: 100%;
@@ -76,57 +44,31 @@ body {
 }
 .WindowFrame {
     position: absolute;
+    overflow: scroll;
     margin: 0;
-    background-color: black;
-    background-image: radial-gradient(rgba(0, 150, 0, 0.75), black 120%);
-    height: 100vh;
+    background-color: rgba(0,0,0,0);
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    height:auto;
     margin: 0;
-    overflow: hidden;
     padding: 2rem;
-    color: white;
-    font: 1.3rem Inconsolata, monospace;
-    text-shadow: 0 0 5px #C8C8C8;
 }
-.WindowFrame::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 2px);
-    pointer-events: none;
+*::-webkit-scrollbar {
+  display: none;
 }
 .BufferWindow {
-    color: var(--glkote-buffer-fg);
     overflow: scroll;
-    overflow-x: hidden;
-    font-family: var(--glkote-prop-family);
     font-size: 15px;
     line-height: 1.4;
     padding: 6px 10px 6px 10px;
-}
-.BufferWindow .reverse {
-    background: var(--glkote-buffer-reverse-bg);
-    color: var(--glkote-buffer-reverse-fg);
 }
 .BufferLine {
     white-space: pre-wrap;
 }
 .GridWindow {
-    background: var(--glkote-grid-bg);
-    color: var(--glkote-grid-fg);
     overflow: hidden;
-    font-family: var(--glkote-mono-family);
     font-size: 15px;
     padding: 6px 10px 6px 10px;
-}
-.GridWindow.reverse {
-    background: var(--glkote-grid-reverse-bg);
-}
-.GridWindow .reverse {
-    background: var(--glkote-grid-reverse-bg);
-    color: var(--glkote-grid-reverse-fg);
 }
 .GridLine {
     white-space: pre;
@@ -138,7 +80,6 @@ body {
     font-weight: 700;
     position: absolute;
     background: #603010;
-    color: #ffc;
     opacity: 0.5;
     padding: 2px 6px;
     -webkit-border-radius: 4px;
@@ -158,14 +99,14 @@ body {
     padding: 0;
     outline-width: 0;
     outline-style: none;
+    width:30px;
     background: 0 0;
+    color:white;
 }
 .BufferWindow .Input {
-    font-family: var(--glkote-prop-family);
     font-size: 15px;
 }
 .GridWindow .Input {
-    font-family: var(--glkote-mono-family);
     font-size: 14px;
 }
 .ImageMarginLeft {
@@ -190,28 +131,6 @@ body {
 }
 .GraphicsWindow canvas {
     display: block;
-    background-color: var(--glkote-buffer-bg);
-}
-span.Style_emphasized {
-    font-style: italic;
-}
-span.Style_preformatted {
-    font-family: var(--glkote-mono-family);
-}
-span.Style_header {
-    font-weight: 700;
-}
-.BufferWindow span.Style_header {
-    font-size: 17px;
-}
-span.Style_subheader {
-    font-weight: 700;
-}
-span.Style_alert {
-    font-weight: 700;
-}
-span.Style_note {
-    font-style: italic;
 }
 span.Style_blockquote {
     background: #fff0c0;
@@ -278,7 +197,6 @@ span.Style_input {
     float: right;
 }
 #dialog .DiaDisplayText {
-    font-family: inherit;
     height: 200px;
     padding: 4px 8px;
     overflow: scroll;

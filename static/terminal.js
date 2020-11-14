@@ -1,5 +1,4 @@
 import { setVolume } from "./util/speak.js";
-import { click } from "./sound/index.js";
 import { on, off } from "./util/power.js";
 import { toggleFullscreen } from "./util/screens.js";
 import { type } from "./util/io.js";
@@ -56,7 +55,6 @@ function fly(event) {
 }
 
 function theme(event) {
-	click();
 	let theme = event.target.dataset.theme;
 	[...document.getElementsByClassName("theme")].forEach((b) =>
 		b.classList.toggle("active", false)
