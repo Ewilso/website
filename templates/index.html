@@ -2,9 +2,12 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
+		<link rel="icon" type="image/png" href="favicon.png" />
+		<script src="{{ url_for('static', filename = 'terminal.js') }}" type="module"></script>
+		<title>Parchment</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename = 'web/web.css') }}">
 		<script src="{{ url_for('static', filename = 'web/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename = 'web/main.js') }}" type="module"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'web/web.css') }}">
     <script>
         parchment_options = {
             default_story: [ "{{ url_for('static', filename = 'PS.z8') }}" ],
@@ -13,11 +16,7 @@
         };
     </script>
 		<link rel="stylesheet" href="{{ url_for('static', filename = 'web/index.css') }}">
-		<link rel="icon" type="image/png" href="favicon.png" />
-		<script src="{{ url_for('static', filename = 'terminal.js') }}" type="module"></script>-->
-		<title>Parchment</title>
 	</head>
-
 	<body class="theme-green" onload="onload()">
 		<div id="monitor">
 			<div id="screen">

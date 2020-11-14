@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap");
 
 /*********** VARIABLES *************/
+
 :root {
 	--green-color: #5bf870;
 	--green-bg: #05321e;
@@ -15,6 +16,7 @@
 }
 
 /*********** THEMES  *************/
+
 .theme-red {
 	--color: var(--red-color);
 	--bg: var(--red-bg);
@@ -30,11 +32,9 @@
 	--bg: var(--blue-bg);
 	--term: "";
 }
-
 .theme-red .char {
 	animation: type 0.5s linear 0s 1;
 }
-
 .theme-blue #crt {
 	background-image: none;
 	background-color: var(--color);
@@ -59,30 +59,21 @@
 }
 
 /*********** GENERIC STUFF *************/
-html {
-	font-size: 12px;
-	box-sizing: border-box;
-}
+
 *,
 *:before,
 *:after {
-	box-sizing: inherit;
+	box-sizing: border-box;
 }
-
 body {
 	height:100%;
 	background: #111;
 	margin: 0;
-	overflow: hidden;
 	font-family: sans-serif;
 }
 
-a {
-	outline: none;
-}
-
-
 /*********** PARTS OF THE SCREEN *************/
+
 #monitor {
 	margin: 3vmin auto;
 	padding: 5.5vmin;
@@ -102,11 +93,8 @@ a {
 	overflow: scroll;
 }
 /* The screen itself + border */
-#crt,
-pre {
-	font-family: "VT323", monospace;
-}
 #crt {
+	font-family: "VT323", monospace;
 	width: 80ch; /* This makes 80 monospace characters fit on the screen */
 	height: calc(80ch * 0.8);
 	font-size: max(
@@ -119,7 +107,6 @@ pre {
 	animation: on 2s linear;
 	transition: all 0.5s;
 }
-
 #crt:after {
 	content: " ";
 	opacity: 0;
@@ -139,7 +126,6 @@ pre {
 	animation: turnOff 0.4s ease-in-out;
 	/* animation-fill-mode: forwards; */
 }
-
 #crt:not(.off):before {
 	content: " ";
 	display: block;
@@ -158,7 +144,6 @@ pre {
 	pointer-events: none;
 	animation: fadeIn 2s;
 }
-
 /* Screen turned off */
 #crt.off {
 	background: var(--off);
@@ -179,19 +164,15 @@ pre {
 	text-transform: uppercase;
 	animation: textShadow 4s infinite;
 }
-
-.terminal,
-.fullscreen {
+.terminal{
 	color: var(--color);
 	text-shadow: 0 0 5px #c8c8c8;
 }
-
 ::selection {
 	background: var(--color);
 	color: var(--bg);
 	text-shadow: none;
 }
-
 /* Scanline moving top to bottom over the screen */
 .scanline {
 	width: 100%;
@@ -211,6 +192,7 @@ pre {
 }
 
 /*********** CONTROLS *************/
+
 button {
 	cursor: pointer;
 	outline: none;
@@ -227,12 +209,10 @@ button:active,
 #themes button.active {
 	background-color: var(--color);
 }
-
 #themes {
 	display: flex;
 	flex-direction: column;
 }
-
 #themes button {
 	width: 3rem;
 	height: 3rem;
@@ -243,7 +223,6 @@ button:active,
 	cursor: pointer;
 	outline: none;
 }
-
 #power {
 	display: flex;
 	align-items: center;
@@ -261,21 +240,6 @@ button[data-theme="blue"] {
 	border-color: var(--blue-color);
 }
 
-/*********** RANDOM OTHER STUFF *************/
-
-.access-granted {
-	animation: flicker 2s infinite;
-	position: fixed;
-	text-align: center;
-	background: var(--bg);
-	border: 2px solid var(--color);
-	padding: 10px 30px;
-	left: 50%;
-	top: 40%;
-	transform: translateX(-50%);
-	z-index: 999;
-}
-
 /*********** SLIDER ********************/
 
 #slider {
@@ -287,14 +251,12 @@ button[data-theme="blue"] {
 	width: 60px;
 	height: 34px;
 }
-
 /* Hide default HTML checkbox */
 .switch input {
 	opacity: 0;
 	width: 0;
 	height: 0;
 }
-
 /* The slider */
 .slider {
 	position: absolute;
@@ -307,7 +269,6 @@ button[data-theme="blue"] {
 	-webkit-transition: 0.4s;
 	transition: 0.4s;
 }
-
 .slider:before {
 	position: absolute;
 	content: "O";
@@ -321,15 +282,12 @@ button[data-theme="blue"] {
 	display: grid;
 	place-items: center;
 }
-
 input:checked + .slider {
 	background-color: var(--color);
 }
-
 input:focus + .slider {
 	box-shadow: 0 0 6px 1px var(--color) inset;
 }
-
 input:checked + .slider:before {
 	background-color: var(--bg);
 	color: var(--color);
@@ -350,7 +308,6 @@ input:checked + .slider:before {
 		width: 100%;
 		height: 100%;
 	}
-
 	#controls {
 		display: none;
 	}
@@ -370,15 +327,12 @@ input:checked + .slider:before {
 		animation: none;
 	}
 }
-
 /* Some fixes for smaller screens */
 @media only screen and (max-width: 768px) {
 	.post-it,
-	#themes,
-	#volume {
+	#themes{
 		display: none;
 	}
-
 	#power {
 		width: 100%;
 		justify-content: space-around;
@@ -388,14 +342,7 @@ input:checked + .slider:before {
 	#themes {
 		flex-direction: row;
 	}
-	.post-it {
-		font-size: 2rem;
-	}
 }
-/**
- * Credits:
- * https://codepen.io/marcusconnor/pen/QJNvMa
- */
 :root {
 	--dark: #111;
 	--switch: rgb(90, 22, 10);
@@ -404,18 +351,9 @@ input:checked + .slider:before {
 	--text-on: #fff;
 	--text-off: #ddd;
 }
-
 .rocker {
 	display: inline-block;
 	position: relative;
-	/*
-  SIZE OF SWITCH
-  ==============
-  All sizes are in em - therefore
-  changing the font-size here
-  will change the size of the switch.
-  See .rocker-small below as example.
-  */
 	font-size: 2em;
 	font-weight: bold;
 	text-align: center;
@@ -426,12 +364,10 @@ input:checked + .slider:before {
 	overflow: hidden;
 	border-bottom: 0.5em solid var(--dark);
 }
-
 .rocker-small {
 	font-size: 1em; /* Sizes the switch */
 	margin: 0.5rem 1.5em;
 }
-
 .rocker::before {
 	content: "";
 	position: absolute;
@@ -443,13 +379,11 @@ input:checked + .slider:before {
 	border: 0.5em solid var(--dark);
 	border-bottom: 0;
 }
-
 .rocker input {
 	opacity: 0;
 	width: 0;
 	height: 0;
 }
-
 .switch-left,
 .switch-right {
 	cursor: pointer;
@@ -461,7 +395,6 @@ input:checked + .slider:before {
 	width: 3em;
 	transition: 0.2s;
 }
-
 .switch-left {
 	height: 2.4em;
 	width: 2.75em;
@@ -470,7 +403,6 @@ input:checked + .slider:before {
 	background-color: var(--switch);
 	transform: rotate(15deg) skewX(15deg);
 }
-
 .switch-right {
 	right: 0.5em;
 	bottom: 0;
@@ -495,17 +427,14 @@ input:checked + .switch-left + .switch-right {
 	background-color: var(--switch-accent);
 	transform: skewY(-65deg);
 }
-
 .switch-left::before {
 	left: -0.4em;
 }
-
 .switch-right::before {
 	right: -0.375em;
 	background-color: transparent;
 	transform: skewY(65deg);
 }
-
 input:checked + .switch-left {
 	background-color: var(--switch);
 	color: #fff;
@@ -515,12 +444,10 @@ input:checked + .switch-left {
 	width: 3em;
 	transform: rotate(0deg) skewX(0deg);
 }
-
 input:checked + .switch-left::before {
 	background-color: transparent;
 	width: 3.0833em;
 }
-
 input:checked + .switch-left + .switch-right {
 	background-color: var(--switch);
 	color: #fff;
@@ -530,240 +457,85 @@ input:checked + .switch-left + .switch-right {
 	width: 2.75em;
 	transform: rotate(-15deg) skewX(-15deg);
 }
-
 input:checked + .switch-left + .switch-right::before {
 	background-color: var(--switch-accent);
 }
-
 /* Keyboard Users */
 input:focus + .switch-left {
 	color: var(--text-off);
 }
-
 input:checked:focus + .switch-left {
 	color: var(--text-on);
 }
-
 input:focus + .switch-left + .switch-right {
 	color: var(--text-on);
 }
-
 input:checked:focus + .switch-left + .switch-right {
 	color: var(--text-off);
 }
 @keyframes cursor {
-	0% {
-		opacity: 1;
-	}
-	25% {
-		opacity: 0;
-	}
-	75% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 1;
-	}
+	0% {opacity: 1;}
+	25% {opacity: 0;}
+	75% {opacity: 1;}
+	100% {opacity: 1;}
 }
 @keyframes flicker {
-	0% {
-		opacity: 0.27861;
-	}
-	5% {
-		opacity: 0.34769;
-	}
-	10% {
-		opacity: 0.23604;
-	}
-	15% {
-		opacity: 0.90626;
-	}
-	20% {
-		opacity: 0.18128;
-	}
-	25% {
-		opacity: 0.83891;
-	}
-	30% {
-		opacity: 0.65583;
-	}
-	35% {
-		opacity: 0.67807;
-	}
-	40% {
-		opacity: 0.26559;
-	}
-	45% {
-		opacity: 0.84693;
-	}
-	50% {
-		opacity: 0.96019;
-	}
-	55% {
-		opacity: 0.08594;
-	}
-	60% {
-		opacity: 0.20313;
-	}
-	65% {
-		opacity: 0.71988;
-	}
-	70% {
-		opacity: 0.53455;
-	}
-	75% {
-		opacity: 0.37288;
-	}
-	80% {
-		opacity: 0.71428;
-	}
-	85% {
-		opacity: 0.70419;
-	}
-	90% {
-		opacity: 0.7003;
-	}
-	95% {
-		opacity: 0.36108;
-	}
-	100% {
-		opacity: 0.24387;
-	}
+	0% {opacity: 0.27861;}
+	5% {opacity: 0.34769;}
+	10% {opacity: 0.23604;}
+	15% {opacity: 0.90626;}
+	20% {opacity: 0.18128;}
+	25% {opacity: 0.83891;}
+	30% {opacity: 0.65583;}
+	35% {opacity: 0.67807;}
+	40% {opacity: 0.26559;}
+	45% {opacity: 0.84693;}
+	50% {opacity: 0.96019;}
+	55% {opacity: 0.08594;}
+	60% {opacity: 0.20313;}
+	65% {opacity: 0.71988;}
+	70% {opacity: 0.53455;}
+	75% {opacity: 0.37288;}
+	80% {opacity: 0.71428;}
+	85% {opacity: 0.70419;}
+	90% {opacity: 0.7003;}
+	95% {opacity: 0.36108;}
+	100% {opacity: 0.24387;}
 }
 @keyframes textShadow {
-	0% {
-		text-shadow: 0.4389924193300864px 0 1px rgba(0, 30, 255, 0.5),
-			-0.4389924193300864px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	5% {
-		text-shadow: 2.7928974010788217px 0 1px rgba(0, 30, 255, 0.5),
-			-2.7928974010788217px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	10% {
-		text-shadow: 0.02956275843481219px 0 1px rgba(0, 30, 255, 0.5),
-			-0.02956275843481219px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	15% {
-		text-shadow: 0.40218538552878136px 0 1px rgba(0, 30, 255, 0.5),
-			-0.40218538552878136px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	20% {
-		text-shadow: 3.4794037899852017px 0 1px rgba(0, 30, 255, 0.5),
-			-3.4794037899852017px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	25% {
-		text-shadow: 1.6125630401149584px 0 1px rgba(0, 30, 255, 0.5),
-			-1.6125630401149584px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	30% {
-		text-shadow: 0.7015590085143956px 0 1px rgba(0, 30, 255, 0.5),
-			-0.7015590085143956px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	35% {
-		text-shadow: 3.896914047650351px 0 1px rgba(0, 30, 255, 0.5),
-			-3.896914047650351px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	40% {
-		text-shadow: 3.870905614848819px 0 1px rgba(0, 30, 255, 0.5),
-			-3.870905614848819px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	45% {
-		text-shadow: 2.231056963361899px 0 1px rgba(0, 30, 255, 0.5),
-			-2.231056963361899px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	50% {
-		text-shadow: 0.08084290417898504px 0 1px rgba(0, 30, 255, 0.5),
-			-0.08084290417898504px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	55% {
-		text-shadow: 2.3758461067427543px 0 1px rgba(0, 30, 255, 0.5),
-			-2.3758461067427543px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	60% {
-		text-shadow: 2.202193051050636px 0 1px rgba(0, 30, 255, 0.5),
-			-2.202193051050636px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	65% {
-		text-shadow: 2.8638780614874975px 0 1px rgba(0, 30, 255, 0.5),
-			-2.8638780614874975px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	70% {
-		text-shadow: 0.48874025155497314px 0 1px rgba(0, 30, 255, 0.5),
-			-0.48874025155497314px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	75% {
-		text-shadow: 1.8948491305757957px 0 1px rgba(0, 30, 255, 0.5),
-			-1.8948491305757957px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	80% {
-		text-shadow: 0.0833037308038857px 0 1px rgba(0, 30, 255, 0.5),
-			-0.0833037308038857px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	85% {
-		text-shadow: 0.09769827255241735px 0 1px rgba(0, 30, 255, 0.5),
-			-0.09769827255241735px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	90% {
-		text-shadow: 3.443339761481782px 0 1px rgba(0, 30, 255, 0.5),
-			-3.443339761481782px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	95% {
-		text-shadow: 2.1841838852799786px 0 1px rgba(0, 30, 255, 0.5),
-			-2.1841838852799786px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
-	100% {
-		text-shadow: 2.6208764473832513px 0 1px rgba(0, 30, 255, 0.5),
-			-2.6208764473832513px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-	}
+	0% {text-shadow: 0.4389924193300864px 0 1px rgba(0, 30, 255, 0.5),-0.4389924193300864px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	5% {text-shadow: 2.7928974010788217px 0 1px rgba(0, 30, 255, 0.5),-2.7928974010788217px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	10% {text-shadow: 0.02956275843481219px 0 1px rgba(0, 30, 255, 0.5),-0.02956275843481219px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	15% {text-shadow: 0.40218538552878136px 0 1px rgba(0, 30, 255, 0.5),-0.40218538552878136px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	20% {text-shadow: 3.4794037899852017px 0 1px rgba(0, 30, 255, 0.5),-3.4794037899852017px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	25% {text-shadow: 1.6125630401149584px 0 1px rgba(0, 30, 255, 0.5),-1.6125630401149584px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	30% {text-shadow: 0.7015590085143956px 0 1px rgba(0, 30, 255, 0.5),-0.7015590085143956px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	35% {text-shadow: 3.896914047650351px 0 1px rgba(0, 30, 255, 0.5),-3.896914047650351px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	40% {text-shadow: 3.870905614848819px 0 1px rgba(0, 30, 255, 0.5),-3.870905614848819px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	45% {text-shadow: 2.231056963361899px 0 1px rgba(0, 30, 255, 0.5),-2.231056963361899px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	50% {text-shadow: 0.08084290417898504px 0 1px rgba(0, 30, 255, 0.5),-0.08084290417898504px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	55% {text-shadow: 2.3758461067427543px 0 1px rgba(0, 30, 255, 0.5),-2.3758461067427543px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	60% {text-shadow: 2.202193051050636px 0 1px rgba(0, 30, 255, 0.5),-2.202193051050636px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	65% {text-shadow: 2.8638780614874975px 0 1px rgba(0, 30, 255, 0.5),-2.8638780614874975px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	70% {text-shadow: 0.48874025155497314px 0 1px rgba(0, 30, 255, 0.5),-0.48874025155497314px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	75% {text-shadow: 1.8948491305757957px 0 1px rgba(0, 30, 255, 0.5),-1.8948491305757957px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	80% {text-shadow: 0.0833037308038857px 0 1px rgba(0, 30, 255, 0.5),-0.0833037308038857px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	85% {text-shadow: 0.09769827255241735px 0 1px rgba(0, 30, 255, 0.5),-0.09769827255241735px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	90% {text-shadow: 3.443339761481782px 0 1px rgba(0, 30, 255, 0.5),-3.443339761481782px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	95% {text-shadow: 2.1841838852799786px 0 1px rgba(0, 30, 255, 0.5),-2.1841838852799786px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
+	100% {text-shadow: 2.6208764473832513px 0 1px rgba(0, 30, 255, 0.5),-2.6208764473832513px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;}
 }
 @keyframes glow {
-	0% {
-		box-shadow: 0 0 -10px var(--color);
-	}
-	50% {
-		box-shadow: 0 0 10px var(--color);
-	}
-	100% {
-		box-shadow: 0 0 -10px var(--color);
-	}
+	0% {box-shadow: 0 0 -10px var(--color);}
+	50% {box-shadow: 0 0 10px var(--color);}
+	100% {box-shadow: 0 0 -10px var(--color);}
 }
-
 @keyframes scanline {
-	0% {
-		bottom: 100%;
-	}
-	80% {
-		bottom: 100%;
-	}
-	100% {
-		bottom: -20%;
-	}
+	0% {bottom: 100%;}
+	80% {bottom: 100%;}
+	100% {bottom: -20%;}
 }
-
 @keyframes fadeIn {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-}
-
-/* Flash the typed letter, fade opaque to transparent */
-@keyframes type {
-	from {
-		background-color: var(--color);
-	}
-	to {
-		background-color: transparent;
-	}
-}
-
-@keyframes marquee {
-	0% {
-		transform: translate(0, 0);
-	}
-	100% {
-		transform: translate(-200%, 0);
-	}
+	from {opacity: 0;}
+	to {opacity: 1;}
 }
