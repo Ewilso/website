@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=VT323&display=swap");
+
 #gameport {
     bottom: 0;
     left: 0;
@@ -105,16 +107,11 @@
     color:white;
     text-shadow: 0 0 5px #c8c8c8;
     text-transform: uppercase;
+    font-family:"VT323";
     font-size: max(                                                                   
     1rem,
     2.2vmin
     ); 
-}
-.BufferWindow .Input {
-    font-size: 15px;
-}
-.GridWindow .Input {
-    font-size: 14px;
 }
 .ImageMarginLeft {
     float: left;

@@ -153,6 +153,9 @@ body {
 	color:rgba(0, 0, 0, 0);
         text-shadow:none;
 }
+#crt.off .scanline{
+    display:none;
+}
 .terminal {
 	position: relative;
 	height: 100%;
