@@ -2,7 +2,8 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="{{ url_for('static', filename = 'web/web.css') }}">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+				<link rel="stylesheet" href="{{ url_for('static', filename = 'web/web.css') }}">
         <link rel="icon" type="image/png" href="favicon.png" />
         <script src="{{ url_for('static', filename = 'terminal.js') }}" type="module"></script>
         <title>Parchment</title>
@@ -18,33 +19,34 @@
         </script>
     </head>
     <body class="theme-green" onload="onload()">
-        <div id="monitor">
-            <div id="screen">
-                <div id="crt" class="off" onClick="handleClick(event)">
-                    <div class="scanline"></div>
-                    <div class="terminal">
-                        <div id="gameport">
-                            <div id="windowport">
-                                <noscript>
-                                    <p>You'll need to turn on Javascript in your web browser to play this game.</p>
-                                </noscript>
-                            </div>
-                            <div id="loadingpane">
-                                <em>&nbsp;&nbsp;&nbsp;Loading...</em>
-                            </div>
-                            <div id="errorpane" style="display:none;"><div id="errorcontent">...</div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<div class="desktop">
+				<div id="monitor">
+						<div id="screen">
+								<div id="crt" class="off" onClick="handleClick(event)">
+										<div class="scanline"></div>
+										<div class="terminal">
+												<div id="gameport">
+														<div id="windowport">
+																<noscript>
+																		<p>You'll need to turn on Javascript in your web browser to play this game.</p>
+																</noscript>
+														</div>
+														<div id="loadingpane">
+																<em>&nbsp;&nbsp;&nbsp;Loading...</em>
+														</div>
+														<div id="errorpane" style="display:none;"><div id="errorcontent">...</div></div>
+												</div>
+										</div>
+								</div>
+						</div>
 
-            <div id="slider">
-                <label class="switch">
-                    <input type="checkbox" onclick="togglePower()" />
-                    <span class="slider"></span>
-                </label>
-            </div>
-
+					<div id="slider">
+							<label class="switch">
+									<input type="checkbox" onclick="togglePower()" />
+									<span class="slider"></span>
+							</label>
+					</div>
+			</div>
             <div id="controls">
                 <div id="themes">
                     <button

@@ -10,8 +10,8 @@
 	--red-bg: #1b0302;
 	--blue-color: #a5a5ff;
 	--blue-bg: #4242e7;
-	--off: #050505;
-	--dark: #111;
+	--off: #000;
+	--dark: #000;
 	--term: "> ";
 }
 
@@ -59,53 +59,40 @@
 }
 
 /*********** GENERIC STUFF *************/
-html,
-*,
-*:before,
-*:after {
-	box-sizing: border-box;
-}
-body {
+
+html, body {
+	background: #000;
+	touch-action: none;
 	height:100%;
-	background-image: url(../img/bg.jpg);
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: 49.5% 25%; 
-	background-size:165% auto;
-        margin: 0;
+	width:100%;
+  margin: 0;
 	font-family: sans-serif;
+	overflow:hidden;
 }
 
 /*********** PARTS OF THE SCREEN *************/
-
-#monitor {
-	margin: 3vmin auto;
-	padding: 5.5vmin;
-	width: 45em;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	background: rgba(0,0,0,0);
-	border-radius: 0.5rem;
+.desktop{
+	height: 100%;
+	width: auto;
+	background-image: url(../img/bg2.jpg);
+	background-position: top;
+	background-repeat: no-repeat;
+	background-size: auto 100%;
 }
 #screen {
 	position: relative;
-	border: 30px solid transparent;
-	border-image-source: url(../img/bezel_gray.png);
-	border-image-slice: 30 fill;
-	border-image-outset: 0;
-	overflow: scroll;
 }
 /* The screen itself + border */
-#crt {
+#crt{
+	top:10%;
+	left:43%;
 	font-family: "VT323", monospace;
-	width: 80ch; /* This makes 80 monospace characters fit on the screen */
+	width: 15%; /* This makes 80 monospace characters fit on the screen */
+	height: 20%;
 	height: calc(80ch * 0.8);
-	font-size: max(
-		1rem,
-		2.2vmin
-	); /* Scale the font-size relative to the minimum screen dimension */
-	position: relative;
+	font-size: 12px;
+	overflow: scroll;
+	position: fixed;
 	background: var(--bg);
 	background-image: radial-gradient(ellipse, var(--bg) 0%, var(--off) 90%);
 	animation: on 2s linear;
@@ -204,7 +191,6 @@ button {
 }
 #controls {
 	width: 100%;
-	margin-top: 2em;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
