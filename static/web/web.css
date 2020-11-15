@@ -47,14 +47,16 @@
     overflow: scroll;
     margin: 0;
     background-color: rgba(0,0,0,0);
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
     height: auto;
     margin: 0;
     padding: 2rem;
 }
 *::-webkit-scrollbar {
   display: none;
+}
+*{
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
 }
 .BufferWindow {
     overflow: scroll;
@@ -99,9 +101,14 @@
     padding: 0;
     outline-width: 0;
     outline-style: none;
-    width:30px;
     background: 0 0;
     color:white;
+    text-shadow: 0 0 5px #c8c8c8;
+    text-transform: uppercase;
+    font-size: max(                                                                   
+    1rem,
+    2.2vmin
+    ); 
 }
 .BufferWindow .Input {
     font-size: 15px;
