@@ -1,11 +1,7 @@
-/*https://www.istockphoto.com/photos/old-mainframe?mediatype=photography&phrase=old%20mainframe&sort=best*/
 @font-face {
   font-family: "VT323";
   src: url(../fonts/VT323-Regular.ttf);
 }
-
-/*********** VARIABLES *************/
-
 :root {
 	--color: #a5a5ff;
 	--bg: #00466a;
@@ -13,17 +9,11 @@
 	--dark: #000;
 	--term: "> ";
 }
-
-/*********** THEMES  *************/
 .theme-blue {
 	--color: var(--blue-color);
 	--bg: var(--blue-bg);
 	--term: "";
 }
-
-
-/*********** GENERIC STUFF *************/
-
 html, body {
 	background: #00466a;
 	height:100%;
@@ -32,13 +22,11 @@ html, body {
 	font-family: sans-serif;
 	overflow:hidden;
 }
-
-/*********** PARTS OF THE SCREEN *************/
 .desktop{
 	height: 100%;
 	width: auto;
-	background-image: url(../img/bg3.jpg);
-	background-position: top right;
+        background-image: url(../img/bg0.jpg);
+        background-position: top right;
 	background-repeat: no-repeat;
 	background-size: auto 100%;
 }
@@ -70,27 +58,6 @@ html, body {
 	height: 100%;
 	pointer-events: none;
 	z-index: 3;
-}
-#crt.turn-off:after {
-	animation: turnOff 0.4s ease-in-out;
-	/* animation-fill-mode: forwards; */
-}
-#crt:not(.off):before {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	background: linear-gradient(
-		to bottom,
-		rgba(18, 16, 16, 0.1) 50%,
-		rgba(0, 0, 0, 0.25) 50%
-	);
-	background-size: 100% 8px;
-	z-index: 2;
-	pointer-events: none;
-	animation: fadeIn 2s;
 }
 .terminal {
   font-size:15px;
@@ -126,8 +93,6 @@ html, body {
 	pointer-events: none;
 	animation: scanline 10s linear infinite;
 }
-
-/*********** MEDIA QUERIES *************/
 
 /* For really small screens, only show fullscreen mode */
 @media only screen and (max-width: 425px), (max-height: 425px) {
