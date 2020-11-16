@@ -2,10 +2,9 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-				<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-				<link rel="stylesheet" href="{{ url_for('static', filename = 'web/web.css') }}">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'web/web.css') }}">
         <link rel="icon" type="image/png" href="favicon.png" />
-        <script src="{{ url_for('static', filename = 'terminal.js') }}" type="module"></script>
         <title>Parchment</title>
         <link rel="stylesheet" href="{{ url_for('static', filename = 'web/index.css') }}">
         <script src="{{ url_for('static', filename = 'web/jquery.min.js') }}"></script>
@@ -18,64 +17,26 @@
             };
         </script>
     </head>
-    <body class="theme-green" onload="onload()">
-			<div class="desktop">
-				<div id="monitor">
-						<div id="screen">
-								<div id="crt" class="off" onClick="handleClick(event)">
-										<div class="scanline"></div>
-										<div class="terminal">
-												<div id="gameport">
-														<div id="windowport">
-																<noscript>
-																		<p>You'll need to turn on Javascript in your web browser to play this game.</p>
-																</noscript>
-														</div>
-														<div id="loadingpane">
-																<em>&nbsp;&nbsp;&nbsp;Loading...</em>
-														</div>
-														<div id="errorpane" style="display:none;"><div id="errorcontent">...</div></div>
-												</div>
-										</div>
-								</div>
-						</div>
-
-					<div id="slider">
-							<label class="switch">
-									<input type="checkbox" onclick="togglePower()" />
-									<span class="slider"></span>
-							</label>
-					</div>
-			</div>
-            <div id="controls">
-                <div id="themes">
-                    <button
-                     class="theme"
-                     data-theme="red"
-                     onClick="theme(event)"
-                     ></button>
-                    <button
-                     class="theme active"
-                     data-theme="green"
-                     onClick="theme(event)"
-                     ></button>
-                    <button
-                     class="theme"
-                     data-theme="blue"
-                     onClick="theme(event)"
-                     ></button>
-                </div>
-                <div id="power">
-                    <label class="rocker rocker-small">
-                        <input
-                           id="switch"
-                           type="checkbox"
-                           onclick="togglePower()"
-                           checked
-                           />
-                        <span class="switch-left">O</span>
-                        <span class="switch-right">I</span>
-                    </label>
+    <body>
+        <div class="desktop">
+            <div id="monitor">
+                <div id="screen">
+                    <div id="crt" class="on">
+                        <div class="scanline"></div>
+                        <div class="terminal">
+                            <div id="gameport">
+                                <div id="windowport">
+                                    <noscript>
+                                        <p>You'll need to turn on Javascript in your web browser to play this game.</p>
+                                    </noscript>
+                                </div>
+                                <div id="loadingpane">
+                                    <em>&nbsp;&nbsp;&nbsp;Loading...</em>
+                                </div>
+                                <div id="errorpane" style="display:none;"><div id="errorcontent">...</div></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
