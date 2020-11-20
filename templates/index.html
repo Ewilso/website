@@ -1,61 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <script>
-          var aText = new Array(
-          "Hello Neo...",
-          "Those who understand binary, and those who don't"
-          );
-          var iSpeed = 100; // time delay of print out
-          var iIndex = 0; // start printing array at this posision
-          var iArrLength = aText[0].length; // the length of the text array
-          var iScrollAt = 20; // start scrolling up at this many lines
-          var iTextPos = 0; // initialise text position
-          var sContents = ''; // initialise contents variable
-          var iRow; // initialise current row
-
-          function typewriter()
-          {
-           sContents =  ' ';
-           iRow = Math.max(0, iIndex-iScrollAt);
-           var destination = document.getElementById("typedtext");
-
-           while ( iRow < iIndex ) {
-            sContents += aText[iRow++] + '<br />';
-           }
-           destination.innerHTML = sContents + aText[iIndex].substring(0, iTextPos) + "_";
-           if ( iTextPos++ == iArrLength ) {
-            iTextPos = 0;
-            iIndex++;
-            if ( iIndex != aText.length ) {
-             iArrLength = aText[iIndex].length;
-             setTimeout("typewriter()", 500);
-            }
-           } else {
-            setTimeout("typewriter()", iSpeed);
-           }
-          }
-        typewriter();
-        </script>
-        <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/web.css') }}">
-        <link rel="icon" type="image/png" href="favicon.png" />
-        <title>Home</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/index.css') }}">
-        </script>
-    </head>
-    <body>
-        <div class="desktop">
-            <div id="monitor">
-                <div id="screen">
-                    <div id="crt" class="on">
-                        <div class="scanline"></div>
-                        <div class="terminal">
-                           <div id="typedtext"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
+  <head>
+      <meta charset="utf-8">
+      <script src="{{ url_for('static', filename = 'scripts/quotes.js') }}" type="module"></script>
+      <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/web.css') }}">
+      <link rel="icon" type="image/png" href="favicon.png" />
+      <title>Home</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/index.css') }}">
+      </script>
+  </head>
+  <body>
+      <div class="desktop">
+          <div id="monitor">
+              <div id="screen">
+                  <div id="crt" class="on">
+                      <div class="scanline"></div>
+                      <div class="terminal">
+                         <div id="typedtext">
+                         </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </body>
 </html>
