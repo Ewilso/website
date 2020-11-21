@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
       <meta charset="utf-8">
-      <script src="{{ url_for('static', filename = 'scripts/quotes.js') }}" type="module"></script>
+      <script src="{{ url_for('static', filename = 'scripts/main.js') }}" type="module"></script>
       <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/web.css') }}">
       <link rel="icon" type="image/png" href="favicon.png" />
       <title>Home</title>
@@ -16,7 +16,8 @@
                   <div id="crt" class="on">
                       <div class="scanline"></div>
                       <div class="terminal">
-                         <div id="typedtext">
+                        <a href="#" id="continue"></a><br>
+                         <div class="typedtext">
                          </div>
                       </div>
                   </div>

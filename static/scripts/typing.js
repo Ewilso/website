@@ -27,18 +27,18 @@ function getChar(char) {
 	return result;
 }
 function type(
-	text,link,
+	text,element,
 	{
-		wait = 50, // Time (ms) to wait between each character
-		initialWait = 1000, // Time (ms) to wait before typing starts
-		finalWait = 500, // Time (ms) to wait when typing is finished
+		wait = 35, // Time (ms) to wait between each character
+		initialWait = 250, // Time (ms) to wait before typing starts
+		finalWait = 250, // Time (ms) to wait when typing is finished
 		typerClass = "", // Class to add to the typing container, in order to style is with CSS
 		useContainer = false, // If true, types text into the container element (3rd parameter). If false, creates a new div
-		stopBlinking = true, // Stop blinking when typing is done
+		stopBlinking = false, // Stop blinking when typing is done
 		processChars = true, // Whether to preprocess spaces, tabs and newlines to &nbsp; (3x&nbsp;) and <br>
 		clearContainer = false // Clear container before typing
 	} = {},
-	container = document.querySelector("#typedtext") // DOM element where text will be typed
+	container = document.querySelector(element) // DOM element where text will be typed
 ) {
 	let interval;
 	return new Promise(async (resolve) => {
@@ -46,13 +46,7 @@ function type(
 			clearInterval(interval);
 			interval = null;
 		}
-		// Create a div where all the characters can be appended to (or use the given container)
-		//if (link) {
-		//	let typer = useContainer ? container : document.createElement("a");
-		//}
-		//else{
-			let typer = useContainer ? container : document.createElement("div");
-	//	}
+		let typer = useContainer ? container : document.createElement("div");
 		typer.classList.add("typer", "active");
 
 		if (typerClass) {
@@ -84,7 +78,7 @@ function type(
 		interval = setInterval(async () => {
 			if (queue.length) {
 				let char = queue.shift();
-				if (processChars && prev) {
+				if (prev) {
 					prev.remove();
 					if (
 						prev.firstChild &&
@@ -95,7 +89,7 @@ function type(
 						typer.appendChild(prev);
 					}
 				}
-				let element = processChars ? getChar(char) : char;
+				let element = true ? getChar(char) : char;
 				if (element) {
 					typer.appendChild(element);
 
@@ -117,8 +111,4 @@ function type(
 	});
 }
 
-function clear(screen = document.querySelector(".terminal")) {
-	screen.innerHTML = "";
-}
-
-export {type, clear};
+export {type};

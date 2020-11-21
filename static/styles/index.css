@@ -66,6 +66,7 @@ html, body {
 	overflow-y: auto;
 	overflow-x: scroll;
 	word-break: break-word;
+  text-wrap: wrap;
 	text-transform: uppercase;
 	animation: textShadow 4s infinite;
 	color: white;
