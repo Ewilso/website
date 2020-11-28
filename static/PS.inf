@@ -222,11 +222,11 @@ Object -> troll "troll"
 		remove noun;
 		}
                 if (rand > 5){
-                if (rand < 15){
-                print "This time, the troll does not want to trade, he grabs his club and takes a wild swing at you, it hits you and takes 3 hp off your current score.";
-                health = health - 3;
-                move club to troll;
-                }
+                	if (rand < 15){
+                	print "This time, the troll does not want to trade, he grabs his club and takes a wild swing at you, it hits you and takes 3 hp off your current score.";
+                	health = health - 3;
+                	move club to troll;
+                	}
                 }
                 else{
                 print "The trolls take it's club and strikes you down, it must not want to trade, you fall to the floor, dazed and confused. You have lost a significant amount of heallth";

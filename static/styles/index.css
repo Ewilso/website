@@ -3,11 +3,14 @@
   src: url(../fonts/VT323-Regular.ttf);
 }
 :root {
-	--color: #a5a5ff;
+	--color: #fff;
 	--bg: #c85e60;
 	--off: #000;
 	--dark: #000;
 	--term: "> ";
+}
+a{
+	color: #fff;
 }
 .theme-blue {
 	--color: var(--blue-color);
