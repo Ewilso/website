@@ -1,0 +1,21 @@
+html,body{
+  margin: 0;
+  height: 100%;
+}
+body{
+  background: #2e3440;
+  font-family: Courier Bold;
+  display: flex;
+  justify-content: center;
+}
+h2{
+  color: #d8dee9;
+  font-size: 42px;
+}
+a{
+  text-decoration: none;
+  color: #d8dee9;
+}
+a:hover{
+  text-decoration: underline;
+}
