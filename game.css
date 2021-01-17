@@ -3,16 +3,18 @@ html, body{
 	width:100%;
 	margin: 0;
 	overflow:hidden;
+  color: #d8dee9;
 }
-html {
-   	background-repeat: repeat;
-   	-moz-font-feature-settings:"liga=1, dlig=1";
-	-moz-font-feature-settings:"liga", "dlig"; /* EDIT: new syntax for FF 15+ */
-	-ms-font-feature-settings:"liga", "dlig";
-	-o-font-feature-settings:"liga", "dlig";
-	-webkit-font-feature-settings:"liga", "dlig";
-	font-feature-settings:"liga", "dlig";
-   	font-variant-ligatures: common-ligatures discretionary-ligatures;
+body{
+	background-image: url("701802.jpg");
+
+	/* Full height */
+	height: 100%;
+
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 .smoothed {
 	text-rendering: optimizeLegibility !important;
@@ -30,7 +32,7 @@ html {
 	display:table;
 	table-layout:fixed;
 	height:100%;
-	width:95%;
+	width:85%;
 }
 #centre{
 	/*display:table-row;*/
@@ -61,16 +63,14 @@ html {
 	text-align:center;
 }
 #blurb-echo {
-	position:absolute;
-	bottom:10%;
+	margin-top:50px;
 	left:20px;
 	text-align:left;
-	width:50%;
+	width:90%;
 	font-style:oblique;
 	font-style:italic;
 	font-size:10pt;
 	line-height:3ex;
-	color:rgb(33, 25, 0);
 }
 #game-title, .main-title {
 	font-size:32pt;
@@ -78,7 +78,6 @@ html {
 	text-align:center;
 	padding-top:0.5ex;
 	font-family: "Berkshire Swash", Arial, Helvetica, sans-serif;
-	color:rgba(33, 25, 0, 0.4);
 	position: relative;
 }
 #game-title {
@@ -87,11 +86,11 @@ html {
 	text-align:right;
 	top: 10pt;
 	line-height:0.55;
+	margin:10px;
 
 }
 .odd-offset {
 	display:inline;
-	color:rgba(33, 25, 0, 0.5);
 	font-size:60pt;
 	margin-right:30pt;
 }
@@ -102,6 +101,7 @@ html {
 	height:95%;
 }
 #rh-page {
+	min-width: 390px;
 }
 #lh-page {
 	overflow:hidden;
@@ -110,19 +110,23 @@ html {
 	display:table-cell;
 	position:absolute;
 	height:100%;
-	padding-left:1%;
+	padding-left:3%;
 	padding-right:1%;
-    	width:48%;
+  width:40%;
+	min-width: 450px;
 }
-.lhs{left:0%;}
+.lhs{
+	left:0%;
+}
 .rhs{left:50%;}
 .paper-texture {
 	position:absolute;
 	top:0px;
 	height:95%;
-	width:50%;
+	width:45%;
 	background-color: #3b4252;
   z-index:-1;
+	min-width:450px;
 }
 #texture-1 {
 	left:0%;
@@ -130,23 +134,23 @@ html {
 #texture-2{
 	left:50%;
 	-moz-transform: scale(-1);
-        -o-transform: scale(-1);
-        -webkit-transform: scale(-1);
-        transform: scale(-1);
-        transform:offset(10px);
+	-o-transform: scale(-1);
+	-webkit-transform: scale(-1);
+	transform: scale(-1);
+	transform:offset(10px);
 	filter: FlipH FlipV;
-    	-ms-filter: "FlipH FlipV";
-}
-.paper-colour {
-	position:absolute;
-	top:0px;
-	height:95%;
-	width:50%;
-    	z-index:-2;
+	-ms-filter: "FlipH FlipV";
 }
 #content-pane {
 	height:80%;
 	overflow-y:scroll;
+}
+#content-pane::-webkit-scrollbar {
+  display: none;
+}
+#content-pane {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 #content {
 	height:100%;
@@ -163,7 +167,6 @@ html {
 .room-name {
 	font-size:12pt;
 	font-weight:bold;
-	text-align:center;
 	font-family: "Libre Baskerville", Georgia, "Times New Roman", times, serif;
 	padding-bottom:2ex;
 }
@@ -171,11 +174,8 @@ html {
 	font-size:9pt;
 	display:table-row;
 	margin-bottom:2ex;
-	color:rgb(23, 15, 0);
 }
 .paragraph-text, .command-text {
-	max-width:60ex;
-	margin:auto;
 	line-height:3ex;
 	text-align: justify;
 	text-justify: inter-word;
@@ -198,17 +198,6 @@ html {
 	padding:5pt;
 	padding-left:15pt;
 }
-input#command {
-	width: 95%;
-	background: rgba(256, 256, 256, 0.0);
-	border: none;
-	cursor: text;
-	font-size: 12pt;
-	font-family:Arial, Helvetica, sans-serif;
-}
-input#command:focus {
-    	outline-width: 0;
-}
 .paragraph-body:first-letter {
     	display: inline;
     	font-size: 50pt;
@@ -222,6 +211,18 @@ input#command:focus {
 	font-size:18px;
 	font-variant:small-caps;
 }
+input#command {
+	width: 95%;
+	min-width: 330px;
+	background: rgba(256, 256, 256, 0.0);
+	border: none;
+	cursor: text;
+	font-size: 12pt;
+	font-family:Arial, Helvetica, sans-serif;
+}
+input#command:focus {
+    	outline-width: 0;
+}
 #blurb-echo .paragraph-body:first-letter {
  	padding-right:0.3ex;
 }
@@ -234,6 +235,7 @@ input#command:focus {
 	position:absolute;
 	z-index:-10;
 	height:95%;
+	min-width: 333px;
 }
 .sub-section {
 	border:1px solid rgb(33, 25, 0);
@@ -243,24 +245,23 @@ input#command:focus {
 	background: rgba(0, 0, 0, 0.1);
 }
 .bookmarks {
-	margin: 0;
-	width: 48%;
-	height: auto;
+	background-color:#81a1c1;
+	width:calc(45% - 20px);
+	height:auto;
+	padding: 1px 10px;
 	position:relative;
+	min-width: 430px;
 }
 .bookmark {
-	background-color: #3b4252;
-	font-family: "Libre Baskerville", Georgia, "Times New Roman", times, serif;
+	font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
 	cursor: pointer;
-	width: 12ex;
+	width: auto;
 	height:auto;
 	margin:0;
-	padding: 0 10px;
+	padding:0 5px;
 	display:inline-block;
 	text-align:center;
-}
-.bookmark:hover{
-	background-color: #81a1c1;
 }
 .game-thumb{
 	height:6em;

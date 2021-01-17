@@ -8,7 +8,7 @@
 <link href='https://fonts.googleapis.com/css?family=Eagle+Lake' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
 <!-- Quintessential,Cookie,Pacifico,Lobster+Two,Oleo+Script,Merienda+One,Arizonia,Great+Vibes -->
-<link rel="stylesheet" type="text/css" href="test.css"></link>
+<link rel="stylesheet" type="text/css" href="game.css"></link>
 <script src="./zvm.debug.js"></script>
 <script>
 
@@ -294,7 +294,6 @@ function UIImpl () {
 		for (var i_=0; i_<title_w_.length; ++i_)
 			title_w_[i_] = (i_%2 > 0)? "<div class='odd-offset'>"+title_w_[i_]+"</div>":title_w_[i_]
 		document.getElementById("game-title").innerHTML = title_w_.join("<br />")
-		document.getElementById("header-left").innerHTML = "<div class='heading'>"+text_+"</div>"
 	}
 	this.settings_changed_ = function () {
 		document.getElementsByTagName("html")[0].className = UI.background_choice_+((UI.fonts_smoothed_)? " smoothed":"")
@@ -462,7 +461,6 @@ console.log("char")
 		}
 	}
 	this.tick		= function () {
-		document.getElementById("header-right").innerHTML = "<div class='heading'>"+UI.current.room()+"</div>"
 		document.getElementById("footer").innerHTML = "<div class='heading'>"+UI.current.gameStatus()+"</div>"
 		document.getElementById("current-room-title").innerHTML = "<div class='room-name heading'>"+UI.current.room()+"</div>"
 	}
@@ -478,7 +476,7 @@ console.log("char")
 		this.clear_rhs_()
 	}
 	this.clear_lhs_		= function () {
-		this.commit_title_("LSM Interactive Fiction Player")
+		this.commit_title_("7300.TK Interactive Fiction Player")
 		this.commit_preamble_()
 	}
 	this.clear_rhs_		= function () {
@@ -629,6 +627,28 @@ window.onload = function load () {
 </head>
 <body>
 	<div id= "wrapper">
+    <div class="bookmarks">
+      <div class="bookmarks-cont"  id="lh-bookmarks">
+      <div class="bookmark" id="cover-bookmark" onclick="UI.selectBookmark('cover');">
+        Main
+      </div>
+      <div class="bookmark" id="contents-bookmark" onclick="UI.selectBookmark('contents');">
+        Contents
+      </div>
+      <div class="bookmark" id="current-room-bookmark" onclick="UI.selectBookmark('current-room');">
+        Room
+      </div>
+      <div class="bookmark" id="inventory-bookmark" onclick="UI.selectBookmark('inventory');">
+        Inventory
+      </div>
+      <div class="bookmark" id="settings-bookmark" onclick="UI.selectBookmark('settings');">
+        Settings
+      </div>
+      <div class="bookmark" id="credits-bookmark" onclick="UI.selectBookmark('credits');">
+        Credits
+      </div>
+      </div>
+    </div>
 		<div id="centre">
 			<div id="lh-page" class="lhs"></div>
 			<div id="rh-page" class="rhs">
@@ -643,29 +663,26 @@ window.onload = function load () {
 			</div>
 			<div class="paper-texture" id="texture-1"></div>
 			<div class="paper-texture" id="texture-2"></div>
-			<div class="paper-colour" id="colour-1"></div>
-			<div class="paper-colour" id="colour-2"></div>
 			<div class="lhs section" id="cover-section">
-				<div class='header' id='header-left'></div>
 				<div id='game-title'></div>
 				<div id='blurb-echo'></div>
 			</div>
 			<div class="lhs section" id="contents-section">
-				<div class="main-title">:Contents:</div><div id="contents"></div>
+				<div class="main-title">Contents</div><div id="contents"></div>
 			</div>
 			<div class="lhs section" id="inventory-section">
-				<div class="main-title">:Inventory:</div><div id="inventory"></div>
+				<div class="main-title">Inventory</div><div id="inventory"></div>
 			</div>
 			<div class="lhs section" id="current-room-section">
-				<div class="main-title">:Current Location:</div>
+				<div class="main-title">Current Location</div>
 				<div id="current-room-title"></div>
 				<div id="current-room-description"></div>
 			</div>
 			<div class="lhs section" id="credits-section">
-				<div class="main-title">:Credits:</div><div id="credits"></div>
+				<div class="main-title">Credits</div><div id="credits"></div>
 			</div>
 			<div class="lhs section" id="settings-section">
-				<div class="main-title">:Tweaks:</div>
+				<div class="main-title">Tweaks</div>
 				<div class="sub-section" id="user-prompts">
 					<div class="tab-head">Detected User Prompts</div>
 					<div id="prompt"></div>
@@ -682,46 +699,5 @@ window.onload = function load () {
 				</div>
 			</div>
 		</div>
-		<div class="lhs bookmarks"><div class="bookmarks-cont"  id="lh-bookmarks">
-			<div class="bookmark" id="cover-bookmark" onclick="UI.selectBookmark('cover');">
-				<div class="bm-gfx" style="background:rgba(255,0,0,0.8);" >
-					<img src="bookmark-texture.png" class="bookmark-texture" />
-					<img src="cover.png" class="bookmark-icon" />
-				</div>
-			</div>
-			<div class="bookmark" id="contents-bookmark" onclick="UI.selectBookmark('contents');">
-				<div class="bm-gfx" style="background:rgba(64,255,0,0.8);" >
-					<img src="bookmark-texture.png" class="bookmark-texture" />
-					<img src="contents.png" class="bookmark-icon" />
-				</div>
-			</div>
-			<div class="bookmark" id="current-room-bookmark" onclick="UI.selectBookmark('current-room');">
-				<div class="bm-gfx" style="background:rgba(255,255,0,0.8);" >
-					<img src="bookmark-texture.png" class="bookmark-texture" />
-					<img src="current-loc.png" class="bookmark-icon" />
-				</div>
-			</div>
-			<div class="bookmark" id="inventory-bookmark" onclick="UI.selectBookmark('inventory');">
-				<div class="bm-gfx" style="background:rgba(0,128,255,0.8);" >
-					<img src="bookmark-texture.png" class="bookmark-texture" />
-					<img src="inv.png" class="bookmark-icon" />
-				</div>
-			</div>
-			<div class="bookmark" id="settings-bookmark" onclick="UI.selectBookmark('settings');">
-				<div class="bm-gfx" style="background:rgba(128,0,255,0.8);" >
-					<img src="bookmark-texture.png" class="bookmark-texture" />
-					<img src="settings.png" class="bookmark-icon" />
-				</div>
-			</div>
-			<div class="bookmark" id="credits-bookmark" onclick="UI.selectBookmark('credits');">
-				<div class="bm-gfx" style="background:rgba(255,255,255,0.8);" >
-					<img src="bookmark-texture.png" class="bookmark-texture" />
-					<img src="help.png" class="bookmark-icon" />
-				</div>
-			</div>
-		</div></div>
-		<div class="rhs bookmarks"><div class="bookmarks-cont"  id="rh-bookmarks">
-		</div></div>
-	</div>
 </body>
 </html>
