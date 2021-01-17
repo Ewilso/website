@@ -1,33 +1,727 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Parchment</title>
-  <meta name="viewport" content="width=device-width,user-scalable=no">
-  <script src="dist/web/jquery.min.js"></script>
-  <script src="dist/web/ie.js" nomodule></script>
-  <script src="dist/web/main.js" type="module"></script>
-  <link rel="stylesheet" href="dist/web/web.css">
-  <script>
-    parchment_options = {
-      panels: [ 'about', 'search', 'url' ],
-      //default_story: [ "./lib/PS.z5" ],
-      lib_path: 'dist/web/',
-    };
-  </script>
+<title>7300.TK</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+<link href='https://fonts.googleapis.com/css?family=Libre+Baskerville' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Eagle+Lake' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
+<!-- Quintessential,Cookie,Pacifico,Lobster+Two,Oleo+Script,Merienda+One,Arizonia,Great+Vibes -->
+<link rel="stylesheet" type="text/css" href="test.css"></link>
+<script src="./zvm.debug.js"></script>
+<script>
+
+function Game (uri_) {
+	this.uri	= uri_ // TODO uri_ stack for secordary sources
+	this.data	= null
+	this.is_active_	= false
+	this.load	= function () {
+		var xhr_ = new XMLHttpRequest()
+		xhr_.open("GET", this.uri, true)
+		xhr_.tlw_game_ = this
+		xhr_.game_ = this
+		xhr_.responseType = "arraybuffer"
+		xhr_.onreadystatechange = function (err_) {
+			if (this.readyState != 4) return
+			if (this.status == 200 || this.status == 304) {
+				this.game_.data = new Uint8Array(this.response)
+				UI.load(this.game_)
+			    	UI.restart()
+			} else
+				console.log("Game loading error: "+this.statusText+" ("+this.status+")")
+		}
+		xhr_.send()
+	}
+	this.unload = function () {
+		this.data = null
+	}
+}
+function GameLibrary (title_, uri_) {
+	this.metadata = uri_
+	this.games = null // lazy construction
+	// TODO load game metadata from library RDF uri_
+	this.getGames = function () { // create game proxy objects, again lazy construction
+		if (!this.games) {
+			this.games = {}
+			for (var name_ in this.metadata)
+				this.games[name_] = new Game(this.metadata[name_].game_uri)
+		}
+		return this.games
+	}
+}
+
+var nelson_library_ = new GameLibrary ("The Nelson Library", {
+	"Balances":{
+		full_title:"Balances, An Interactive Short Story",
+		author:"Graham Nelson",
+		game_uri:"https://zcode.appspot.com/proxy/?url=http://ifarchive.org/if-archive/games/zcode/Balances.z5"
+	},
+	"Curses":{
+		full_title:"Curses, An Interactive Diversion",
+		author:"Graham Nelson",
+		//game_uri:"https://zcode.appspot.com/proxy/?url=http://ifarchive.org/if-archive/games/zcode/curses.z5"
+		game_uri:"https://www.twistylittleworkshop.com/if/curses.z5"
+	},
+	"Jigsaw":{
+		full_title:"Jigsaw, An Interactive History",
+		author:"Graham Nelson",
+		game_uri:"https://zcode.appspot.com/proxy/?url=http://ifarchive.org/if-archive/games/zcode/Jigsaw_Game.z5"
+	},
+})
+var tlw_library_ = new GameLibrary ("TLW Games", {
+	"Training World":{
+		full_title:"Training World",
+		game_uri:"training world.z5",
+		cover_art:"https://www.twistylittleworkshop.com/if/if.png",
+		suitable_for_children:true,
+		game_format:"z5",
+	},
+	"Contrived Castle":{
+		full_title:"Contrived Castle",
+		game_uri:"contrived.z5",
+		cover_art:"https://www.twistylittleworkshop.com/if/if.png",
+		suitable_for_children:true,
+		game_format:"z5",
+	},
+})
+var default_game_library_ = tlw_library_
+
+// Legacy Ligatures
+/*line_ = line_.replace(/ffl/g, 'ﬄ').replace(/ffi/g, 'ﬃ').replace(/fl/g, 'ﬂ').replace(/fi/g, 'ﬁ').replace(/ff/g, 'ﬀ').replace(/ij/g, 'ĳ').replace(/IJ/g, 'Ĳ').replace(/ae/g, 'æ').replace(/A[Ee]/g, 'Æ').replace(/oe/g, 'œ').replace(/O[Ee]/g, 'Œ').replace(/ue/g, 'ᵫ').replace(/st/g, 'ﬆ')*/
+
+var small = "(a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|v[.]?|via|vs[.]?|with)"
+var punct = "([!\"#$%&'()*+,./:;<=>?@[\\\\\\]^_`{|}~-]*)"
+var titleCase = function(title){
+	var parts = [], split = /[:.;?!] |(?: |^)["Ò]/g, index = 0;//"
+	while (true) {
+		var m = split.exec(title)
+		parts.push(title.substring(index, m ? m.index : title.length)
+			.replace(/\b([A-Za-z][a-z.'Õ]*)\b/g, function(all){return /[A-Za-z]\.[A-Za-z]/.test(all) ? all:upper(all)})//'
+			.replace(RegExp("\\b"+small+"\\b", "ig"), lower)
+			.replace(RegExp("^"+punct+small+"\\b", "ig"), function(all, punct, word){return punct+upper(word)})
+			.replace(RegExp("\\b"+small+punct+"$", "ig"), upper))
+		index = split.lastIndex
+		if (m) parts.push(m[0])
+		else break
+	}
+	return parts.join("").replace(/ V(s?)\. /ig, " v$1. ")
+		.replace(/(['Õ])S\b/ig, "$1s")//'
+		.replace(/\b(AT&T|Q&A)\b/ig, function(all){return all.toUpperCase()})
+}
+function lower(word){return word.toLowerCase()}
+function upper(word){return word.substr(0,1).toUpperCase()+word.substr(1)}
+
+function IFObject () {}
+IFObject.prototype.get_name_impl_	 = function () {return "-- Unnamed IFObject ---"}
+IFObject.prototype.getName	= function () {
+	if (!this.name_)
+		this.name_	= this.get_name_impl_()
+	return this.name_
+}
+
+function IFVM (name_, vm_cons_, obj_cons_) {
+	this.name_		= name_
+	this.vm_cons_		= vm_cons_
+	this.object_constructor_ = obj_cons_? obj_cons_:function(){return new IFObject()} // Graceful degradation
+	this.object_cache_ 	= {}
+}
+IFVM.prototype.getObject = function (id_) {
+	if (!this.object_cache_[id_]) { // build appropriate object
+	         var t_ = function(){}
+	         t_.prototype = this.object_constructor_.prototype
+	         var inst_ = new t_
+	         var ret_ = this.object_constructor_.call(inst_, id_, this)
+	         this.object_cache_[id_] = (Object(ret_)===ret_)? ret_:inst_
+	}
+	return this.object_cache_[id_]
+}
+IFVM.prototype.reloadImpl = function () { // to be called on game/version change where VM type remains the same
+	this.vm_impl_ = this.vm_cons_() // Generic, correct case - hoping old one gets GCed away. Use more robust reuse patterns for specific VMs TODO ZVMWrapper
+	return this.vm_impl_
+}
+IFVM.prototype.getImpl = function () {
+	return (this.vm_impl_)? // plus any other checks, e.g. stalled machine, lagging streams etc.
+		this.vm_impl_:this.reloadImpl()
+}
+IFVM.prototype.changeVersion	= function (ver_) {return false} // TODO for specific VMs; return true on successful version change
+
+function ZVMObject (id_, vm_) {
+	this.id_		= id_
+	this.vm_		= vm_
+}
+ZVMObject.prototype = IFObject.prototype
+ZVMObject.prototype.get_name_impl_	= function () {
+	var prop_base_ = (this.property_base_)? this.property_base_:this.get_property_base_impl_()
+	var vm_ = this.vm_.getImpl()
+	return vm_.decode(prop_base_+1, vm_.m.getUint8(prop_base_)*2)
+}
+ZVMObject.prototype.get_base_impl_ = function () {
+	return this.vm_.getImpl().objects+this.vm_.config_.object_size_*this.id_
+}
+ZVMObject.prototype.getBase = function () {
+	if (!this.base_)
+		this.base_ = this.get_base_impl_()
+	return this.base_
+}
+ZVMObject.prototype.get_property_base_impl_ = function () {
+	return (this.base_)?
+		this.vm_.getImpl().m.getUint16(this.base_+this.vm_.config_.property_offset_):
+		this.vm_.getImpl().m.getUint16(this.get_base_impl_()+this.vm_.config_.property_offset_)
+}
+ZVMObject.prototype.getPropertyBase = function () {
+	if (!this.property_base_)
+		this.property_base_ = this.get_property_base_impl_()
+	return this.property_base_
+}
+function ZVMConfig (version_, object_size_, property_offset_) {
+	this.version_ 		= version_
+	this.object_size_ 	= object_size_
+	this.property_offset_ 	= property_offset_
+}
+function MungeCache (ui_) {
+	this.ui_	= ui_
+	this.cache_ 	= []
+}
+MungeCache.prototype.inputReceived = function (raw_) {
+	if (!raw_ || raw_.trim) return
+	raw_	= raw_.trim()
+	if (raw_ != "")
+		this.cache_.push(raw_)
+}
+MungeCache.prototype.munge = function (i_) {return this.cache_[i_]} // default behaviour - leave raw output as is
+MungeCache.prototype.flush = function () {
+	for (var i_ in this.cache_)
+		if (this.munge(i_) && this.cache_[i_]!="")
+			this.ui_.newParagraph(this.cache_[i_]) // TODO UI interface
+}
+function ZVMMungeCache (ui_) {
+	MungeCache.call(this, ui_)
+}
+ZVMMungeCache.prototype = Object.create(MungeCache.prototype) // TODO clean up prototypes like this
+ZVMMungeCache.prototype.constructor = ZVMMungeCache
+
+function ZVMWrapper (config_, ui_) {
+	IFVM.call(this, "Z Machine, version "+config_.version_, function(){return new ZVM()}, ZVMObject)
+	this.config_ 		= config_
+	this.ui_ 		= ui_
+	this.munge_cache_ 	= new ZVMMungeCache(ui_)
+	this.global_cache_	= {}
+}
+ZVMWrapper.prototype	= IFVM.prototype
+
+ZVMWrapper.prototype.getGlobal = function (num_) {
+	var vm_ = this.getImpl()
+	return vm_.m.getUint16(vm_.globals+num_*2)
+}
+
+
+if (!window.Workscape) // add shim code
+	App = {error:function(e_){console.log(e_);console.trace();return null}}
+function HistoryInput (id_, callback_obj_, command_stack_limit_) { // undefined for unlimited history
+	this.id_			= id_
+	this.command_stack_limit_ 	= command_stack_limit_
+	this.callback_obj_		= callback_obj_ // TODO UI interface declaration to guarantee userInput
+	this.command_stack_ 		= []
+	this.command_lookback_ 		= -1
+}
+HistoryInput.prototype.keyPressed = function (e_) {
+	if (!this.control_)
+		return
+	var evt_ = e_ || window.event
+	switch (event.keyCode) {
+	case 13: // enter
+		var command_ = document.getElementById("command").value
+		this.command_stack_.unshift(command_) // adjust command_stack
+		this.callback_obj_.userInput.call(this.callback_obj_, command_)
+		if (this.command_stack_limit_ && this.command_stack_.length > this.command_stack_limit_)
+			this.command_stack_.pop()
+		this.command_lookback_ = -1
+		this.control_.value = ""
+		break
+	case 38: // arrow up
+		if (this.command_lookback_+1 < this.command_stack_.length) {
+			this.control_.value = this.command_stack_[++this.command_lookback_]
+			window.temp_ = this.control_
+			setTimeout(function(){window.temp_.selectionStart=window.temp_.selectionEnd=10000;window.temp_=null},0)
+		}
+		break
+	case 40: // arrow down
+		if (this.command_lookback_-1 > -2) // decreases regardless; if past the point, input gets cleared for new entry
+			this.control_.value = (--this.command_lookback_>-1)?
+				this.command_stack_[this.command_lookback_]:""
+		break
+	}
+}
+HistoryInput.prototype.focus = function () {
+	if (this.control_)
+		this.control_.focus()
+	return this // for chaining
+}
+HistoryInput.prototype.injectDOM = function (elem_) { // <input type='text' id='command' onkeydown='UI.on_key_down_()' />
+	if (window.Workscape) {/*TODO*/} else { // also TODO; streamline shim code with SpeechManager
+		this.control_	= null
+		if (this.control_ = (document.createElementNS)?
+			document.createElementNS("http://www.w3.org/1999/xhtml", "input"):
+			(typeof document.createElement != "undefined")?
+				document.createElement("input"):App.error("Cannot form <input> elements!")){
+			this.control_.setAttribute("id", this.id_)
+			this.control_.type = "text"
+			this.control_.manager_ = this
+			this.control_.onkeydown = function (e_) {this.manager_.keyPressed.call(this.manager_, e_)}
+			elem_.append(this.control_ )
+		}
+	}
+	return this // for chaining
+}
+
+function UIImpl () {
+	this.start_paragraph_	= true
+	this.prompts_		= null
+	this.room_name_cache_	= ""
+	this.command_line_cache_ = ""
+	this.backgrounds_ = ["on-deck", "grasslands", "flagstones"]
+	this.background_choice_ = this.backgrounds_[0]
+	this.fonts_smoothed_	= true
+	this.room_desc_cache_	= {}
+	this.commit_preamble_ = function () {
+		document.getElementById("blurb-echo").innerHTML = this.blurb_
+		document.getElementById("credits").innerHTML = this.TsCs_
+
+	}
+	this.commit_title_ = function (text_) {
+		var title_w_ = titleCase(text_).split(/\s+/)
+		for (var i_=0; i_<title_w_.length; ++i_)
+			title_w_[i_] = (i_%2 > 0)? "<div class='odd-offset'>"+title_w_[i_]+"</div>":title_w_[i_]
+		document.getElementById("game-title").innerHTML = title_w_.join("<br />")
+		document.getElementById("header-left").innerHTML = "<div class='heading'>"+text_+"</div>"
+	}
+	this.settings_changed_ = function () {
+		document.getElementsByTagName("html")[0].className = UI.background_choice_+((UI.fonts_smoothed_)? " smoothed":"")
+	}
+	this.extracted_key_request_ = null // {key_code/char_code:,line_index:}
+	this.extracted_output_lines_ = []
+	this.output_event_	= function (orders_) {
+		for (var i_ in orders_) {
+			var order_ = orders_[i_]
+			switch (order_.code) {
+			case "clear": // order.name, order.bg
+				UI.clear()
+				break;
+			case "char": // need to set order.keyCode/charCode
+console.log("char")
+				if (UI.extracted_key_request_) {
+					order_.response = {
+						charCode:UI.extracted_key_request_.char_code,
+						keyCode:UI.extracted_key_request_.key_code
+					}
+					UI.vm_.getImpl().inputEvent(order_)
+					//delete UI.extracted_output_lines_[--UI.extracted_key_request_.line_index]
+					//UI.extracted_key_request_ = null
+				} else {
+					// haven't anticipated this press request; create dialogue with options
+					// TODO
+				}
+				break;
+			case "read":
+				UI.ipt_struct_ = order_
+				//order_ = null
+				break
+			case "restart":
+			case "quit":
+				//order_ = null
+				break
+				//document.getElementById("status-window").innerHTML += "<div class ='output'>ZVM quit</div><hr />"
+			case "restore":
+				break
+			case "stream":
+				if (order_.text) {
+					var text_style_ = " "+order_.props.class+" "
+					var text_	= order_.text.trim()
+					if (text_style_.includes(" zvm-bold ")) { // game or room heading (potentially the first one) - or in-text emphasised line TODO
+						if (UI.game_state_ < 0) // -1:before opt; 0:after title, during preamble; 1:after preamble
+							UI.commit_title_(order_.text.replace(/^"?(.*)"?$/,"$1").replace(/[\r\n]+/g,"").trim())
+						else {
+							if (UI.game_state_ == 0)
+								UI.commit_preamble_()
+							UI.room_name_cache_ = titleCase(order_.text).replace(/^"?(.*)"?$/,"$1").replace(/[\r\n]+/g,"").trim()
+							UI.start_paragraph_ = true
+						}
+						if (UI.game_state_ < 2)
+							++UI.game_state_
+					} else if (text_ != "") { // normal paragraph or still in preamble
+						var lines_ = text_.split(/[\r\n]+/g)
+						var prompt_ = lines_.pop()
+						if (!UI.prompts_)
+							UI.prompts_	= {}
+						if (prompt_.match(/[^.!\)\]"]$/)) { // " fix syntax highlighting
+							UI.prompts_[prompt_] = true // mark as a prompt - avoid test overhead
+							document.getElementById("prompt").innerHTML = Object.keys(UI.prompts_).join("<br />") // refresh list of extracted prompts
+						} else if (prompt_.match(/^\[.+\]$/)) {
+							var keycodes_ = {
+								"\\sspace\\s":32,
+								"\\s(enter|return)\\s":13,
+								"\\sesc":27,
+							}
+							var code_ = null
+							for (var i_ in keycodes_)
+								if (prompt_.match(new RegExp(i_,"i")))
+									code_ = keycodes_[i_]
+							if (code_)
+								UI.extracted_key_request_ = {
+									key_code:code_,
+									char_code:code_,
+									line_index_:UI.extracted_output_lines_.push(prompt_)
+								}
+						} else if (prompt_ != "")
+							lines_.push(prompt_) // odd, no prompt evident
+						var opt_ = "<div class ='paragraph'>"
+						for (var l_ in lines_) {
+							var line_ = lines_[l_].trim()
+							if (line_.length > 0) {
+								if (UI.game_state_ < 1 && (line_.match(/(serial|release|version)/i)))
+									this.TsCs_	+= line_
+								else {
+									if (UI.game_state_ > 0 && line_.match(new RegExp("^"+UI.input_bar_.command_stack_[0]+"|^\\(.+\\)$"))) { // repeated (and potentially appended) input line TODO hacky
+										UI.command_line_cache_ += (UI.command_line_cache_=="")?
+											"<div class='command-text'>"+line_:" "+line_
+									} else { // text output
+										if (UI.command_line_cache_ != "") {
+											opt_	+= UI.command_line_cache_+"</div>"
+											UI.command_line_cache_ = ""
+										}
+										if (UI.game_state_ > 0 && UI.room_name_cache_ != "") {
+											opt_	+= "<div class ='room-name'>"+UI.room_name_cache_+"</div>"
+											UI.room_name_cache_ = ""
+										}
+										if (UI.start_paragraph_) {
+											opt_ += "<div class='paragraph-body'>"
+											line_ = line_.replace(/^([^\s]+)(\s)/, "<span class='first-word'>$1</span>$2")
+											UI.start_paragraph_ = false
+										}
+										opt_ += "<div class='paragraph-text'>"+line_
+										opt_	+= "</div>"
+									}
+								}
+							}
+						}
+						if (UI.game_state_ < 1) // blurb
+							UI.blurb_ += opt_+"</div>"
+						else { // main content
+							document.getElementById("content").innerHTML += opt_+"</div></div>"
+							var scroll_ = document.getElementById("content-pane")
+							scroll_.scrollTop = scroll_.scrollHeight
+						}
+
+					}
+					UI.input_bar_.focus()
+					//order_ = null
+				} else if (order_.to) {
+					switch(order_.to) {
+					case "status": // status bar has changed
+						var room_ 		= UI.vm_.getGlobal(0)
+						UI.current.room_	= UI.vm_.getObject(room_).getName()
+						UI.current.score_	= UI.current.hours_	= UI.vm_.getGlobal(1)
+						UI.current.moves_	= UI.current.minutes_	= UI.vm_.getGlobal(2)
+						break
+					default:
+						document.getElementById("rhs").innerHTML += "Unknown: "
+					}
+					//order_ = null
+				}
+				UI.tick()
+			}
+			if (order_)
+				console.log(order_)
+		}
+	}
+	this.current	= {
+		room_:"",
+		score_:-777, // 2nd global
+		moves_:-777, // 3rd global
+		hours_:-777, // 2nd global
+		minutes_:-777, // 3rd global
+		is_score_game_:true,
+		is_time_game_:false,
+		room:function () {return this.room_},//titleCase(this.room_)},
+		gameStatus:function () {return " "+((this.is_score_game_)? this.formatScore()+" ":"")+((this.is_time_game_)? this.formatTime()+" ":"")},
+		formatTime:function () {return this.time_formatters_[this.time_format_](this.hours_, this.minutes_)},
+		formatScore:function () {return this.score_formatters_[this.score_format_](this.score_, this.moves_)},
+		score_format_:"classic",
+		score_formatters_:{
+			classic:function(score_, moves_) {return "Score:&nbsp;"+score_+",&nbsp;Moves:&nbsp;"+moves_}
+		},
+		time_format_:"hr24",
+		time_formatters_:{
+			hr24:function (hours_, minutes_) {return hours_+":"+minutes_},
+			hr12:function (hours_, minutes_) {
+				if (minutes_ == 0 && (hours_ == 0 || hours_ == 12))
+					return (hours_ == 0)? "12 midnight":"12 noon"
+				return (hours_%12)+":"+minutes_+((hours_>11 && minutes_>0)? " PM":" AM")
+			}
+		}
+	}
+	this.tick		= function () {
+		document.getElementById("header-right").innerHTML = "<div class='heading'>"+UI.current.room()+"</div>"
+		document.getElementById("footer").innerHTML = "<div class='heading'>"+UI.current.gameStatus()+"</div>"
+		document.getElementById("current-room-title").innerHTML = "<div class='room-name heading'>"+UI.current.room()+"</div>"
+	}
+	this.new_vm_		= function () {
+		this.vm_				= ZVM5
+		this.vm_.reloadImpl().outputEvent 	= this.output_event_
+	}
+
+	this.ipt_struct_	= null
+	this.games_		= {}
+	this.clear 		= function () {
+		this.clear_lhs_()
+		this.clear_rhs_()
+	}
+	this.clear_lhs_		= function () {
+		this.commit_title_("LSM Interactive Fiction Player")
+		this.commit_preamble_()
+	}
+	this.clear_rhs_		= function () {
+		document.getElementById("content").innerHTML = "<div id='content-padding'>&nbsp;</div>"
+	}
+	this.reset = function () {
+		this.game_state_ = -1 // -1:before opt; 0:after title, during preamble; 1:after preamble
+		this.last_room_	= -1
+		this.blurb_ = ""
+		this.TsCs_ = ""
+		this.title_ = ""
+		this.content_ = ""
+		this.start_paragraph_ = true
+		this.clear()
+		this.selectBookmark("cover")
+		document.getElementById("font-smoothing").checked = true
+		this.settings_changed_()
+	}
+	this.current_bookmark_	= null
+	this.last_tab_	= null
+	this.bookmark_cache_ = {}
+	this.selectBookmark	 	= function (bm_) {
+		function get_z_index_ (div_) {
+			var z_	= ""
+			z_	= (div_.style.zIndex)?
+					div_.style.zIndex:div_.style["z-index"]
+			if (z_ == "" && div_.currentStyle)
+				z_ = (div_.currentStyle.zIndex)?
+					div_.currentStyle.zIndex:div_.currentStyle["z-index"]
+			if (z_ == "" && window.getComputedStyle) {
+				z_ = document.defaultView.getComputedStyle(div_,null).getPropertyValue("zIndex")
+				if (!z_ || z_ == "")
+					z_ = document.defaultView.getComputedStyle(div_,null).getPropertyValue("z-index")
+			}
+			return (!z_ || z_=="")? -777:z_
+		}
+		if (this.current_bookmark_)
+			this.current_bookmark_.style.zIndex = -this.current_bookmark_.style.zIndex
+		if (!this.bookmark_cache_[bm_])
+			this.bookmark_cache_[bm_] = document.getElementById(bm_+"-section")
+		if (this.current_bookmark_= this.bookmark_cache_[bm_])
+			this.current_bookmark_.style.zIndex = -get_z_index_(this.current_bookmark_)
+		if (this.last_tab_)
+			this.last_tab_.style.visibility = "visible"
+		this.last_tab_ = document.getElementById(bm_+"-bookmark")
+		this.last_tab_.style.visibility = 'hidden'
+	}
+	this.load		= function (game_) { // Load the story file
+		this.vm_.getImpl().inputEvent({
+			code:"load",
+			data:game_.data
+		})
+		this.current_game_ = game_
+		game_.is_active_ = true // prevent re-loading already running game TODO restart synonym?
+	}
+	this.restart 	= function () { // Restart, save, restore -> just return to the engine
+		this.vm_.getImpl().inputEvent({
+			code:"restart"
+		})
+	}
+	this.save	= function () { // Restart, save, restore -> just return to the engine
+	}
+	this.restore	= function () { // Restart, save, restore -> just return to the engine
+		var sav_ = null
+		this.vm_.getImpl().inputEvent({
+			code:"restore",
+			data:sav_
+		})
+	}
+	this.quit	= function () {
+		if (this.current_game_)
+			this.current_game_.is_active_ = false
+		this.reset()
+		this.new_vm_()
+	}
+
+	this.userInput	= function (ipt_) {
+		if (this.ipt_struct_) {
+			this.ipt_struct_.terminator = 13
+			this.ipt_cache_ = ipt_
+			if (ipt_) {
+				this.ipt_struct_.response = ipt_
+				this.vm_.getImpl().inputEvent(this.ipt_struct_)
+			}
+		}
+	}
+	this.game_library_ = null
+	this.setLibrary = function (library_) {
+		this.game_library_ = library_
+		var games_ = library_.getGames()
+		var opt_ = ""
+		for (var name_ in games_) {
+			opt_ += "<div class='sub-section' onclick='UI.changeGame(\""+name_+"\")'>\
+					<img class='game-thumb' src='"+library_.metadata[name_].cover_art+"' />\
+					<div class='tab-head'>"+library_.metadata[name_].full_title+"</div>\
+				</div>" // TODO default values
+		}
+		document.getElementById("contents").innerHTML = opt_+"</div>"
+	}
+	this.current_game_ = null
+	this.changeGame = function (name_) {
+		if (this.game_library_) {
+			var game_ = this.game_library_.games[name_]
+			if (game_) {
+				if (!game_.is_active_) {
+				    	UI.quit()
+					game_.load()
+				}
+			} else
+				console.log ("No such game as \""+name_+"\" in the current library!")
+		} else
+			console.log("Somehow ended up with no current game library!")
+	}
+}
+var UI = new UIImpl()
+var ZVM3 = new ZVMWrapper (new ZVMConfig (
+					3, // version no.
+					9, // object size
+					7 // property offset
+), UI)
+var ZVM5 = new ZVMWrapper (new ZVMConfig (
+					5, // version no.
+					14, // object size
+					12 // property offset
+), UI)
+
+function changeBackground () {
+	UI.background_choice_ = document.getElementById("background-choice").value
+	UI.settings_changed_()
+}
+function changeSmoothing () {
+	UI.fonts_smoothed_ = document.getElementById("font-smoothing").checked
+	UI.settings_changed_()
+}
+
+window.onload = function load () {
+	var ddl_ = document.getElementById("background-choice")
+	for (var i_ in UI.backgrounds_) {
+		ddl_.innerHTML += "<option value='"+UI.backgrounds_[i_]+"'>"+UI.backgrounds_[i_]+"</option>"
+	}
+	UI.input_bar_ = new HistoryInput("command", UI, 100).injectDOM(document.getElementById("input-div")).focus()
+	UI.new_vm_()
+	UI.setLibrary(default_game_library_)
+	//game_.load()
+	UI.reset()
+}
+</script>
 </head>
 <body>
-   <div id="gameport">
-       <div id="windowport">
-           <noscript>
-               <p>You'll need to turn on Javascript in your web browser to play this game.</p>
-           </noscript>
-        </div>
-        <div id="loadingpane">
-            <img src="dist/web/waiting.gif" alt="LOADING"><br>
-            <em>&nbsp;&nbsp;&nbsp;Loading...</em>
-        </div>
-        <div id="errorpane" style="display:none;"><div id="errorcontent">...</div></div>
-    </div>
+	<div id= "wrapper">
+		<div id="centre">
+			<div id="lh-page" class="lhs"></div>
+			<div id="rh-page" class="rhs">
+				<div class='header' id='header-right'></div>
+				<div id='content-pane'>
+					<div id='content'>
+						<div id='content-padding'>&nbsp;</div>
+					</div>
+				</div>
+				<div id='input-div'></div>
+				<div id='footer'></div>
+			</div>
+			<div class="paper-texture" id="texture-1"></div>
+			<div class="paper-texture" id="texture-2"></div>
+			<div class="paper-colour" id="colour-1"></div>
+			<div class="paper-colour" id="colour-2"></div>
+			<div class="lhs section" id="cover-section">
+				<div class='header' id='header-left'></div>
+				<div id='game-title'></div>
+				<div id='blurb-echo'></div>
+			</div>
+			<div class="lhs section" id="contents-section">
+				<div class="main-title">:Contents:</div><div id="contents"></div>
+			</div>
+			<div class="lhs section" id="inventory-section">
+				<div class="main-title">:Inventory:</div><div id="inventory"></div>
+			</div>
+			<div class="lhs section" id="current-room-section">
+				<div class="main-title">:Current Location:</div>
+				<div id="current-room-title"></div>
+				<div id="current-room-description"></div>
+			</div>
+			<div class="lhs section" id="credits-section">
+				<div class="main-title">:Credits:</div><div id="credits"></div>
+			</div>
+			<div class="lhs section" id="settings-section">
+				<div class="main-title">:Tweaks:</div>
+				<div class="sub-section" id="user-prompts">
+					<div class="tab-head">Detected User Prompts</div>
+					<div id="prompt"></div>
+				</div>
+				<div class="sub-section" id="background-settings">
+					<div class="tab-head">Background:</div>
+					<select id="background-choice" onchange="changeBackground()"></select>
+					<div class="tab-head">Allow games to change LSM appearance:</div>
+					<input id="games-can-tweak" type="checkbox" onchange="" />
+				</div>
+				<div class="sub-section" id="font-settings">
+					<div class="tab-head">Font smoothing:</div>
+					<input id="font-smoothing" type="checkbox" onchange="changeSmoothing()" />
+				</div>
+			</div>
+		</div>
+		<div class="lhs bookmarks"><div class="bookmarks-cont"  id="lh-bookmarks">
+			<div class="bookmark" id="cover-bookmark" onclick="UI.selectBookmark('cover');">
+				<div class="bm-gfx" style="background:rgba(255,0,0,0.8);" >
+					<img src="bookmark-texture.png" class="bookmark-texture" />
+					<img src="cover.png" class="bookmark-icon" />
+				</div>
+			</div>
+			<div class="bookmark" id="contents-bookmark" onclick="UI.selectBookmark('contents');">
+				<div class="bm-gfx" style="background:rgba(64,255,0,0.8);" >
+					<img src="bookmark-texture.png" class="bookmark-texture" />
+					<img src="contents.png" class="bookmark-icon" />
+				</div>
+			</div>
+			<div class="bookmark" id="current-room-bookmark" onclick="UI.selectBookmark('current-room');">
+				<div class="bm-gfx" style="background:rgba(255,255,0,0.8);" >
+					<img src="bookmark-texture.png" class="bookmark-texture" />
+					<img src="current-loc.png" class="bookmark-icon" />
+				</div>
+			</div>
+			<div class="bookmark" id="inventory-bookmark" onclick="UI.selectBookmark('inventory');">
+				<div class="bm-gfx" style="background:rgba(0,128,255,0.8);" >
+					<img src="bookmark-texture.png" class="bookmark-texture" />
+					<img src="inv.png" class="bookmark-icon" />
+				</div>
+			</div>
+			<div class="bookmark" id="settings-bookmark" onclick="UI.selectBookmark('settings');">
+				<div class="bm-gfx" style="background:rgba(128,0,255,0.8);" >
+					<img src="bookmark-texture.png" class="bookmark-texture" />
+					<img src="settings.png" class="bookmark-icon" />
+				</div>
+			</div>
+			<div class="bookmark" id="credits-bookmark" onclick="UI.selectBookmark('credits');">
+				<div class="bm-gfx" style="background:rgba(255,255,255,0.8);" >
+					<img src="bookmark-texture.png" class="bookmark-texture" />
+					<img src="help.png" class="bookmark-icon" />
+				</div>
+			</div>
+		</div></div>
+		<div class="rhs bookmarks"><div class="bookmarks-cont"  id="rh-bookmarks">
+		</div></div>
+	</div>
 </body>
 </html>

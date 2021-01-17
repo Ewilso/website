@@ -1,0 +1,393 @@
+html, body{
+	height:100%;
+	width:100%;
+	overflow:hidden;
+}
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+html[xmlns] .clearfix {
+    display: block;
+}
+* html .clearfix {
+    height: 1%;
+}
+html {
+   	background-repeat: repeat;
+   	-moz-font-feature-settings:"liga=1, dlig=1";
+	-moz-font-feature-settings:"liga", "dlig"; /* EDIT: new syntax for FF 15+ */
+	-ms-font-feature-settings:"liga", "dlig";
+	-o-font-feature-settings:"liga", "dlig";
+	-webkit-font-feature-settings:"liga", "dlig";
+	font-feature-settings:"liga", "dlig";
+   	font-variant-ligatures: common-ligatures discretionary-ligatures;
+}
+.smoothed {
+	text-rendering: optimizeLegibility !important;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+	-webkit-font-smoothing: antialiased !important;
+	-moz-osx-font-smoothing: grayscale;
+	font-smooth: always;
+	webkit-text-stroke: 0.45px;
+}
+.grasslands {
+	background-image: url("grass.png");
+	background-size:420px 420px;
+}
+.on-deck {
+	background-image: url("planking.png");
+   	background-size:420px 200px;
+}
+.flagstones {
+	background-image: url("flagstone.png");
+   	background-size:240px 240px;
+}
+#wrapper{
+	font-family: "Libre Baskerville", Georgia, "Times New Roman", times, serif;
+	position:relative;
+	display:table;
+	table-layout:fixed;
+	margin:10px;
+	margin-bottom:30px;
+	height:90%;
+	width:96%;
+}
+#centre{
+	/*display:table-row;*/
+	-webkit-box-shadow: 11px 25px 5px 0px rgba(0,0,0,0.5);
+	-moz-box-shadow: 11px 25px 5px 0px rgba(0,0,0,0.5);
+	box-shadow: 11px 25px 5px 0px rgba(0,0,0,0.5);
+	height:95%;
+	border:1px solid rgb(33, 25, 0);
+}
+.header,#footer{
+	font-style:oblique;
+	font-style:italic;
+	font-size:9pt;
+	letter-spacing:-0.2pt;
+}
+.header {
+	border-bottom: 1px solid rgb(33, 25, 0);
+	-webkit-box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
+	padding-bottom:1pt;
+	padding-top:1pt;
+	padding-right:1ex;
+}
+#header-left {
+	text-align:left;
+}
+#header-right {
+	text-align:right;
+}
+#footer {
+	border-top: 1px solid rgb(33, 25, 0);
+	padding-top:1ex;
+	padding-bottom:1ex;
+	text-align:center;
+}
+#blurb-echo {
+	position:absolute;
+	bottom:10%;
+	left:20px;
+	text-align:left;
+	width:50%;
+	font-style:oblique;
+	font-style:italic;
+	font-size:10pt;
+	line-height:3ex;
+	color:rgb(33, 25, 0);
+}
+.heading:before {
+	content:"\223D:";
+	padding-right:1.0ex;
+	letter-spacing:-0.25em;
+}
+.heading:after {
+	content:":\223c";
+	padding-left:0.5ex;
+	letter-spacing:-0.25em;
+}
+#game-title:before, .main-title:before{
+	content:"\223C{";
+	padding-right:0.5ex;
+	letter-spacing:-0.25em;
+}
+#game-title, .main-title {
+	font-size:32pt;
+	font-weight:bold;
+	text-align:center;
+	padding-top:0.5ex;
+	font-family: "Berkshire Swash", Arial, Helvetica, sans-serif;
+	color:rgba(33, 25, 0, 0.4);
+	position: relative;
+}
+#game-title {
+	font-size:54pt;
+	padding-right:0.5em;
+	text-align:right;
+	top: 10pt;
+	line-height:0.55;
+
+}
+#game-title div:last-child:after, .main-title:after {
+	content:"}\0223D";
+	display:inline;
+	letter-spacing:-0.25em;
+}
+.odd-offset {
+	display:inline;
+	color:rgba(33, 25, 0, 0.5);
+	font-size:60pt;
+	margin-right:30pt;
+}
+.abstract {
+	text-align:center;
+}
+#lh-page, #rh-page {
+	height:95%;
+}
+#rh-page {
+}
+#lh-page {
+	overflow:hidden;
+	-webkit-box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
+}
+.lhs,.rhs {
+	display:table-cell;
+	position:absolute;
+	height:100%;
+	padding-left:1%;
+	padding-right:1%;
+    	width:48%;
+}
+.lhs{left:0%;}
+.rhs{left:50%;}
+.paper-texture {
+	position:absolute;
+	top:0px;
+	height:95%;
+	width:50%;
+	background-image: url("paperTexture.png");
+   	background-repeat: repeat;
+   	z-index:-1;
+    	opacity: 0.4;
+    	filter: alpha(opacity=40);
+}
+#texture-1 {
+	left:0%;
+}
+#texture-2{
+	left:50%;
+	-moz-transform: scale(-1);
+        -o-transform: scale(-1);
+        -webkit-transform: scale(-1);
+        transform: scale(-1);
+        transform:offset(10px);
+	filter: FlipH FlipV;
+    	-ms-filter: "FlipH FlipV";
+}
+.paper-colour {
+	position:absolute;
+	top:0px;
+	height:95%;
+	width:50%;
+    	z-index:-2;
+}
+#colour-1 {
+	left:0%;
+	background: #fcf297; /* Old browsers */
+	background: -moz-linear-gradient(left, #9e8d3a 0%, #ecdd92 5%,#9e8d3a 30%,#bfaf62 50%, #4a4010 80%,#000000 100); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #9e8d3a 0%, #ecdd92 5%,#9e8d3a 30%,#bfaf62 50%, #4a4010 80%,#000000 100); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #9e8d3a 0%, #ecdd92 5%,#9e8d3a 30%,#bfaf62 50%, #4a4010 80%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f090', endColorstr='#000000 ',GradientType=1 ); /* IE6-9 */
+}
+#colour-2 {
+	left:50%;
+	background: #fcf297; /* Old browsers */
+	background: -moz-linear-gradient(right, #9e8d3a 0%, #ecdd92 20%,#9e8d3a 40%,#bfaf62 70%, #4a4010 90%,#000000 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(right, #9e8d3a 0%, #ecdd92 20%,#9e8d3a 40%,#bfaf62 70%, #4a4010 90%,#000000 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to left, #9e8d3a 0%, #ecdd92 20%,#9e8d3a 40%,#bfaf62 70%, #4a4010 90%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#f0f090 ',GradientType=1 ); /* IE6-9 */
+	color:rgb(33, 25, 0);
+}
+#content-pane {
+	height:80%;
+	overflow-y:scroll;
+}
+#content {
+	height:100%;
+	width:100%;
+	font-size:10pt;
+	display:table;
+	table-layout:fixed;
+	padding-bottom:2ex;
+}
+#content-padding{
+	height:80%;
+	display:table-row;
+}
+.room-name {
+	font-size:12pt;
+	font-weight:bold;
+	text-align:center;
+	font-family: "Libre Baskerville", Georgia, "Times New Roman", times, serif;
+	padding-bottom:2ex;
+}
+.room-name:before {
+	content:"\22ef\2abc\2022";
+	padding-right:0.5ex;
+	letter-spacing:-0.25em;
+}
+.room-name:after {
+	content:"\2022\2abb\22ef";
+	letter-spacing:-0.25em;
+	padding-left:0.2ex;
+}
+.paragraph {
+	font-size:9pt;
+	display:table-row;
+	margin-bottom:2ex;
+	color:rgb(23, 15, 0);
+}
+.paragraph-text, .command-text {
+	max-width:60ex;
+	margin:auto;
+	line-height:3ex;
+	text-align: justify;
+	text-justify: inter-word;
+	padding-bottom:1ex;
+}
+.command-text:before {
+	padding-right:0.5ex;
+	content:"\22ef";
+}
+.command-text {
+	font-size: 9pt;
+	text-align:center;
+	padding-top:5ex;
+	font-style:oblique;
+	font-style:italic;
+}
+.command-text:after {
+	content:"\22ef";
+	padding-left:0.3ex;
+}
+.tab-head {
+	display:inline;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+}
+#input-div{
+	background: rgba(0, 0, 0, 0.2);
+	padding:5pt;
+	padding-left:15pt;
+}
+#input-div:before {
+	content:"\2026\00a0";
+}
+input#command {
+	width: 95%;
+	background: rgba(256, 256, 256, 0.0);
+	border: none;
+	cursor: text;
+	font-size: 14pt;
+}
+input#command:focus {
+    	outline-width: 0;
+}
+.paragraph-body:first-letter {
+    	display: inline;
+    	font-size: 50pt;
+    	float: left;
+    	line-height: 32pt;
+    	padding-top: 4pt;
+   	font-weight:bold;
+    	font-family: "Eagle Lake", Georgia, "Times New Roman", times, serif;
+}
+.first-word {
+	font-size:18px;
+	font-variant:small-caps;
+}
+#blurb-echo .paragraph-body:first-letter {
+ 	padding-right:0.3ex;
+}
+.bookmarks-cont {
+	overflow-x:auto;
+	white-space:nowrap;
+	display:block;
+	text-align:right;
+}
+.section {
+	position:absolute;
+	z-index:-10;
+	height:95%;
+}
+.sub-section {
+	border:1px solid rgb(33, 25, 0);
+	border-radius: 5px;
+	margin-bottom: 10px;
+	padding: 10px;
+	background: rgba(0, 0, 0, 0.1);
+}
+.bookmarks {
+	display:block;
+	height:auto;
+	position:absolute;
+}
+.bookmark {
+	width:6ex;
+	height:8.5ex;
+	margin-right:15px;
+	margin-bottom:15px;
+	overflow:hidden;
+	display:inline-block;
+	text-align:center;
+	border-left:1px solid rgb(33, 25, 0);
+	border-right:1px solid rgb(33, 25, 0);
+	border-bottom:1px solid rgb(33, 25, 0);
+	/*border-spacing: 10px;
+	border-collapse: separate;*/
+	background: rgba(256, 256, 256, 1.0);
+	-webkit-box-shadow: 7px 7px 12px 4px rgba(0,0,0,0.5),  inset 23px 25px 9px -7px rgba(0,0,0,1.0);
+	-moz-box-shadow: 7px 7px 12px 4px rgba(0,0,0,0.5),  inset 23px 25px 9px -7px rgba(0,0,0,1.0);
+	box-shadow: 7px 7px 12px 4px rgba(0,0,0,0.5),  inset 23px 25px 9px -7px rgba(0,0,0,1.0);
+}
+.bm-gfx {
+	position:relative;
+	width:6ex;
+	height:8.5ex;
+	box-shadow: inset 23px 25px 20px -15px rgba(0,0,0,0.6);
+}
+.bookmark-icon {
+	position:relative;
+	width:4ex;
+	height:4ex;
+	z-index:1;
+    	opacity: 0.5;
+    	filter: alpha(opacity=50);
+    	margin-top:18px;
+}
+.bookmark-texture {
+	position:absolute;
+	z-index:1;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+}
+.game-thumb{
+	height:6em;
+}
