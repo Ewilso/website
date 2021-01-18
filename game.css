@@ -76,7 +76,7 @@ body{
 	font-weight:bold;
 	text-align:center;
 	padding-top:0.5ex;
-	font-family: "Berkshire Swash", Arial, Helvetica, sans-serif;
+	font-family: "Righteous", Arial, Helvetica, sans-serif;
 	position: relative;
 }
 #game-title {
@@ -89,7 +89,7 @@ body{
 
 }
 .odd-offset {
-	font-family: "Berkshire Swash", Arial, Helvetica, sans-serif;
+	font-family: "Righteous", Arial, Helvetica, sans-serif;
 	display:inline;
 	font-size:60pt;
 	margin-right:30pt;
@@ -194,7 +194,6 @@ body{
 	font-family:Arial, Helvetica, sans-serif;
 }
 #input-div{
-	background: rgba(0, 0, 0, 0.2);
 	padding:5pt;
 	padding-left:15pt;
 }
