@@ -4,9 +4,10 @@
 <title>7300.TK</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
-<link href='https://fonts.googleapis.com/css?family=Libre+Baskerville' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Eagle+Lake' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css2?family=Overpass+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <!-- Quintessential,Cookie,Pacifico,Lobster+Two,Oleo+Script,Merienda+One,Arizonia,Great+Vibes -->
 <link rel="stylesheet" type="text/css" href="game.css"></link>
 <script src="./zvm.debug.js"></script>
@@ -629,30 +630,29 @@ window.onload = function load () {
 	<div id= "wrapper">
     <div class="bookmarks">
       <div class="bookmarks-cont"  id="lh-bookmarks">
-      <div class="bookmark" id="cover-bookmark" onclick="UI.selectBookmark('cover');">
-        Main
-      </div>
-      <div class="bookmark" id="contents-bookmark" onclick="UI.selectBookmark('contents');">
-        Contents
-      </div>
-      <div class="bookmark" id="current-room-bookmark" onclick="UI.selectBookmark('current-room');">
-        Room
-      </div>
-      <div class="bookmark" id="inventory-bookmark" onclick="UI.selectBookmark('inventory');">
-        Inventory
-      </div>
-      <div class="bookmark" id="settings-bookmark" onclick="UI.selectBookmark('settings');">
-        Settings
-      </div>
-      <div class="bookmark" id="credits-bookmark" onclick="UI.selectBookmark('credits');">
-        Credits
-      </div>
+				<div class="bookmark" id="contents-bookmark" onclick="UI.selectBookmark('contents');">
+	        Contents
+	      </div>
+				<div class="bookmark" id="cover-bookmark" onclick="UI.selectBookmark('cover');">
+	        Main
+	      </div>
+				<div class="bookmark" id="inventory-bookmark" onclick="UI.selectBookmark('inventory');">
+	        Inventory
+	      </div>
+	      <div class="bookmark" id="current-room-bookmark" onclick="UI.selectBookmark('current-room');">
+	        Room
+	      </div>
+				<div class="bookmark" id="credits-bookmark" onclick="UI.selectBookmark('credits');">
+	        Credits
+	      </div>
+	      <div class="bookmark" id="settings-bookmark" onclick="UI.selectBookmark('settings');">
+	       	Tweaks
+	      </div>
       </div>
     </div>
 		<div id="centre">
 			<div id="lh-page" class="lhs"></div>
 			<div id="rh-page" class="rhs">
-				<div class='header' id='header-right'></div>
 				<div id='content-pane'>
 					<div id='content'>
 						<div id='content-padding'>&nbsp;</div>

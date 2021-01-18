@@ -7,14 +7,13 @@ html, body{
 }
 body{
 	background-image: url("701802.jpg");
-
-	/* Full height */
 	height: 100%;
-
-	/* Center and scale the image nicely */
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+}
+*{
+	font-family: "Overpass Mono", monospace;
 }
 .smoothed {
 	text-rendering: optimizeLegibility !important;
@@ -90,6 +89,7 @@ body{
 
 }
 .odd-offset {
+	font-family: "Berkshire Swash", Arial, Helvetica, sans-serif;
 	display:inline;
 	font-size:60pt;
 	margin-right:30pt;
@@ -142,6 +142,7 @@ body{
 	-ms-filter: "FlipH FlipV";
 }
 #content-pane {
+	margin-top: 30px;
 	height:80%;
 	overflow-y:scroll;
 }
@@ -167,7 +168,6 @@ body{
 .room-name {
 	font-size:12pt;
 	font-weight:bold;
-	font-family: "Libre Baskerville", Georgia, "Times New Roman", times, serif;
 	padding-bottom:2ex;
 }
 .paragraph {
@@ -199,29 +199,31 @@ body{
 	padding-left:15pt;
 }
 .paragraph-body:first-letter {
-    	display: inline;
-    	font-size: 50pt;
-    	float: left;
-    	line-height: 32pt;
-    	padding-top: 4pt;
-   	font-weight:bold;
-    	font-family: "Eagle Lake", Georgia, "Times New Roman", times, serif;
+	display: inline;
+	font-size: 50pt;
+	float: left;
+	line-height: 32pt;
+	padding-top: 4pt;
+	font-weight:bold;
+	font-family: "Share Tech Mono", monospace;
 }
 .first-word {
 	font-size:18px;
 	font-variant:small-caps;
 }
 input#command {
+	font-family: "Share Tech Mono";
+	text-transform: uppercase;
+	color:#d8dee9;
 	width: 95%;
 	min-width: 330px;
 	background: rgba(256, 256, 256, 0.0);
 	border: none;
 	cursor: text;
 	font-size: 12pt;
-	font-family:Arial, Helvetica, sans-serif;
 }
 input#command:focus {
-    	outline-width: 0;
+  outline-width: 0;
 }
 #blurb-echo .paragraph-body:first-letter {
  	padding-right:0.3ex;
@@ -239,7 +241,6 @@ input#command:focus {
 }
 .sub-section {
 	border:1px solid rgb(33, 25, 0);
-	border-radius: 5px;
 	margin-bottom: 10px;
 	padding: 10px;
 	background: rgba(0, 0, 0, 0.1);
