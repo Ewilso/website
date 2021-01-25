@@ -4,7 +4,7 @@ html,body{
 }
 body{
   background: #2e3440;
-  font-family: Courier Bold;
+  font-family: "Overpass Mono";
   display: flex;
   justify-content: center;
 }
