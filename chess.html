@@ -7,16 +7,25 @@
     <link rel="stylesheet" href="lib/chess.css">
     <script type="text/javascript" src="chess.js"></script>
   </head>
-  <body onLoad="chessLoop()">
-    <div id="board">
-      <div class="row" id="row_1">&nbsp;</div>
-      <div class="row" id="row_2">&nbsp;</div>
-      <div class="row" id="row_3">&nbsp;</div>
-      <div class="row" id="row_4">&nbsp;</div>
-      <div class="row" id="row_5">&nbsp;</div>
-      <div class="row" id="row_6">&nbsp;</div>
-      <div class="row" id="row_7">&nbsp;</div>
-      <div class="row" id="row_8">&nbsp;</div>
+  <body onLoad="chessSetup()">
+    <div class="container">
+      <div id="board">
+        <div class="row" id="row_1"></div>
+        <div class="row" id="row_2"></div>
+        <div class="row" id="row_3"></div>
+        <div class="row" id="row_4"></div>
+        <div class="row" id="row_5"></div>
+        <div class="row" id="row_6"></div>
+        <div class="row" id="row_7"></div>
+        <div class="row" id="row_8"></div>
+      </div>
+      <div id="info">
+        <h2>Chess</h2>
+        <h3>Debug Log:</h3>
+        <div id="status">
+
+        </div>
+      </div>
     </div>
   </body>
 </html>

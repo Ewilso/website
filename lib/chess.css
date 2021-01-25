@@ -1,14 +1,14 @@
 #board{
   width: 640px;
   border: 1px solid #000;
-  padding: 0;
 }
 .row{
+  display: flex;
   width: 640px;
   height: 80px;
-  border: 1px solid #000;
 }
 .square{
+  display: inline-block;
   height: 80px;
   width: 80px;
 }
@@ -17,4 +17,32 @@
 }
 .white{
   background-color: white;
+}
+.piece{
+  margin: 10px;
+  width:60px;
+  height:60px;
+}
+.container{
+  display: flex;
+}
+#info{
+  max-width: 640px;
+  padding:5px 20px;
+  display: inline-block;
+}
+#status{
+  min-width: 400px;
+  width:auto;
+  height:200px;
+  overflow: auto;
+  padding:5px;
+  background-color: #4c566a;
+  border-radius: 5px;
+  border: 1px solid #2e3440;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+#status::-webkit-scrollbar{
+  display: none;
 }
