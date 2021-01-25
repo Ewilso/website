@@ -2,9 +2,11 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Chess Simulation</title>
+    <title>7300.TK</title>
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
     <link rel="stylesheet" href="lib/chess.css">
+    <link href="https://fonts.googleapis.com/css2?family=Overpass+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
     <script type="text/javascript" src="chess.js"></script>
   </head>
   <body onLoad="chessSetup()">
@@ -20,10 +22,12 @@
         <div class="row" id="row_8"></div>
       </div>
       <div id="info">
-        <h2>Chess</h2>
+        <h3>Turn:</h3>
+        <p id="Turn"></p>
+        <h3>Piece Selected:</h3>
+        <p id="Piece"></p>
         <h3>Debug Log:</h3>
         <div id="status">
-
         </div>
       </div>
     </div>

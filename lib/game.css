@@ -228,6 +228,7 @@ input#command:focus {
  	padding-right:0.3ex;
 }
 .bookmarks-cont {
+	padding: 7px 5px;
 	overflow-x:auto;
 	white-space:nowrap;
 	display:block;
@@ -247,7 +248,6 @@ input#command:focus {
 .bookmarks {
 	background-color:#81a1c1;
 	width:calc(45% - 20px);
-	height:auto;
 	padding: 1px 10px;
 	position:relative;
 	min-width: 430px;

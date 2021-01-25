@@ -5,9 +5,13 @@ function writeStatus(text){
 }
 
 function selectPiece(piece){
+  window.loaded = piece
+  document.getElementById('Piece').innerHTML = window.loaded
   writeStatus(piece + " selected.")
 }
-
+function selectSquare(square){
+  writeStatus(square + " selected.")
+}
 function loadBoard(){
   // Builds the board with chess square notation for an id.
   var squareID = [
@@ -28,7 +32,7 @@ function loadBoard(){
       var wSquare = document.createElement( 'div' );
       wSquare.classList.add("square", "white");
       wSquare.setAttribute("id", squareID[0]);
-      wSquare.setAttribute("onclick", "selectPiece('"+ squareID[0] + "')");
+      wSquare.setAttribute("onclick", "selectSquare('"+ squareID[0] + "')");
       squareID.shift();
       wcontainer.appendChild( wSquare );
 
@@ -36,7 +40,7 @@ function loadBoard(){
       var bSquare = document.createElement( 'div' );
       bSquare.classList.add("square", "black");
       bSquare.setAttribute("id", squareID[0]);
-      bSquare.setAttribute("onclick", "selectPiece('"+ squareID[0] + "')");
+      bSquare.setAttribute("onclick", "selectSquare('"+ squareID[0] + "')");
       squareID.shift();
       bcontainer.appendChild( bSquare );
     }
@@ -46,7 +50,7 @@ function loadBoard(){
       var bSquare = document.createElement( 'div' );
       bSquare.classList.add("square", "black");
       bSquare.setAttribute("id", squareID[0]);
-      bSquare.setAttribute("onclick", "selectPiece('"+ squareID[0] + "')");
+      bSquare.setAttribute("onclick", "selectSquare('"+ squareID[0] + "')");
       squareID.shift();
       bcontainer.appendChild( bSquare );
 
@@ -54,7 +58,7 @@ function loadBoard(){
       var wSquare = document.createElement( 'div' );
       wSquare.classList.add("square", "white");
       wSquare.setAttribute("id", squareID[0]);
-      wSquare.setAttribute("onclick", "selectPiece('"+ squareID[0] + "')");
+      wSquare.setAttribute("onclick", "selectSquare('"+ squareID[0] + "')");
       squareID.shift();
       wcontainer.appendChild( wSquare );
     }
@@ -108,9 +112,14 @@ function setupPieces(){
     container.appendChild(img)
   }
   writeStatus("Pieces loaded in primary positions.");
+  document.getElementById('Turn').innerHTML = window.turn
+  writeStatus("Turn set.")
+  document.getElementById('Piece').innerHTML = window.loaded
 }
 
 function chessSetup() {
+  window.turn = "white"
+  window.loaded = "None"
   loadBoard()
   setupPieces()
 }
