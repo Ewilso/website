@@ -1,17 +1,47 @@
 function writeStatus(text){
   var writeTo = document.getElementById( 'status' );
-  writeTo.innerHTML += (text + "<br>")
+  writeTo.innerHTML += (text + "<br>");
   writeTo.scrollTop = writeTo.scrollHeight;
 }
 
-function selectPiece(piece){
-  window.loaded = piece
-  document.getElementById('Piece').innerHTML = window.loaded
-  writeStatus(piece + " selected.")
+function setVars(){
+  window.mode = "None"
+  window.destination = "None"
+  window.turn = "white"
+  window.loaded = "None"
 }
+
 function selectSquare(square){
-  writeStatus(square + " selected.")
+  if (document.getElementById(square).innerHTML !== "") {
+    window.destination = "None";
+  }
+  else if (window.loaded !== "None") {
+    window.destination = square;
+    writeStatus("Destination set to: " + window.destination + ".")
+  }
+  document.getElementById('Destination').innerHTML = window.destination;
+  if (document.getElementById('Piece').innerHTML !== "None") {
+    checkLegalMove();
+  }
 }
+
+function selectPiece(piece){
+  window.loaded = piece;
+  document.getElementById('Piece').innerHTML = window.loaded;
+  writeStatus(piece + " selected.");
+}
+
+function checkLegalMove(){
+
+}
+
+function setGameMode(mode){
+  if (mode === "single" || mode === "double" || mode === "ai") {
+    window.mode = mode;
+  }
+  writeStatus("Mode set to: " + window.mode);
+}
+
 function loadBoard(){
   // Builds the board with chess square notation for an id.
   var squareID = [
@@ -111,15 +141,14 @@ function setupPieces(){
     img.setAttribute("onclick", "selectPiece('" + piece + "')");
     container.appendChild(img)
   }
-  writeStatus("Pieces loaded in primary positions.");
   document.getElementById('Turn').innerHTML = window.turn
-  writeStatus("Turn set.")
   document.getElementById('Piece').innerHTML = window.loaded
+  document.getElementById('Destination').innerHTML = window.destination
+  writeStatus("Setup completed.");
 }
 
 function chessSetup() {
-  window.turn = "white"
-  window.loaded = "None"
+  setVars()
   loadBoard()
   setupPieces()
 }
