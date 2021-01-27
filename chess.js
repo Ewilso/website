@@ -5,6 +5,8 @@ function writeStatus(text){
 }
 
 function setVars(){
+  window.whitePawnMoves = [0,0,0,0,0,0,0,0]
+  window.blackPawnMoves = [0,0,0,0,0,0,0,0]
   window.mode = "None"
   window.destination = "None"
   window.turn = "white"
@@ -18,21 +20,106 @@ function selectSquare(square){
   else if (window.loaded !== "None") {
     window.destination = square;
     writeStatus("Destination set to: " + window.destination + ".")
-  }
-  document.getElementById('Destination').innerHTML = window.destination;
-  if (document.getElementById('Piece').innerHTML !== "None") {
-    checkLegalMove();
+    document.getElementById('Destination').innerHTML = window.destination;
+    var isLegal = checkLegalMove(window.loaded, window.destination);
+    writeStatus("Legal: " + isLegal + ".")
+    if (isLegal === true) {
+      document.getElementById(window.destination).appendChild(
+        document.getElementById(window.loaded)
+      );
+      if (window.turn === "white") {
+        window.turn = "black"
+      }
+      else {
+        window.turn = "white"
+      }
+      document.getElementById('Turn').innerHTML = window.turn;
+    }
+    window.loaded = "None"
   }
 }
 
 function selectPiece(piece){
+  window.destination = "None"
   window.loaded = piece;
+  document.getElementById('Destination').innerHTML = window.destination;
   document.getElementById('Piece').innerHTML = window.loaded;
   writeStatus(piece + " selected.");
 }
 
-function checkLegalMove(){
+function checkLegalMove(piece, square){
+  if (window.turn === "white" && piece.indexOf("W") !== -1) {
+    if (piece.indexOf("Knight") !== -1) {
+      // Validation rules
+      writeStatus("Knight played.")
+    }
+    else if (piece.indexOf("Bishop") !== -1) {
+      writeStatus("Bishop played.")
+    }
+    else if (piece.indexOf("Queen") !== -1) {
+      writeStatus("Queen played.")
+    }
+    else if (piece.indexOf("King") !== -1) {
+      writeStatus("King played.")
+    }
+    else if (piece.indexOf("Rook") !== -1) {
+      writeStatus("Rook played.")
+    }
+    else if (piece.indexOf("Pawn") !== -1) {
+      var check = pawnCheck(window.whitePawnMoves, "+", piece, square)
+      return check;
+    }
+  }
+  else if (window.turn === "black" && piece.indexOf("B") !== -1) {
+    if (piece.indexOf("Knight") !== -1) {
+      writeStatus("Knight played.")
+    }
+    else if (piece.indexOf("Bishop") !== -1) {
+      writeStatus("Bishop played.")
+    }
+    else if (piece.indexOf("Queen") !== -1) {
+      writeStatus("Queen played.")
+    }
+    else if (piece.indexOf("King") !== -1) {
+      writeStatus("King played.")
+    }
+    else if (piece.indexOf("Rook") !== -1) {
+      writeStatus("Rook played.")
+    }
+    else if (piece.indexOf("Pawn") !== -1) {
+      var check = pawnCheck(window.blackPawnMoves, "-", piece, square)
+      return check;
+    }
+  }
+  else {
+    return false;
+  }
+}
 
+function pawnCheck(movesArray, BorW, piece, square){
+  var index = Number(piece.slice(-1)) - 1;
+  var timesMoved = movesArray[index];
+  var moveFrom = document.getElementById(piece).parentNode.id;
+  if (BorW === "-") {
+    var moveTo = moveFrom[1] - 1
+    var doubleMove = moveFrom[1] - 2
+  }
+  else{
+    var moveTo = Number(moveFrom[1]) + 1
+    var doubleMove = Number(moveFrom[1]) + 2
+    console.log(doubleMove, moveTo)
+  }
+  if (Number(square[1]) === moveTo && square[0] === moveFrom[0]) {
+    movesArray[index] = 1;
+    return true;
+  }
+  else if (Number(square[1]) === doubleMove && timesMoved === 0 && square[0] === moveFrom[0]) {
+    movesArray[index] = 1;
+    return true;
+  }
+  else{
+    return false;
+  }
 }
 
 function setGameMode(mode){
@@ -65,7 +152,6 @@ function loadBoard(){
       wSquare.setAttribute("onclick", "selectSquare('"+ squareID[0] + "')");
       squareID.shift();
       wcontainer.appendChild( wSquare );
-
       var bcontainer = document.getElementById( 'row_' + (i + 1) );
       var bSquare = document.createElement( 'div' );
       bSquare.classList.add("square", "black");
@@ -83,7 +169,6 @@ function loadBoard(){
       bSquare.setAttribute("onclick", "selectSquare('"+ squareID[0] + "')");
       squareID.shift();
       bcontainer.appendChild( bSquare );
-
       var wcontainer = document.getElementById( 'row_' + (i + 1) );
       var wSquare = document.createElement( 'div' );
       wSquare.classList.add("square", "white");
@@ -101,12 +186,12 @@ function setupPieces(){
     // Black pieces
     BQueen: ["d8","pieces/BQueen.png"],
     BKing: ["e8", "pieces/BKing.png"],
-    BBishopKing: ["f8", "pieces/BBishop.png"],
-    BBishopQueen: ["c8", "pieces/BBishop.png"],
-    BKnightKing: ["g8", "pieces/BKnight.png"],
-    BKnightQueen: ["b8", "pieces/BKnight.png"],
-    BRookKing: ["h8", "pieces/BRook.png"],
-    BRookQueen: ["a8", "pieces/BRook.png"],
+    Bbishopking: ["f8", "pieces/BBishop.png"],
+    Bbishopqueen: ["c8", "pieces/BBishop.png"],
+    BKnightking: ["g8", "pieces/BKnight.png"],
+    BKnightqueen: ["b8", "pieces/BKnight.png"],
+    BRookking: ["h8", "pieces/BRook.png"],
+    BRookqueen: ["a8", "pieces/BRook.png"],
     BPawn1: ["a7", "pieces/BPawn.png"],
     BPawn2: ["b7", "pieces/BPawn.png"],
     BPawn3: ["c7", "pieces/BPawn.png"],
@@ -118,12 +203,12 @@ function setupPieces(){
     // White pieces
     WQueen: ["d1","pieces/WQueen.png"],
     WKing: ["e1", "pieces/WKing.png"],
-    WBishopKing: ["f1", "pieces/WBishop.png"],
-    WBishopQueen: ["c1", "pieces/WBishop.png"],
-    WKnightKing: ["g1", "pieces/WKnight.png"],
-    WKnightQueen: ["b1", "pieces/WKnight.png"],
-    WRookKing: ["h1", "pieces/WRook.png"],
-    WRookQueen: ["a1", "pieces/WRook.png"],
+    WBishopking: ["f1", "pieces/WBishop.png"],
+    WBishopqueen: ["c1", "pieces/WBishop.png"],
+    WKnightking: ["g1", "pieces/WKnight.png"],
+    WKnightqueen: ["b1", "pieces/WKnight.png"],
+    WRookking: ["h1", "pieces/WRook.png"],
+    WRookqueen: ["a1", "pieces/WRook.png"],
     WPawn1: ["a2", "pieces/WPawn.png"],
     WPawn2: ["b2", "pieces/WPawn.png"],
     WPawn3: ["c2", "pieces/WPawn.png"],
@@ -139,6 +224,7 @@ function setupPieces(){
     img.classList.add("piece");
     img.src = placements[piece][1]
     img.setAttribute("onclick", "selectPiece('" + piece + "')");
+    img.setAttribute("id", piece);
     container.appendChild(img)
   }
   document.getElementById('Turn').innerHTML = window.turn
@@ -152,3 +238,5 @@ function chessSetup() {
   loadBoard()
   setupPieces()
 }
+
+// AI TODO:
