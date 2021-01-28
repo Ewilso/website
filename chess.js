@@ -1,7 +1,8 @@
 function writeStatus(text){
-  var writeTo = document.getElementById( 'status' );
+  /*var writeTo = document.getElementById( 'status' );
   writeTo.innerHTML += (text + "<br>");
-  writeTo.scrollTop = writeTo.scrollHeight;
+  writeTo.scrollTop = writeTo.scrollHeight;*/
+  console.log(text)
 }
 
 function setVars(){
@@ -21,7 +22,7 @@ function selectSquare(square){
     window.destination = square;
     writeStatus("Destination set to: " + window.destination + ".")
     document.getElementById('Destination').innerHTML = window.destination;
-    var isLegal = checkLegalMove(window.loaded, window.destination);
+    var isLegal = checkLegalMove();
     writeStatus("Legal: " + isLegal + ".")
     if (isLegal === true) {
       document.getElementById(window.destination).appendChild(
@@ -47,52 +48,61 @@ function selectPiece(piece){
   writeStatus(piece + " selected.");
 }
 
-function checkLegalMove(piece, square){
-  if (window.turn === "white" && piece.indexOf("W") !== -1) {
-    if (piece.indexOf("Knight") !== -1) {
+function checkLegalMove(){
+  if (window.turn === "white" && window.loaded.indexOf("W") !== -1) {
+    if (window.loaded.indexOf("Knight") !== -1) {
       // Validation rules
       writeStatus("Knight played.")
     }
-    else if (piece.indexOf("Bishop") !== -1) {
+    else if (window.loaded.indexOf("Bishop") !== -1) {
       writeStatus("Bishop played.")
     }
-    else if (piece.indexOf("Queen") !== -1) {
+    else if (window.loaded.indexOf("Queen") !== -1) {
       writeStatus("Queen played.")
     }
-    else if (piece.indexOf("King") !== -1) {
+    else if (window.loaded.indexOf("King") !== -1) {
       writeStatus("King played.")
     }
-    else if (piece.indexOf("Rook") !== -1) {
-      writeStatus("Rook played.")
+    else if (window.loaded.indexOf("Rook") !== -1) {
+      return rookCheck()
     }
-    else if (piece.indexOf("Pawn") !== -1) {
-      var check = pawnCheck(window.whitePawnMoves, "+", piece, square)
+    else if (window.loaded.indexOf("Pawn") !== -1) {
+      var check = pawnCheck(window.whitePawnMoves, "+", window.loaded, window.destination)
       return check;
     }
   }
-  else if (window.turn === "black" && piece.indexOf("B") !== -1) {
-    if (piece.indexOf("Knight") !== -1) {
+  else if (window.turn === "black" && window.loaded.indexOf("B") !== -1) {
+    if (window.loaded.indexOf("Knight") !== -1) {
       writeStatus("Knight played.")
     }
-    else if (piece.indexOf("Bishop") !== -1) {
+    else if (window.loaded.indexOf("Bishop") !== -1) {
       writeStatus("Bishop played.")
     }
-    else if (piece.indexOf("Queen") !== -1) {
+    else if (window.loaded.indexOf("Queen") !== -1) {
       writeStatus("Queen played.")
     }
-    else if (piece.indexOf("King") !== -1) {
+    else if (window.loaded.indexOf("King") !== -1) {
       writeStatus("King played.")
     }
-    else if (piece.indexOf("Rook") !== -1) {
-      writeStatus("Rook played.")
+    else if (window.loaded.indexOf("Rook") !== -1) {
+      return rookCheck()
     }
-    else if (piece.indexOf("Pawn") !== -1) {
-      var check = pawnCheck(window.blackPawnMoves, "-", piece, square)
-      return check;
+    else if (window.loaded.indexOf("Pawn") !== -1) {
+      return pawnCheck(window.blackPawnMoves, "-", window.loaded, window.destination)
     }
   }
   else {
     return false;
+  }
+}
+
+function rookCheck(){
+  var moveFrom = document.getElementById(window.loaded).parentNode.id
+  if(window.destination[0] === moveFrom[0]){
+    return true;
+  }
+  else if (window.destination[1] === moveFrom[1]) {
+    return true;
   }
 }
 
@@ -107,13 +117,13 @@ function pawnCheck(movesArray, BorW, piece, square){
   else{
     var moveTo = Number(moveFrom[1]) + 1
     var doubleMove = Number(moveFrom[1]) + 2
-    console.log(doubleMove, moveTo)
   }
+  var inBetween = square[0] + moveTo;
   if (Number(square[1]) === moveTo && square[0] === moveFrom[0]) {
     movesArray[index] = 1;
     return true;
   }
-  else if (Number(square[1]) === doubleMove && timesMoved === 0 && square[0] === moveFrom[0]) {
+  else if (Number(square[1]) === doubleMove && timesMoved === 0 && square[0] === moveFrom[0] && document.getElementById(inBetween).innerHTML === "") {
     movesArray[index] = 1;
     return true;
   }

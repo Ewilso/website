@@ -18,7 +18,7 @@ body{
   width: 80px;
 }
 .black{
-  background-color: black;
+  background-color: #316448;
 }
 .white{
   background-color: white;
@@ -29,8 +29,7 @@ body{
   height:60px;
 }
 .container{
-  border-radius: 0 20px 20px 0;
-  border: 10px solid #000;
+  border: 5px solid #000;
   margin: auto;
   margin-top: 3%;
   width: 1280px;
@@ -38,7 +37,7 @@ body{
 }
 #info{
   color: #d8dee9;
-  background-color: #000;
+  background-color: #316448;
   width: 640px;
   padding:5px 20px;
   display: inline-block;
