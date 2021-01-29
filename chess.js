@@ -1,8 +1,7 @@
 function writeStatus(text){
-  /*var writeTo = document.getElementById( 'status' );
+  var writeTo = document.getElementById( 'status' );
   writeTo.innerHTML += (text + "<br>");
-  writeTo.scrollTop = writeTo.scrollHeight;*/
-  console.log(text)
+  writeTo.scrollTop = writeTo.scrollHeight;
 }
 
 function setVars(){
@@ -55,19 +54,19 @@ function checkLegalMove(){
       writeStatus("Knight played.")
     }
     else if (window.loaded.indexOf("Bishop") !== -1) {
-      writeStatus("Bishop played.")
+      return bishopCheck();
     }
     else if (window.loaded.indexOf("Queen") !== -1) {
-      writeStatus("Queen played.")
+      return royaltyCheck();
     }
     else if (window.loaded.indexOf("King") !== -1) {
       writeStatus("King played.")
     }
     else if (window.loaded.indexOf("Rook") !== -1) {
-      return rookCheck()
+      return rookCheck();
     }
     else if (window.loaded.indexOf("Pawn") !== -1) {
-      var check = pawnCheck(window.whitePawnMoves, "+", window.loaded, window.destination)
+      var check = pawnCheck(window.whitePawnMoves, "+", window.loaded, window.destination);
       return check;
     }
   }
@@ -75,20 +74,20 @@ function checkLegalMove(){
     if (window.loaded.indexOf("Knight") !== -1) {
       writeStatus("Knight played.")
     }
-    else if (window.loaded.indexOf("Bishop") !== -1) {
-      writeStatus("Bishop played.")
+    else if (window.loaded.indexOf("bishop") !== -1) {
+      return bishopCheck();
     }
     else if (window.loaded.indexOf("Queen") !== -1) {
-      writeStatus("Queen played.")
+      return royaltyCheck();
     }
     else if (window.loaded.indexOf("King") !== -1) {
       writeStatus("King played.")
     }
     else if (window.loaded.indexOf("Rook") !== -1) {
-      return rookCheck()
+      return rookCheck();
     }
     else if (window.loaded.indexOf("Pawn") !== -1) {
-      return pawnCheck(window.blackPawnMoves, "-", window.loaded, window.destination)
+      return pawnCheck(window.blackPawnMoves, "-", window.loaded, window.destination);
     }
   }
   else {
@@ -102,6 +101,25 @@ function rookCheck(){
     return true;
   }
   else if (window.destination[1] === moveFrom[1]) {
+    return true;
+  }
+}
+
+function royaltyCheck(){
+  var diagonal = bishopCheck()
+  var straight = rookCheck()
+  if (diagonal === true || straight === true) {
+    return true;
+  }
+}
+
+function bishopCheck(){
+  var alphabet = ["a","b","c","d","e","f","g","h"]
+  var moveFrom = document.getElementById(window.loaded).parentNode.id
+  if (window.destination[1] - moveFrom[1] === alphabet.indexOf(window.destination[0]) - alphabet.indexOf(moveFrom[0])){
+    return true;
+  }
+  else if (window.destination[1] - moveFrom[1] === (alphabet.indexOf(window.destination[0]) - alphabet.indexOf(moveFrom[0])) * -1){
     return true;
   }
 }
