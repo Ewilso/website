@@ -4,15 +4,6 @@ function writeStatus(text){
   writeTo.scrollTop = writeTo.scrollHeight;
 }
 
-function setVars(){
-  window.whitePawnMoves = [0,0,0,0,0,0,0,0]
-  window.blackPawnMoves = [0,0,0,0,0,0,0,0]
-  window.mode = "None"
-  window.destination = "None"
-  window.turn = "white"
-  window.loaded = "None"
-}
-
 function selectSquare(square){
   if (document.getElementById(square).innerHTML !== "") {
     window.destination = "None";
@@ -50,17 +41,16 @@ function selectPiece(piece){
 function checkLegalMove(){
   if (window.turn === "white" && window.loaded.indexOf("W") !== -1) {
     if (window.loaded.indexOf("Knight") !== -1) {
-      // Validation rules
-      writeStatus("Knight played.")
+      return false;
     }
-    else if (window.loaded.indexOf("Bishop") !== -1) {
+    else if (window.loaded.indexOf("bishop") !== -1) {
       return bishopCheck();
     }
     else if (window.loaded.indexOf("Queen") !== -1) {
-      return royaltyCheck();
+      return queenCheck();
     }
     else if (window.loaded.indexOf("King") !== -1) {
-      writeStatus("King played.")
+      return kingCheck();
     }
     else if (window.loaded.indexOf("Rook") !== -1) {
       return rookCheck();
@@ -72,16 +62,16 @@ function checkLegalMove(){
   }
   else if (window.turn === "black" && window.loaded.indexOf("B") !== -1) {
     if (window.loaded.indexOf("Knight") !== -1) {
-      writeStatus("Knight played.")
+      return false;
     }
     else if (window.loaded.indexOf("bishop") !== -1) {
       return bishopCheck();
     }
     else if (window.loaded.indexOf("Queen") !== -1) {
-      return royaltyCheck();
+      return queenCheck();
     }
     else if (window.loaded.indexOf("King") !== -1) {
-      writeStatus("King played.")
+      return kingCheck();
     }
     else if (window.loaded.indexOf("Rook") !== -1) {
       return rookCheck();
@@ -95,20 +85,26 @@ function checkLegalMove(){
   }
 }
 
+function queenCheck(){
+  var diagonal = bishopCheck()
+  var straight = rookCheck()
+  if (diagonal === true || straight === true) {
+    return true;
+  }
+}
+
+function kingCheck(){
+  var alphabet = ["a","b","c","d","e","f","g","h"]
+  var moveFrom = document.getElementById(window.loaded).parentNode.id
+
+}
+
 function rookCheck(){
   var moveFrom = document.getElementById(window.loaded).parentNode.id
   if(window.destination[0] === moveFrom[0]){
     return true;
   }
   else if (window.destination[1] === moveFrom[1]) {
-    return true;
-  }
-}
-
-function royaltyCheck(){
-  var diagonal = bishopCheck()
-  var straight = rookCheck()
-  if (diagonal === true || straight === true) {
     return true;
   }
 }
@@ -211,7 +207,6 @@ function loadBoard(){
 
 function setupPieces(){
   var placements = {
-    // Black pieces
     BQueen: ["d8","pieces/BQueen.png"],
     BKing: ["e8", "pieces/BKing.png"],
     Bbishopking: ["f8", "pieces/BBishop.png"],
@@ -228,11 +223,10 @@ function setupPieces(){
     BPawn6: ["f7", "pieces/BPawn.png"],
     BPawn7: ["g7", "pieces/BPawn.png"],
     BPawn8: ["h7", "pieces/BPawn.png"],
-    // White pieces
     WQueen: ["d1","pieces/WQueen.png"],
     WKing: ["e1", "pieces/WKing.png"],
-    WBishopking: ["f1", "pieces/WBishop.png"],
-    WBishopqueen: ["c1", "pieces/WBishop.png"],
+    Wbishopking: ["f1", "pieces/WBishop.png"],
+    Wbishopqueen: ["c1", "pieces/WBishop.png"],
     WKnightking: ["g1", "pieces/WKnight.png"],
     WKnightqueen: ["b1", "pieces/WKnight.png"],
     WRookking: ["h1", "pieces/WRook.png"],
@@ -262,7 +256,13 @@ function setupPieces(){
 }
 
 function chessSetup() {
-  setVars()
+  window.checkmate = false
+  window.whitePawnMoves = [0,0,0,0,0,0,0,0]
+  window.blackPawnMoves = [0,0,0,0,0,0,0,0]
+  window.mode = "None"
+  window.destination = "None"
+  window.turn = "white"
+  window.loaded = "None"
   loadBoard()
   setupPieces()
 }
