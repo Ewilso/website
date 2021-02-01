@@ -13,8 +13,9 @@ function selectSquare(square){
     writeStatus("Destination set to: " + window.destination + ".")
     document.getElementById('Destination').innerHTML = window.destination;
     var isLegal = checkLegalMove();
+    var collided = checkCollisions();
     writeStatus("Legal: " + isLegal + ".")
-    if (isLegal === true) {
+    if (isLegal === true && collided === true) {
       document.getElementById(window.destination).appendChild(
         document.getElementById(window.loaded)
       );
@@ -28,6 +29,23 @@ function selectSquare(square){
     }
     window.loaded = "None"
   }
+}
+
+function checkCollisions(){
+  var alphabet = ["a","b","c","d","e","f","g","h"]
+  var moveFrom = document.getElementById(window.loaded).parentNode.id
+  var vertDiff = Math.abs(moveFrom[0] - window.location [0])
+  if (window.loaded.indexOf("knight") !== -1) {
+    return true;
+  }
+  if (window.loaded.indexOf("king") !== -1) {
+    return true;
+  }
+  var i;
+  for(i= 0; i < vertDiff; i++){
+   return true;
+  }
+  return true;
 }
 
 function selectPiece(piece){
@@ -96,7 +114,15 @@ function queenCheck(){
 function kingCheck(){
   var alphabet = ["a","b","c","d","e","f","g","h"]
   var moveFrom = document.getElementById(window.loaded).parentNode.id
-
+  if ((window.destination[1] - moveFrom[1] === 1 || window.destination[1] - moveFrom[1]) === -1){
+    return true;
+  }
+  else if (alphabet.indexOf(window.destination[0]) - alphabet.indexOf(moveFrom[0]) === 1 || alphabet.indexOf(window.destination[0]) - alphabet.indexOf(moveFrom[0]) === -1) {
+    return true;
+  }
+  else{
+    return false;
+  }
 }
 
 function rookCheck(){
@@ -106,6 +132,9 @@ function rookCheck(){
   }
   else if (window.destination[1] === moveFrom[1]) {
     return true;
+  }
+  else{
+    return false;
   }
 }
 
@@ -117,6 +146,9 @@ function bishopCheck(){
   }
   else if (window.destination[1] - moveFrom[1] === (alphabet.indexOf(window.destination[0]) - alphabet.indexOf(moveFrom[0])) * -1){
     return true;
+  }
+  else{
+    return false;
   }
 }
 
