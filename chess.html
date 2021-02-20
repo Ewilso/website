@@ -3,44 +3,22 @@
   <head>
     <meta charset="utf-8">
     <title>7300.TK</title>
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="lib/images/favicon.ico" />
     <link rel="stylesheet" href="lib/chess.css">
     <link href="https://fonts.googleapis.com/css2?family=Overpass+Mono&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
     <script type="text/javascript" src="chess.js"></script>
   </head>
-  <body onLoad="chessSetup()">
-    <div class="container">
-      <!--<div class="cordsV">
-        1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
-      </div>-->
-      <div id="board">
-        <div class="row" id="row_1"></div>
-        <div class="row" id="row_2"></div>
-        <div class="row" id="row_3"></div>
-        <div class="row" id="row_4"></div>
-        <div class="row" id="row_5"></div>
-        <div class="row" id="row_6"></div>
-        <div class="row" id="row_7"></div>
-        <div class="row" id="row_8"></div>
-      </div>
-      <div id="info">
-        <!--<h3>Mode:</h3>
-        <p>
-          <button type="button" onclick="setGameMode('single')">Single Player</button>
-          <button type="button" onclick="setGameMode('double')">Two Player</button>
-          <button type="button" onclick="setGameMode('ai')">Automated Play</button>
-        </p>-->
-        <h3>Turn:</h3>
-        <p id="Turn"></p>
-        <h3>Piece Selected:</h3>
-        <p id="Piece"></p>
-        <h3>Square Selected:</h3>
-        <p id="Destination"></p>
-        <h3>Debug Log:</h3>
-        <div id="status">
-        </div>
-      </div>
+  <body onLoad="setup()">
+    <div class="board">
+      <div class="rank" id="rank_1"></div>
+      <div class="rank" id="rank_2"></div>
+      <div class="rank" id="rank_3"></div>
+      <div class="rank" id="rank_4"></div>
+      <div class="rank" id="rank_5"></div>
+      <div class="rank" id="rank_6"></div>
+      <div class="rank" id="rank_7"></div>
+      <div class="rank" id="rank_8"></div>
     </div>
   </body>
 </html>
