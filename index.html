@@ -12,9 +12,6 @@
   </head>
   <body onLoad="setup()">
     <div class="container">
-      <!--<div class="cordsV">
-        1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
-      </div>-->
       <div id="board">
         <div class="rank" id="rank_1"></div>
         <div class="rank" id="rank_2"></div>
@@ -38,18 +35,23 @@
             <p>An Interactive Chess Program and Engine</p>
             <p>Designed and Written by HEW</p>
             <div class="pieces">
-              <div class="side"><img src="lib/pieces/140.svg" class="option" onclick="chooseWhite()"></div>
+              <div class="side"><img src="lib/pieces/140.svg" class="option" onclick="choose()"></div>
               <div class="spacer">&nbsp;</div>
-              <div class="side"><img src="lib/pieces/220.svg" class="option" onclick="chooseBlack()"></div>
+              <div class="side"><img src="lib/pieces/220.svg" class="option" onclick="choose()"></div>
             </div>
             <p>Select a Piece Colour To Start</p>
           </center>
         </div>
         <div class="page" id="analysis">
-          <h3>ANALYSIS</h3>
+          <center><br>
+            <h3>Analysis</h3>
+          </center>
         </div>
         <div class="page" id="moves">
-          <h3>MOVES</h3>
+          <center><br>
+            <h3>Moves</h3>
+            <div class="moveList"></div>
+          </center>
         </div>
       </div>
     </div>

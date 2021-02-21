@@ -29,15 +29,31 @@ function board () {
   }
 }
 
+function pawnCheck () {
+
+}
+
+function rookCheck () {
+
+}
+
+function knightCheck () {
+
+}
+
+function bishopCheck () {
+
+}
+
+function queenCheck () {
+
+}
+
+function kingCheck() {
+
+}
+
 function loadFEN (fen) {
-  var pieces = {
-    "p": window.Pawn,
-    "r": window.Rook,
-    "n": window.Knight,
-    "b": window.Bishop,
-    "q": window.Queen,
-    "k": window.King,
-  }
   var square = 1;
   for (var i = 0; i < fen.length; i++) {
     if (fen[i] === "/") {
@@ -53,7 +69,7 @@ function loadFEN (fen) {
       colour = fen[i].toUpperCase() != fen[i];
       window.Board[square] = 0
       window.Board[square] += colour ? window.Black : window.White;
-      window.Board[square] += pieces[fen[i].toLowerCase()]
+      window.Board[square] += window.pieces[fen[i].toLowerCase()]
       square +=1
     }
   }
@@ -80,10 +96,10 @@ function display (){
 }
 
 function selectSquare(square) {
-  if (window.Loaded[0] === null) {
+  if (window.Loaded[0] === null && window.Loaded[1] != null) {
     window.Loaded[0] = square
-    //document.getElementById(window.Loaded[0]).style.backgroundColor = "#c7d6a0"
-  } else {
+    document.getElementById(window.Loaded[0]).style.backgroundColor = "#c7d6a0"
+  } else if (window.Loaded[0] != null) {
     window.Target[0] = square
     if (checkLegal() === true) {
       var choice = window.Target[1] === null
@@ -93,8 +109,16 @@ function selectSquare(square) {
       document.getElementById(window.Loaded[0]).innerHTML = ""
       window.Board[window.Loaded[0]] = "";
       window.Board[window.Target[0]] = window.Loaded[1]
+      document.getElementById(window.Loaded[0]).style.backgroundColor = ""
+      for (var i = 0; i < window.LastMove.length; i++) {
+        document.getElementById(window.LastMove[i]).style.backgroundColor = ""
+      }
+      window.LastMove = [window.Loaded[0], window.Target[0]]
+      for (var i = 0; i < window.LastMove.length; i++) {
+        document.getElementById(window.LastMove[i]).style.backgroundColor = "#8ed1bb"
+      }
+      window.Loaded = [null, null];
     }
-    window.Loaded = [null, null];
     window.Target = [null, null];
   }
 }
@@ -108,7 +132,32 @@ function selectPiece(square) {
 }
 
 function checkLegal () {
+  var borw = window.Loaded[1] < 170;
+  var pieceType = window.Loaded[1]
+  switch (pieceType -= borw ? 80 : 160) {
+    case 10:
+      pawnCheck();
+      break;
+    case 20:
+      rookCheck();
+      break;
+    case 30:
+      knightCheck();
+      break;
+    case 40:
+      bishopCheck();
+      break;
+    case 50:
+      queenCheck();
+      break;
+    case 60:
+      kingCheck();
+      break;
+  }
   if ((window.Loaded[1] > 140 && window.Target[1] > 140) || (window.Loaded[1] < 141 && window.Target[1] < 141 && window.Target[1] != null)) {
+    document.getElementById(window.Loaded[0]).style.backgroundColor = ""
+    window.Loaded = window.Target;
+    document.getElementById(window.Loaded[0]).style.backgroundColor = "#c7d6a0"
     return false;
   } else {
     return true;
@@ -116,13 +165,24 @@ function checkLegal () {
 }
 
 function pieces () {
+  window.Moves = [];
   window.Board = [];
+  window.LastMove = [];
+
   window.Pawn = 10;
   window.Rook = 20;
-  window.Knight= 30;
+  window.Knight = 30;
   window.Bishop = 40;
   window.Queen = 50;
   window.King = 60;
+  window.pieces = {
+    "p": window.Pawn,
+    "r": window.Rook,
+    "n": window.Knight,
+    "b": window.Bishop,
+    "q": window.Queen,
+    "k": window.King,
+  };
 
   window.White = 80;
   window.Black = 160;
@@ -136,21 +196,11 @@ function setup () {
   pieces();
 }
 
-function chooseWhite (){
+function choose (){
   var buttons = document.getElementsByClassName("option");
   for (var i = 0; i < buttons.length; i++) {
     buttons[i].onclick = null;
   }
   loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
-  display();
-}
-
-function chooseBlack (){
-
-  var buttons = document.getElementsByClassName("option");
-  for (var i = 0; i < buttons.length; i++) {
-    buttons[i].onclick = null;
-  }
-  loadFEN("RNBQKBNR/PPPPPPPP/8/8/8/8/pppppppp/rnbqkbnr")
   display();
 }
