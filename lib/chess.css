@@ -1,3 +1,10 @@
+body{
+  height: 100%;
+  /*background-image: url("../lib/images/wood.jpeg");*/
+  background-color: #242424;
+  background-repeat: repeat;
+  font-family: "Overpass Mono", monospace;
+}
 .rank{
   margin: 0px;
   display: flex;
@@ -21,5 +28,70 @@
 }
 .board{
   width: 640px;
+}
+.container{
   border: 5px solid;
+  width:1190px;
+  margin: auto;
+  margin-top: 3%;
+  display: flex;
+}
+.info{
+  border-left: 5px solid #000;
+  color: #d8dee9;
+  background-color: #313131;
+  width: 550px;
+  display: inline-block;
+}
+p{
+  font-family: "Righteous", monospace;
+}
+.page{
+  margin: 5px 20px;
+  display: none;
+}
+.active{
+  display: block;
+}
+.navbar{
+  display flex;
+  width: 97%;
+  background-color: #242424;
+  padding: 0 8px;
+}
+.button{
+  padding: 10px;
+  padding-top: 15px;
+  font-size: 25px;
+  display: inline-block;
+  background-color: #313131;
+  text-decoration: none;
+  color: #d8dee9;
+}
+.activeButton{
+  background-color: #4a4a4a;
+}
+.button:hover{
+  background-color: #0b0b0b;
+}
+h3{
+  font-size: 40px;
+}
+.pieces{
+  display: table;
+}
+.option{
+  height: 80px;
+  width: 80px;
+}
+.side{
+  display: table-cell;
+  background-color: #242424;
+  border-radius: 4px;
+}
+.side:hover{
+  background-color: #0b0b0b;
+}
+.spacer{
+  display: table-cell;
 }

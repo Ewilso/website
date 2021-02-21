@@ -1,3 +1,16 @@
+function setActive(page) {
+  var pages = document.getElementsByClassName("page");
+  for (var i = 0; i < pages.length; i++) {
+    pages[i].classList.remove("active");
+  }
+  document.getElementById(page).classList.add("active");
+  var buttons = document.getElementsByClassName("button");
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].classList.remove("activeButton");
+  }
+  document.getElementById(page + "Button").classList.add("activeButton");
+}
+
 function board () {
   var tally = 1;
   for (var rank = 1; rank < 9; rank++) {
@@ -53,26 +66,12 @@ function createFEN (){
 }
 
 function display (){
-  var images = {
-    90: "WPawn.svg",
-    100: "WRook.svg",
-    110: "WKnight.svg",
-    120: "WBishop.svg",
-    130: "WQueen.svg",
-    140: "WKing.svg",
-    170: "BPawn.svg",
-    180: "BRook.svg",
-    190: "BKnight.svg",
-    200: "BBishop.svg",
-    210: "BQueen.svg",
-    220: "BKing.svg",
-  }
   for (var i = 1; i < 65; i++) {
     if (window.Board[i] != undefined) {
       var container = document.getElementById(i);
-      var img = document.createElement( 'img' );
+      var img = document.createElement( "img" );
       img.classList.add("piece");
-      img.src = "lib/pieces/" + images[window.Board[i]]
+      img.src = "lib/pieces/" + window.Board[i] + ".svg"
       img.setAttribute("id", window.Board[i]);
       img.setAttribute("onclick", "selectPiece(" + window.Board[i] + ")");
       container.appendChild(img)
@@ -83,10 +82,18 @@ function display (){
 function selectSquare(square) {
   if (window.Loaded[0] === null) {
     window.Loaded[0] = square
-    console.log(window.Loaded, window.Target)
-  } else{
+    //document.getElementById(window.Loaded[0]).style.backgroundColor = "#c7d6a0"
+  } else {
     window.Target[0] = square
-    console.log(window.Loaded, window.Target)
+    if (checkLegal() === true) {
+      var choice = window.Target[1] === null
+      var audio = choice ? new Audio("lib/move.wav") : new Audio("lib/take.wav");
+      audio.play();
+      document.getElementById(window.Target[0]).innerHTML = document.getElementById(window.Loaded[0]).innerHTML
+      document.getElementById(window.Loaded[0]).innerHTML = ""
+      window.Board[window.Loaded[0]] = "";
+      window.Board[window.Target[0]] = window.Loaded[1]
+    }
     window.Loaded = [null, null];
     window.Target = [null, null];
   }
@@ -95,8 +102,16 @@ function selectSquare(square) {
 function selectPiece(square) {
   if (window.Loaded[1] === null) {
     window.Loaded[1] = square
-  } else{
+  } else {
     window.Target[1] = square
+  }
+}
+
+function checkLegal () {
+  if ((window.Loaded[1] > 140 && window.Target[1] > 140) || (window.Loaded[1] < 141 && window.Target[1] < 141 && window.Target[1] != null)) {
+    return false;
+  } else {
+    return true;
   }
 }
 
@@ -119,6 +134,23 @@ function pieces () {
 function setup () {
   board();
   pieces();
+}
+
+function chooseWhite (){
+  var buttons = document.getElementsByClassName("option");
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].onclick = null;
+  }
   loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
+  display();
+}
+
+function chooseBlack (){
+
+  var buttons = document.getElementsByClassName("option");
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].onclick = null;
+  }
+  loadFEN("RNBQKBNR/PPPPPPPP/8/8/8/8/pppppppp/rnbqkbnr")
   display();
 }
