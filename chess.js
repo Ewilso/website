@@ -9,27 +9,63 @@ function board () {
       var square = document.createElement( 'div' );
       square.classList.add("square", squareColour);
       square.setAttribute("id", tally);
-      //square.setAttribute("onclick", "selectSquare('"+ squareID[0] + "')");
+      square.setAttribute("onclick", "selectSquare(" + tally + ")");
       container.appendChild( square );
       tally += 1
     }
   }
 }
 
+function loadFEN (fen) {
+  var pieces = {
+    "p": window.Pawn,
+    "r": window.Rook,
+    "n": window.Knight,
+    "b": window.Bishop,
+    "q": window.Queen,
+    "k": window.King,
+  }
+  var square = 1;
+  for (var i = 0; i < fen.length; i++) {
+    if (fen[i] === "/") {
+      continue;
+    }
+    else if (fen[i] === " ") {
+      break;
+    }
+    if (isNaN(fen[i]) === false) {
+        square += Number(fen[i]);
+    }
+    else{
+      colour = fen[i].toUpperCase() != fen[i];
+      window.Board[square] = 0
+      window.Board[square] += colour ? window.Black : window.White;
+      window.Board[square] += pieces[fen[i].toLowerCase()]
+      square +=1
+    }
+  }
+}
+
+function createFEN (){
+  for (var i = 1; i < 65; i++) {
+    // TODO
+  }
+}
+
 function display (){
   var images = {
-    90: "WPawn.png",
-    100: "WRook.png",
-    110: "WKnight.png",
-    120: "WBishop.png",
-    130: "WQueen.png",
-    140: "WKing.png",
-    170: "BPawn.png",
-    180: "BRook.png",
-    190: "BKnight.png",
-    200: "BBishop.png",
-    210: "BQueen.png",
-    220: "BKing.png",
+    90: "WPawn.svg",
+    100: "WRook.svg",
+    110: "WKnight.svg",
+    120: "WBishop.svg",
+    130: "WQueen.svg",
+    140: "WKing.svg",
+    170: "BPawn.svg",
+    180: "BRook.svg",
+    190: "BKnight.svg",
+    200: "BBishop.svg",
+    210: "BQueen.svg",
+    220: "BKing.svg",
   }
   for (var i = 1; i < 65; i++) {
     if (window.Board[i] != undefined) {
@@ -38,6 +74,7 @@ function display (){
       img.classList.add("piece");
       img.src = "lib/pieces/" + images[window.Board[i]]
       img.setAttribute("id", window.Board[i]);
+      img.setAttribute("onclick", "selectPiece(" + window.Board[i] + ")");
       container.appendChild(img)
     }
   }
@@ -54,23 +91,14 @@ function pieces () {
 
   window.White = 80;
   window.Black = 160;
-  window.Board[1] = window.Pawn + window.White;
-  window.Board[2] = window.Rook + window.White;
-  window.Board[3] = window.Knight + window.White;
-  window.Board[4] = window.Bishop + window.White;
-  window.Board[5] = window.Queen + window.White;
-  window.Board[6] = window.King + window.White;
-  window.Board[9] = window.Pawn + window.Black;
-  window.Board[10] = window.Rook + window.Black;
-  window.Board[11] = window.Knight + window.Black;
-  window.Board[12] = window.Bishop + window.Black;
-  window.Board[13] = window.Queen + window.Black;
-  window.Board[14] = window.King + window.Black;
-  console.log(window.Board)
+
+  window.Target = [null, null];
+  window.Loaded = [null, null];
 }
 
 function setup () {
   board();
   pieces();
+  loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
   display();
 }
