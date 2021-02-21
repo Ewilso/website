@@ -80,6 +80,26 @@ function display (){
   }
 }
 
+function selectSquare(square) {
+  if (window.Loaded[0] === null) {
+    window.Loaded[0] = square
+    console.log(window.Loaded, window.Target)
+  } else{
+    window.Target[0] = square
+    console.log(window.Loaded, window.Target)
+    window.Loaded = [null, null];
+    window.Target = [null, null];
+  }
+}
+
+function selectPiece(square) {
+  if (window.Loaded[1] === null) {
+    window.Loaded[1] = square
+  } else{
+    window.Target[1] = square
+  }
+}
+
 function pieces () {
   window.Board = [];
   window.Pawn = 10;
@@ -92,8 +112,8 @@ function pieces () {
   window.White = 80;
   window.Black = 160;
 
-  window.Target = [null, null];
   window.Loaded = [null, null];
+  window.Target = [null, null];
 }
 
 function setup () {
