@@ -27,7 +27,8 @@
           <div class="button activeButton" id="mainButton" onclick="setActive('main')"><i class="fas fa-home"></i></div>
           <div class="button" id="analysisButton" onclick="setActive('analysis')"><i class="fas fa-chess-board"></i></div>
           <div class="button" id="movesButton" onclick="setActive('moves')"><i class="fas fa-chess"></i></div>
-          <a class="button" id="movesButton" href="menu.html"><i class="fas fa-sign-out-alt"></i></a>
+          <div class="button" id="creditsButton" onclick="setActive('credits')"><i class="fas fa-user-friends"></i></div>
+          <a class="button" id="leaveButton" href="menu.html"><i class="fas fa-sign-out-alt"></i></a>
         </div>
         <div class="page active" id="main">
           <center><br>
@@ -40,6 +41,7 @@
               <div class="side"><img src="lib/pieces/220.svg" class="option" onclick="choose()"></div>
             </div>
             <p>Select a Piece Colour To Start</p>
+            <p>To Move, Select a Piece and Then Select The Target Square</p>
           </center>
         </div>
         <div class="page" id="analysis">
@@ -53,7 +55,17 @@
             <div class="moveList"></div>
           </center>
         </div>
+        <div class="page" id="credits">
+          <center><br>
+            <h3>Credits</h3>
+            <p><a href="https://fontawesome.com" target="_blank">Font Awesome</a></p>
+            <p><a href="https://lichess.org" target="_blank">Lichess</a></p>
+            <p><a href="https://www.youtube.com/watch?v=U4ogK0MIzqk" target="_blank">Sebastian Lague</a></p>
+            <p><a href="https://fonts.google.com" target="_blank">Google Fonts</a></p>
+          </center>
+        </div>
       </div>
     </div>
+    <center><h6 id="lastEdited">Last edited </h6></center>
   </body>
 </html>

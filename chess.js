@@ -97,16 +97,17 @@ function display (){
 
 function selectSquare(square) {
   if (window.Loaded[0] === null && window.Loaded[1] != null) {
-    window.Loaded[0] = square
-    document.getElementById(window.Loaded[0]).style.backgroundColor = "#c7d6a0"
+      window.Loaded[0] = square
+      document.getElementById(window.Loaded[0]).style.backgroundColor = "#c7d6a0"
   } else if (window.Loaded[0] != null) {
     window.Target[0] = square
+    console.log(checkLegal())
     if (checkLegal() === true) {
+      document.getElementById(window.Target[0]).innerHTML = document.getElementById(window.Loaded[0]).innerHTML
+      document.getElementById(window.Loaded[0]).innerHTML = ""
       var choice = window.Target[1] === null
       var audio = choice ? new Audio("lib/move.wav") : new Audio("lib/take.wav");
       audio.play();
-      document.getElementById(window.Target[0]).innerHTML = document.getElementById(window.Loaded[0]).innerHTML
-      document.getElementById(window.Loaded[0]).innerHTML = ""
       window.Board[window.Loaded[0]] = "";
       window.Board[window.Target[0]] = window.Loaded[1]
       document.getElementById(window.Loaded[0]).style.backgroundColor = ""
@@ -118,6 +119,8 @@ function selectSquare(square) {
         document.getElementById(window.LastMove[i]).style.backgroundColor = "#8ed1bb"
       }
       window.Loaded = [null, null];
+      var nextTurn = window.Turn > 100;
+      window.Turn = nextTurn ? 80 : 160;
     }
     window.Target = [null, null];
   }
@@ -159,8 +162,16 @@ function checkLegal () {
     window.Loaded = window.Target;
     document.getElementById(window.Loaded[0]).style.backgroundColor = "#c7d6a0"
     return false;
-  } else {
+  } else if ((window.Turn > 100 && window.Loaded[1] > 169) || (window.Turn < 100 && window.Loaded[1] < 141)) {
     return true;
+  }
+  else if (window.Loaded[0] != null){
+    document.getElementById(window.Loaded[0]).style.backgroundColor = ""
+    window.Loaded = [null, null];
+    return false;
+  }
+  else{
+    return false;
   }
 }
 
@@ -168,6 +179,7 @@ function pieces () {
   window.Moves = [];
   window.Board = [];
   window.LastMove = [];
+  window.Turn = 80
 
   window.Pawn = 10;
   window.Rook = 20;
@@ -192,6 +204,7 @@ function pieces () {
 }
 
 function setup () {
+  document.getElementById("lastEdited").innerHTML = "Last Edited: " +  document.lastModified
   board();
   pieces();
 }
