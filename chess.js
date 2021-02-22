@@ -204,7 +204,6 @@ function pieces () {
 }
 
 function setup () {
-  document.getElementById("lastEdited").innerHTML = "Last Edited: " +  document.lastModified
   board();
   pieces();
 }
