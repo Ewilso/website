@@ -30,27 +30,27 @@ function board () {
 }
 
 function pawnCheck () {
-
+  return true;
 }
 
 function rookCheck () {
-
+  return true;
 }
 
 function knightCheck () {
-
+  return true;
 }
 
 function bishopCheck () {
-
+  return true;
 }
 
 function queenCheck () {
-
+  return true;
 }
 
 function kingCheck() {
-
+  return true;
 }
 
 function loadFEN (fen) {
@@ -97,11 +97,15 @@ function display (){
 
 function selectSquare(square) {
   if (window.Loaded[0] === null && window.Loaded[1] != null) {
+    console.log(window.Loaded, window.Turn)
+    if ((window.Loaded[1] > 140 && window.Turn > 140) || (window.Loaded[1] < 141 && window.Turn < 141)) {
       window.Loaded[0] = square
       document.getElementById(window.Loaded[0]).style.backgroundColor = "#c7d6a0"
+    } else{
+      window.Loaded = [null, null]
+    }
   } else if (window.Loaded[0] != null) {
     window.Target[0] = square
-    console.log(checkLegal())
     if (checkLegal() === true) {
       document.getElementById(window.Target[0]).innerHTML = document.getElementById(window.Loaded[0]).innerHTML
       document.getElementById(window.Loaded[0]).innerHTML = ""
@@ -135,35 +139,36 @@ function selectPiece(square) {
 }
 
 function checkLegal () {
-  var borw = window.Loaded[1] < 170;
-  var pieceType = window.Loaded[1]
-  switch (pieceType -= borw ? 80 : 160) {
-    case 10:
-      pawnCheck();
-      break;
-    case 20:
-      rookCheck();
-      break;
-    case 30:
-      knightCheck();
-      break;
-    case 40:
-      bishopCheck();
-      break;
-    case 50:
-      queenCheck();
-      break;
-    case 60:
-      kingCheck();
-      break;
-  }
   if ((window.Loaded[1] > 140 && window.Target[1] > 140) || (window.Loaded[1] < 141 && window.Target[1] < 141 && window.Target[1] != null)) {
     document.getElementById(window.Loaded[0]).style.backgroundColor = ""
     window.Loaded = window.Target;
     document.getElementById(window.Loaded[0]).style.backgroundColor = "#c7d6a0"
     return false;
   } else if ((window.Turn > 100 && window.Loaded[1] > 169) || (window.Turn < 100 && window.Loaded[1] < 141)) {
-    return true;
+    var borw = window.Loaded[1] < 170;
+    var pieceType = window.Loaded[1]
+    var checkComplete = false
+    switch (pieceType -= borw ? 80 : 160) {
+      case 10:
+        checkComplete = pawnCheck();
+        break;
+      case 20:
+        checkComplete = rookCheck();
+        break;
+      case 30:
+        checkComplete = knightCheck();
+        break;
+      case 40:
+        checkComplete = bishopCheck();
+        break;
+      case 50:
+        checkComplete = queenCheck();
+        break;
+      case 60:
+        checkComplete = kingCheck();
+        break;
+    }
+    return checkComplete;
   }
   else if (window.Loaded[0] != null){
     document.getElementById(window.Loaded[0]).style.backgroundColor = ""
@@ -204,6 +209,7 @@ function pieces () {
 }
 
 function setup () {
+  window.ondragstart = function() { return false; }
   board();
   pieces();
 }

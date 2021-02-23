@@ -28,12 +28,13 @@
           <div class="button" id="analysisButton" onclick="setActive('analysis')"><i class="fas fa-chess-board"></i></div>
           <div class="button" id="movesButton" onclick="setActive('moves')"><i class="fas fa-chess"></i></div>
           <div class="button" id="creditsButton" onclick="setActive('credits')"><i class="fas fa-user-friends"></i></div>
+          <div class="button" id="settingsButton" onclick="setActive('settings')"><i class="fas fa-cog"></i></div>
           <a class="button" id="leaveButton" href="menu.html"><i class="fas fa-sign-out-alt"></i></a>
         </div>
         <div class="page active" id="main">
           <center><br>
-            <h3>Omicron</h3>
-            <p>An Interactive Chess Program and Engine</p>
+            <h3>ZEUS</h3>
+            <p>A Chess Program and Analysis Algorithm</p>
             <p>Designed and Written by HEW</p>
             <div class="pieces">
               <div class="side"><img src="lib/pieces/140.svg" class="option" onclick="choose()"></div>
@@ -41,7 +42,7 @@
               <div class="side"><img src="lib/pieces/220.svg" class="option" onclick="choose()"></div>
             </div>
             <p>Select a Piece Colour To Start</p>
-            <p>To Move, Select a Piece and Then Select The Target Square</p>
+            <p>To move, select a piece, then select the target square</p>
           </center>
         </div>
         <div class="page" id="analysis">
@@ -64,8 +65,22 @@
             <p><a href="https://fonts.google.com" target="_blank">Google Fonts</a></p>
           </center>
         </div>
+        <div class="page" id="settings">
+          <center><br>
+            <h3>Settings</h3>
+            <div class="setting">
+              <p>FEN string: </p>
+              <input type="text" name="">
+              <button type="submit" name="button">Load</button>
+            </div><br>
+            <div class="setting">
+              <p>Sound: </p>
+              <input type="checkbox" name="" value="">
+            </div><br>
+          </center>
+        </div>
       </div>
     </div>
-    <center><h6 id="lastEdited">Last edited 22/02/2021(GB)</h6></center>
+    <center><h6 id="lastEdited">Last edited: 23/02/2021(GB)</h6></center>
   </body>
 </html>

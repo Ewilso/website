@@ -21,7 +21,7 @@ body{
   background-color: #316448;
 }
 .light{
-  background-color: #fefefe;
+  background-color: #eee;
 }
 .piece{
   width: 80px;
@@ -80,6 +80,18 @@ h3{
 .pieces{
   display: table;
 }
+.setting{
+  display: table;
+  text-align: left;
+  width: 80%;
+  padding: 20px;
+  background-color: #242424;
+  border-radius: 3px;
+  border: 1px solid #000;
+}
+.setting > *{
+  display: table-cell;
+}
 .option{
   height: 80px;
   width: 80px;
@@ -111,4 +123,9 @@ h3{
 a{
   text-decoration: underline;
   color: #d8dee9;
+}
+*, *:before, *:after {
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
 }
