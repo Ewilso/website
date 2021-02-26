@@ -1,3 +1,4 @@
+// TODO: En passant, Promotion, Checks, Settings, Move list, Mate, Castling
 function setActive(page) {
   var pages = document.getElementsByClassName("page");
   for (var i = 0; i < pages.length; i++) {
@@ -34,15 +35,38 @@ function pawnCheck () {
 }
 
 function rookCheck () {
-  return true;
+  if (window.Offset % 8 === 0) {
+    return true;
+  } else if (window.Offset < 8) {
+    return true;
+  } else{
+    return false;
+  }
 }
 
 function knightCheck () {
-  return true;
+  switch (window.Offset) {
+    case 15:
+      return true;
+    case 17:
+      return true;
+    case 10:
+      return true;
+    case 6:
+      return true;
+    default:
+    return false;
+  }
 }
 
 function bishopCheck () {
-  return true;
+  if (window.Offset % 9 === 0) {
+    return true;
+  } else if (window.Offset % 7 === 0) {
+    return true;
+  } else{
+    return false;
+  }
 }
 
 function queenCheck () {
@@ -50,7 +74,11 @@ function queenCheck () {
 }
 
 function kingCheck() {
-  return true;
+  if (window.Offset === 9 || window.Offset === 7 || window.Offset === 1 || window.Offset === 8) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function loadFEN (fen) {
@@ -97,7 +125,6 @@ function display (){
 
 function selectSquare(square) {
   if (window.Loaded[0] === null && window.Loaded[1] != null) {
-    console.log(window.Loaded, window.Turn)
     if ((window.Loaded[1] > 140 && window.Turn > 140) || (window.Loaded[1] < 141 && window.Turn < 141)) {
       window.Loaded[0] = square
       document.getElementById(window.Loaded[0]).style.backgroundColor = "#c7d6a0"
@@ -148,6 +175,7 @@ function checkLegal () {
     var borw = window.Loaded[1] < 170;
     var pieceType = window.Loaded[1]
     var checkComplete = false
+    window.Offset = Math.abs(window.Loaded[0] - window.Target[0])
     switch (pieceType -= borw ? 80 : 160) {
       case 10:
         checkComplete = pawnCheck();
@@ -168,6 +196,7 @@ function checkLegal () {
         checkComplete = kingCheck();
         break;
     }
+    console.log(window.Offset)
     return checkComplete;
   }
   else if (window.Loaded[0] != null){
@@ -181,6 +210,7 @@ function checkLegal () {
 }
 
 function pieces () {
+  window.Offset = 0
   window.Moves = [];
   window.Board = [];
   window.LastMove = [];
