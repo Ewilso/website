@@ -70,17 +70,17 @@
             <h3>Settings</h3>
             <div class="setting">
               <p>FEN string: </p>
-              <input type="text" name="">
-              <button type="submit" name="button">Load</button>
+              <input type="text" id="fenstring"></input>
+              <button type="submit" name="button" onclick="loadFEN(document.getElementById('fenstring').value)">Load</button>
             </div><br>
             <div class="setting">
               <p>Sound: </p>
-              <input type="checkbox" name="" value="">
+              <input type="checkbox" id="sound" checked="true" onchange="changeSounds()">
             </div><br>
           </center>
         </div>
       </div>
     </div>
-    <center><h6 id="lastEdited">Last edited: 24/02/2021</h6></center>
+    <center><h6 id="lastEdited">Last edited: 28/02/2021</h6></center>
   </body>
 </html>
