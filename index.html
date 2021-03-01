@@ -24,12 +24,12 @@
       </div>
       <div class="info">
         <div class="navbar">
-          <div class="button activeButton" id="mainButton" onclick="setActive('main')"><i class="fas fa-home"></i></div>
-          <div class="button" id="analysisButton" onclick="setActive('analysis')"><i class="fas fa-chess-board"></i></div>
-          <div class="button" id="movesButton" onclick="setActive('moves')"><i class="fas fa-chess"></i></div>
-          <div class="button" id="creditsButton" onclick="setActive('credits')"><i class="fas fa-user-friends"></i></div>
-          <div class="button" id="settingsButton" onclick="setActive('settings')"><i class="fas fa-cog"></i></div>
-          <a class="button" id="leaveButton" href="menu.html"><i class="fas fa-sign-out-alt"></i></a>
+          <div title="Home" class="button activeButton" id="mainButton" onclick="setActive('main')"><i class="fas fa-home"></i></div>
+          <div title="Analysis" class="button" id="analysisButton" onclick="setActive('analysis')"><i class="fas fa-chess-board"></i></div>
+          <div title="Moves" class="button" id="movesButton" onclick="setActive('moves')"><i class="fas fa-chess"></i></div>
+          <div title="Settings" class="button" id="settingsButton" onclick="setActive('settings')"><i class="fas fa-cog"></i></div>
+          <div title="Credits" class="button" id="creditsButton" onclick="setActive('credits')"><i class="fas fa-user-friends"></i></div>
+          <a   title="Exit" class="button" id="leaveButton" href="menu.html"><i class="fas fa-sign-out-alt"></i></a>
         </div>
         <div class="page active" id="main">
           <center><br>
@@ -37,9 +37,11 @@
             <p>A Program and Analysis Algorithm</p>
             <p>Designed and Written by HEW</p>
             <div class="pieces">
-              <div class="side"><img src="lib/pieces/140.svg" class="option" onclick="choose()"></div>
+              <div class="side"><img src="lib/pieces/140.svg" class="option" onclick="choose()" title="Play with the white Pieces"></div>
               <div class="spacer">&nbsp;</div>
-              <div class="side"><img src="lib/pieces/220.svg" class="option" onclick="choose()"></div>
+              <br><div class="side reset" onclick="reset()" title="Reset Board"><i class="fas fa-redo"></i></div>
+              <div class="spacer">&nbsp;</div>
+              <div class="side"><img src="lib/pieces/220.svg" class="option" onclick="choose()" title="Play with the black pieces"></div>
             </div>
             <p>Select a Piece Colour To Start</p>
             <p>To move, select a piece, then select the target square</p>
@@ -70,8 +72,8 @@
             <h3>Settings</h3>
             <div class="setting">
               <p>FEN string: </p>
-              <input type="text" id="fenstring"></input>
-              <button type="submit" name="button" onclick="loadFEN(document.getElementById('fenstring').value)">Load</button>
+              <input type="text" id="fenstring" readonly="readonly"></input>
+              <button id="load" type="submit" disabled="disabled" onclick="loadFEN(document.getElementById('fenstring').value)">Load</button>
             </div><br>
             <div class="setting">
               <p>Sound: </p>
@@ -81,6 +83,6 @@
         </div>
       </div>
     </div>
-    <center><h6 id="lastEdited">Last edited: 28/02/2021</h6></center>
+    <center><h6 id="lastEdited">Last edited: 01/03/2021</h6></center>
   </body>
 </html>

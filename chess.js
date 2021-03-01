@@ -17,6 +17,10 @@ function changeSounds () {
 }
 
 function board () {
+  ranks = document.getElementsByClassName("rank")
+  for (var i = 0; i < ranks.length; i++) {
+    ranks[i].innerHTML = ""
+  }
   var tally = 1;
   for (var rank = 1; rank < 9; rank++) {
     for (var file = 1; file < 9; file++) {
@@ -32,6 +36,33 @@ function board () {
       tally += 1
     }
   }
+}
+
+function piece () {
+  window.Moves = [];
+  window.Board = [];
+  window.LastMove = [];
+  window.Turn = 80
+  window.Pawn = 10;
+  window.Rook = 20;
+  window.Knight = 30;
+  window.Bishop = 40;
+  window.Queen = 50;
+  window.King = 60;
+  window.White = 80;
+  window.Black = 160;
+  window.pieces = {
+    "p": window.Pawn,
+    "r": window.Rook,
+    "n": window.Knight,
+    "b": window.Bishop,
+    "q": window.Queen,
+    "k": window.King,
+  };
+
+  window.Loaded = [null, null];
+  window.Target = [null, null];
+  window.Sounds = true;
 }
 
 function pawnCheck () {
@@ -120,7 +151,8 @@ function loadFEN (fen) {
 
 function createFEN (){
   for (var i = 1; i < 65; i++) {
-    // TODO
+    square = document.getElementById(i)
+    rank = square.parentNode.id[5]
   }
   fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
   window.FEN = fen
@@ -128,11 +160,12 @@ function createFEN (){
 }
 
 function display (){
+  window.Turn = 80;
   for (var i = 1; i < 65; i++) {
     var container = document.getElementById(i);
+    container.style.backgroundColor = "";
     container.innerHTML = ""
     if (window.Board[i] != undefined) {
-      container.style.backgroundColor = "";
       var img = document.createElement( "img" );
       img.classList.add("piece");
       img.src = "lib/pieces/" + window.Board[i] + ".svg"
@@ -231,43 +264,22 @@ function checkLegal () {
   }
 }
 
-function pieces () {
-  window.Moves = [];
-  window.Board = [];
-  window.LastMove = [];
-  window.Turn = 80
-  window.Pawn = 10;
-  window.Rook = 20;
-  window.Knight = 30;
-  window.Bishop = 40;
-  window.Queen = 50;
-  window.King = 60;
-  window.White = 80;
-  window.Black = 160;
-  window.pieces = {
-    "p": window.Pawn,
-    "r": window.Rook,
-    "n": window.Knight,
-    "b": window.Bishop,
-    "q": window.Queen,
-    "k": window.King,
-  };
-
-  window.Loaded = [null, null];
-  window.Target = [null, null];
-  window.Sounds = true;
-}
-
 function setup () {
   window.ondragstart = function() { return false; }
   board();
-  pieces();
+  piece();
 }
 
-function choose (){
-  var buttons = document.getElementsByClassName("option");
-  for (var i = 0; i < buttons.length; i++) {
-    buttons[i].onclick = null;
-  }
+function reset () {
+  button = document.getElementsByClassName("option")
+  button[0].onclick=function(){choose()};
+  button[0].onclick=function(){choose()};
+  setup()
+}
+
+function choose () {
+  button = document.getElementsByClassName("option")
+  button[0].onclick = "";
+  button[0].onclick = "";
   loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
 }
