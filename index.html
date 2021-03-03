@@ -12,8 +12,26 @@
   </head>
   <body onLoad="setup()">
     <div class="container">
-      <div class="Linfo">
-        <div class="Lpage">
+      <div id="board">
+        <div class="rank" id="rank_1"></div>
+        <div class="rank" id="rank_2"></div>
+        <div class="rank" id="rank_3"></div>
+        <div class="rank" id="rank_4"></div>
+        <div class="rank" id="rank_5"></div>
+        <div class="rank" id="rank_6"></div>
+        <div class="rank" id="rank_7"></div>
+        <div class="rank" id="rank_8"></div>
+      </div>
+      <div class="info">
+        <div class="navbar">
+          <div title="Home" class="button activeButton" id="mainButton" onclick="setActive('main')"><i class="fas fa-home"></i></div>
+          <div title="Analysis" class="button" id="analysisButton" onclick="setActive('analysis')"><i class="fas fa-chess-board"></i></div>
+          <div title="Moves" class="button" id="movesButton" onclick="setActive('moves')"><i class="fas fa-chess"></i></div>
+          <div title="Settings" class="button" id="settingsButton" onclick="setActive('settings')"><i class="fas fa-cog"></i></div>
+          <div title="Credits" class="button" id="creditsButton" onclick="setActive('credits')"><i class="fas fa-user-friends"></i></div>
+          <a   title="Exit" class="button" id="leaveButton" href="menu.html"><i class="fas fa-sign-out-alt"></i></a>
+        </div>
+        <div class="page active" id="main">
           <center><br>
             <h3>CHESS</h3>
             <p>A Program and Analysis Algorithm</p>
@@ -29,37 +47,18 @@
             <p>To move, select a piece, then select the target square</p>
           </center>
         </div>
-      </div>
-      <div id="board">
-        <div class="rank" id="rank_1"></div>
-        <div class="rank" id="rank_2"></div>
-        <div class="rank" id="rank_3"></div>
-        <div class="rank" id="rank_4"></div>
-        <div class="rank" id="rank_5"></div>
-        <div class="rank" id="rank_6"></div>
-        <div class="rank" id="rank_7"></div>
-        <div class="rank" id="rank_8"></div>
-      </div>
-      <div class="Rinfo">
-        <div class="navbar">
-          <div title="Analysis" class="button" id="analysisButton" onclick="setActive('analysis')"><i class="fas fa-chess-board"></i></div>
-          <div title="Moves" class="button" id="movesButton" onclick="setActive('moves')"><i class="fas fa-chess"></i></div>
-          <div title="Settings" class="button" id="settingsButton" onclick="setActive('settings')"><i class="fas fa-cog"></i></div>
-          <div title="Credits" class="button" id="creditsButton" onclick="setActive('credits')"><i class="fas fa-user-friends"></i></div>
-          <a   title="Exit" class="button" id="leaveButton" href="menu.html"><i class="fas fa-sign-out-alt"></i></a>
-        </div>
-        <div class="Rpage active" id="analysis">
+        <div class="page" id="analysis">
           <center><br>
             <h3>Analysis</h3>
           </center>
         </div>
-        <div class="Rpage" id="moves">
+        <div class="page" id="moves">
           <center><br>
             <h3>Moves</h3>
             <div class="moveList"></div>
           </center>
         </div>
-        <div class="Rpage" id="credits">
+        <div class="page" id="credits">
           <center><br>
             <h3>Credits</h3>
             <p><a href="https://fontawesome.com" target="_blank">Font Awesome</a></p>
@@ -68,7 +67,7 @@
             <p><a href="https://fonts.google.com" target="_blank">Google Fonts</a></p>
           </center>
         </div>
-        <div class="Rpage" id="settings">
+        <div class="page" id="settings">
           <center><br>
             <h3>Settings</h3>
             <div class="setting">

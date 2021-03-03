@@ -32,32 +32,23 @@ body{
 }
 .container{
   border: 5px solid #000;
-  width: 1680px;
+  width: 1190px;
   margin: auto;
   margin-top: 3%;
   display: flex;
 }
-.Rinfo{
+.info{
   border-left: 5px solid #000;
   background-color: #313131;
-  width: 520px;
-  display: inline-block;
-}
-.Linfo{
-  border-right: 5px solid #000;
-  background-color: #313131;
-  width: 520px;
+  width: 550px;
   display: inline-block;
 }
 p{
   font-family: "Righteous", monospace;
 }
-.Rpage{
+.page{
   margin: 5px 20px;
   display: none;
-}
-.Lpage{
-  margin: 5px 20px;
 }
 .active{
   display: block;
