@@ -1,6 +1,6 @@
 // TODO: En passant, Promotion, Checks, Move list, Mate, Castling, No jumping, Material log
 function setActive(page) {
-  var pages = document.getElementsByClassName("page");
+  var pages = document.getElementsByClassName("Rpage");
   for (var i = 0; i < pages.length; i++) {
     pages[i].classList.remove("active");
   }
@@ -66,7 +66,9 @@ function piece () {
 }
 
 function pawnCheck () {
-  if (window.Offset === 8) {
+  if ((window.Offset === 8 && window.Target[1] === null) || ((window.Offset === 9 || window.Offset === 7) && window.Target[1] != null)) {
+    return true;
+  } else if (window.Offset === 16 && ((window.Loaded[0] > 48 && window.Loaded[0] < 57) || (window.Loaded[0] > 8 && window.Loaded[0] < 17))) {
     return true;
   }
   return false;
