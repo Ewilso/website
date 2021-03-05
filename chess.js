@@ -1,6 +1,6 @@
-// TODO: En passant, Promotion, Checks, Move list, Mate, Castling, No jumping, Material log
+// TODO: Move list, All Moves, Material log, FEN creator
 function setActive(page) {
-  var pages = document.getElementsByClassName("Rpage");
+  var pages = document.getElementsByClassName("page");
   for (var i = 0; i < pages.length; i++) {
     pages[i].classList.remove("active");
   }
@@ -122,6 +122,8 @@ function kingCheck() {
 }
 
 function loadFEN (fen) {
+  var audio = new Audio("lib/move.wav");
+  audio.play();
   window.FEN = fen
   document.getElementById("fenstring").value = window.FEN;
   window.Board = [];
@@ -188,7 +190,7 @@ function selectSquare(square) {
     }
   } else if (window.Loaded[0] != null) {
     window.Target[0] = square
-    if (checkLegal() === true) {
+    if (calcLegal() === true) {
       document.getElementById(window.Target[0]).innerHTML = document.getElementById(window.Loaded[0]).innerHTML
       document.getElementById(window.Loaded[0]).innerHTML = ""
       var choice = window.Target[1] === null
@@ -212,6 +214,7 @@ function selectSquare(square) {
       createFEN()
     }
     window.Target = [null, null];
+    genLegal()
   }
 }
 
@@ -223,47 +226,70 @@ function selectPiece(square) {
   }
 }
 
-function checkLegal () {
+function genLegal() {
+  window.legal = [];
+  for (var i = 1; i < 65; i++) {
+    square = document.getElementById(i)
+    if (square.innerHTML !== "") {
+      piece = square.childNodes[0].id
+      window.Loaded = [i, Number(piece)]
+      var borw = piece < 170;
+      var pieceType = piece -= borw ? 80 : 160
+      for (var j = 1; j < 65; j++) {
+        window.Target = [j, null]
+        window.Offset = Math.abs(window.Loaded[0] - window.Target[0])
+        switch (pieceType) {
+          case 10:
+            checkLegal = pawnCheck();
+            break;
+          case 20:
+            checkLegal = rookCheck();
+            break;
+          case 30:
+            checkLegal = knightCheck();
+            break;
+          case 40:
+            checkLegal = bishopCheck();
+            break;
+          case 50:
+            checkLegal = queenCheck();
+            break;
+          case 60:
+            checkLegal = kingCheck();
+            break;
+        }
+        if (checkLegal === true) {
+          window.legal.push([i, j])
+        }
+        window.Target = [null, null]
+      }
+      window.Loaded = [null, null]
+    }
+  }
+}
+
+function calcLegal () {
   if ((window.Loaded[1] > 140 && window.Target[1] > 140) || (window.Loaded[1] < 141 && window.Target[1] < 141 && window.Target[1] != null)) {
     document.getElementById(window.Loaded[0]).style.backgroundColor = ""
     window.Loaded = window.Target;
     document.getElementById(window.Loaded[0]).style.backgroundColor = "#c7d6a0"
     return false;
-  } else if ((window.Turn > 100 && window.Loaded[1] > 169) || (window.Turn < 100 && window.Loaded[1] < 141)) {
-    var borw = window.Loaded[1] < 170;
-    var pieceType = window.Loaded[1]
-    var checkComplete = false
-    window.Offset = Math.abs(window.Loaded[0] - window.Target[0])
-    switch (pieceType -= borw ? 80 : 160) {
-      case 10:
-        checkComplete = pawnCheck();
-        break;
-      case 20:
-        checkComplete = rookCheck();
-        break;
-      case 30:
-        checkComplete = knightCheck();
-        break;
-      case 40:
-        checkComplete = bishopCheck();
-        break;
-      case 50:
-        checkComplete = queenCheck();
-        break;
-      case 60:
-        checkComplete = kingCheck();
-        break;
-    }
-    return checkComplete;
+  } else if (((window.Turn > 100 && window.Loaded[1] > 169) || (window.Turn < 100 && window.Loaded[1] < 141) && searchForLegal() === true)) {
+    return true;
   }
   else if (window.Loaded[0] != null){
     document.getElementById(window.Loaded[0]).style.backgroundColor = ""
     window.Loaded = [null, null];
     return false;
   }
-  else{
+  else {
     return false;
   }
+}
+
+function searchForLegal () {
+  window.legal = [window.Loaded[1], window.Target[1]]
+  return true;
 }
 
 function setup () {
@@ -284,4 +310,5 @@ function choose () {
   button[0].onclick = "";
   button[0].onclick = "";
   loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
+  genLegal()
 }
