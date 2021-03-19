@@ -62,10 +62,10 @@ function piece () {
 
   window.Loaded = [null, null];
   window.Target = [null, null];
-  window.Sounds = true;
 }
 
 function pawnCheck () {
+  window.Offset = window.Loaded[0] - window.Target[0]
   if ((window.Offset === 8 && window.Target[1] === null) || ((window.Offset === 9 || window.Offset === 7) && window.Target[1] != null)) {
     return true;
   } else if (window.Offset === 16 && ((window.Loaded[0] > 48 && window.Loaded[0] < 57) || (window.Loaded[0] > 8 && window.Loaded[0] < 17))) {
@@ -122,8 +122,6 @@ function kingCheck() {
 }
 
 function loadFEN (fen) {
-  var audio = new Audio("lib/move.wav");
-  audio.play();
   window.FEN = fen
   document.getElementById("fenstring").value = window.FEN;
   window.Board = [];
@@ -150,20 +148,6 @@ function loadFEN (fen) {
       continue;
     }
   }
-  display();
-}
-
-function createFEN (){
-  for (var i = 1; i < 65; i++) {
-    square = document.getElementById(i)
-    rank = square.parentNode.id[5]
-  }
-  fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
-  window.FEN = fen
-  document.getElementById("fenstring").value = window.FEN
-}
-
-function display (){
   window.Turn = 80;
   for (var i = 1; i < 65; i++) {
     var container = document.getElementById(i);
@@ -180,15 +164,26 @@ function display (){
   }
 }
 
+function createFEN (){
+  for (var i = 1; i < 65; i++) {
+    square = document.getElementById(i)
+    rank = square.parentNode.id[5]
+  }
+  fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
+  window.FEN = fen
+  document.getElementById("fenstring").value = window.FEN
+}
+
 function selectSquare(square) {
   if (window.Loaded[0] === null && window.Loaded[1] != null) {
     if ((window.Loaded[1] > 140 && window.Turn > 140) || (window.Loaded[1] < 141 && window.Turn < 141)) {
       window.Loaded[0] = square
       document.getElementById(window.Loaded[0]).style.backgroundColor = "#c7d6a0"
     } else{
+      document.getElementById(window.Loaded[0]).style.backgroundColor = ""
       window.Loaded = [null, null]
     }
-  } else if (window.Loaded[0] != null) {
+  } else if (window.Loaded[0] != null && window.Target[0] != square) {
     window.Target[0] = square
     if (calcLegal() === true) {
       document.getElementById(window.Target[0]).innerHTML = document.getElementById(window.Loaded[0]).innerHTML
@@ -208,13 +203,12 @@ function selectSquare(square) {
       for (var i = 0; i < window.LastMove.length; i++) {
         document.getElementById(window.LastMove[i]).style.backgroundColor = "#8ed1bb"
       }
-      window.Loaded = [null, null];
       var nextTurn = window.Turn > 100;
       window.Turn = nextTurn ? 80 : 160;
       createFEN()
+      genLegal()
     }
-    window.Target = [null, null];
-    genLegal()
+    window.Loaded = [null, null]
   }
 }
 
@@ -288,11 +282,17 @@ function calcLegal () {
 }
 
 function searchForLegal () {
-  window.legal = [window.Loaded[1], window.Target[1]]
-  return true;
+  searchFor = [window.Loaded[0], window.Target[0]]
+  for (var i = 0; i < window.legal.length; i++) {
+    if (window.legal[i][0] === searchFor[0] && window.legal[i][1] === searchFor[1]) {
+      return true;
+    }
+  }
+  return false;
 }
 
 function setup () {
+  window.Sounds = true;
   window.ondragstart = function() { return false; }
   board();
   piece();
@@ -302,7 +302,7 @@ function reset () {
   button = document.getElementsByClassName("option")
   button[0].onclick=function(){choose()};
   button[0].onclick=function(){choose()};
-  setup()
+  board();
 }
 
 function choose () {
