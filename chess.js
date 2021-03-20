@@ -1,4 +1,3 @@
-// TODO: Move list, All Moves, Material log, FEN creator
 function setActive(page) {
   var pages = document.getElementsByClassName("page");
   for (var i = 0; i < pages.length; i++) {
@@ -175,8 +174,8 @@ function createFEN (){
 }
 
 function selectSquare(square) {
-  if (window.Loaded[0] === null && window.Loaded[1] != null) {
-    if ((window.Loaded[1] > 140 && window.Turn > 140) || (window.Loaded[1] < 141 && window.Turn < 141)) {
+  if (window.Loaded[0] === null && window.Loaded[1] !== null) {
+    if ((window.Loaded[1] > 150 && window.Turn > 150) || (window.Loaded[1] < 150 && window.Turn < 150)) {
       window.Loaded[0] = square
       document.getElementById(window.Loaded[0]).style.backgroundColor = "#c7d6a0"
     } else{
@@ -206,6 +205,7 @@ function selectSquare(square) {
       var nextTurn = window.Turn > 100;
       window.Turn = nextTurn ? 80 : 160;
       createFEN()
+      console.log(window.Turn)
       genLegal()
     }
     window.Loaded = [null, null]
@@ -262,24 +262,35 @@ function genLegal() {
   }
 }
 
+
 function calcLegal () {
-  if ((window.Loaded[1] > 140 && window.Target[1] > 140) || (window.Loaded[1] < 141 && window.Target[1] < 141 && window.Target[1] != null)) {
+  console.log(window.legal)
+  console.log(window.Loaded[0], window.Target[0], searchForLegal())
+  if (((window.Turn > 100 && window.Loaded[1] > 150) || (window.Turn < 100 && window.Loaded[1] < 150)) && searchForLegal() === true) {
+    return true;
+  }
+}
+
+/*
+function calcLegal () {
+  if (((window.Loaded[1] > 140 && window.Target[1] > 140) || (window.Loaded[1] < 141 && window.Target[1] < 141)) && window.Target[1] != null) {
     document.getElementById(window.Loaded[0]).style.backgroundColor = ""
     window.Loaded = window.Target;
+    window.Target = [null, null]
     document.getElementById(window.Loaded[0]).style.backgroundColor = "#c7d6a0"
     return false;
-  } else if (((window.Turn > 100 && window.Loaded[1] > 169) || (window.Turn < 100 && window.Loaded[1] < 141) && searchForLegal() === true)) {
+  } else if (((window.Turn > 100 && window.Loaded[1] > 169) || (window.Turn < 100 && window.Loaded[1] < 141)) && searchForLegal() === true) {
     return true;
   }
   else if (window.Loaded[0] != null){
     document.getElementById(window.Loaded[0]).style.backgroundColor = ""
+    document.getElementById(window.Target[0]).style.backgroundColor = ""
     window.Loaded = [null, null];
     return false;
   }
-  else {
-    return false;
-  }
+  return false;
 }
+*/
 
 function searchForLegal () {
   searchFor = [window.Loaded[0], window.Target[0]]
