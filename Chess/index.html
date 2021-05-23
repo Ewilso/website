@@ -2,87 +2,49 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>7300.TK</title>
-    <link rel="shortcut icon" type="image/x-icon" href="lib/images/favicon.ico" />
-    <link rel="stylesheet" href="lib/chess.css">
+    <title>Chess | Arcorad.org</title>
+    <link rel="stylesheet" href="../Assets/master.css">
+    <link rel="stylesheet" href="chess.css">
     <link rel="stylesheet" href="lib/fontawesome/css/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Overpass+Mono&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
     <script type="text/javascript" src="chess.js"></script>
   </head>
   <body onLoad="setup()">
-    <div class="container">
-      <div id="board">
-        <div class="rank" id="rank_1"></div>
-        <div class="rank" id="rank_2"></div>
-        <div class="rank" id="rank_3"></div>
-        <div class="rank" id="rank_4"></div>
-        <div class="rank" id="rank_5"></div>
-        <div class="rank" id="rank_6"></div>
-        <div class="rank" id="rank_7"></div>
-        <div class="rank" id="rank_8"></div>
+    <div class="Header">
+      <div id="Title">
+        <h1>Arcorad.org</h1>
       </div>
-      <div class="info">
-        <div class="navbar">
-          <div title="Home" class="button activeButton" id="mainButton" onclick="setActive('main')"><i class="fas fa-home"></i></div>
-          <div title="Analysis" class="button" id="analysisButton" onclick="setActive('analysis')"><i class="fas fa-chess-board"></i></div>
-          <div title="Moves" class="button" id="movesButton" onclick="setActive('moves')"><i class="fas fa-chess"></i></div>
-          <div title="Settings" class="button" id="settingsButton" onclick="setActive('settings')"><i class="fas fa-cog"></i></div>
-          <div title="Credits" class="button" id="creditsButton" onclick="setActive('credits')"><i class="fas fa-user-friends"></i></div>
-          <a   title="Exit" class="button" id="leaveButton" href="menu.html"><i class="fas fa-sign-out-alt"></i></a>
-        </div>
-        <div class="page active" id="main">
-          <center><br>
-            <h3>CHESS</h3>
-            <p>A Program and Analysis Algorithm</p>
-            <p> <a href="https://github.com/ewilso/7300" target="_blank">Open Source Code</a> Written by HEW</p>
-            <div class="pieces">
-              <div class="side"><img src="lib/pieces/90.svg" class="option" onclick="choose()" title="Play with the white Pieces"></div>
-              <div class="spacer">&nbsp;</div>
-              <br><div class="side reset" onclick="reset()" title="Reset Board"><i class="fas fa-redo"></i></div>
-              <div class="spacer">&nbsp;</div>
-              <div class="side"><img src="lib/pieces/170.svg" class="option" onclick="choose()" title="Play with the black pieces"></div>
-            </div>
-            <p>Select a Piece Colour To Start</p>
-            <p>To move, select a piece, then select the target square</p>
-          </center>
-        </div>
-        <div class="page" id="analysis">
-          <center><br>
-            <h3>Analysis</h3>
-          </center>
-        </div>
-        <div class="page" id="moves">
-          <center><br>
-            <h3>Moves</h3>
-            <div class="moveList"></div>
-          </center>
-        </div>
-        <div class="page" id="credits">
-          <center><br>
-            <h3>Credits</h3>
-            <p><a href="https://fontawesome.com" target="_blank">Font Awesome</a></p>
-            <p><a href="https://lichess.org" target="_blank">Lichess</a></p>
-            <p><a href="https://www.youtube.com/watch?v=U4ogK0MIzqk" target="_blank">Sebastian Lague</a></p>
-            <p><a href="https://fonts.google.com" target="_blank">Google Fonts</a></p>
-          </center>
-        </div>
-        <div class="page" id="settings">
-          <center><br>
-            <h3>Settings</h3>
-            <div class="setting">
-              <p>FEN string: </p>
-              <input type="text" id="fenstring" readonly="readonly"></input>
-              <button id="load" type="submit" disabled="disabled" onclick="loadFEN(document.getElementById('fenstring').value)">Load</button>
-            </div><br>
-            <div class="setting">
-              <p>Sound: </p>
-              <input type="checkbox" id="sound" checked="true" onchange="changeSounds()">
-            </div><br>
-          </center>
-        </div>
+      <div id="Navbar">
+        <ul class="navbar-items">
+          <li class="navbar"><a href="/">Home</a></li>
+          <li class="navbar"><a class="navbar-active" href="Chess/">Chess</a></li>
+          <li class="navbar"><a href="">RPU</a></li>
+          <li class="navbar"><a href="">Misc</a></li>
+          <li class="navbar"><a href="">Gallery</a></li>
+          <li class="navbar-right"><a href="">Credits</a></li>
+        </ul>
       </div>
     </div>
-    <center><h6 id="lastEdited">20/03/2021</h6></center>
+    <div id="Main">
+      <div id="Sidebar">
+        <ul class="sidebar-items">
+          <li class="sidebar"><a class="sidebar-active">Interface/</a></li>
+          <li class="sidebar"><a href="">Programming/</a></li>
+          <li class="sidebar"><a href="">Source Code/</a></li>
+        </ul>
+      </div>
+      <div id="Content">
+        <div id="board">
+          <div class="rank" id="rank_1"></div>
+          <div class="rank" id="rank_2"></div>
+          <div class="rank" id="rank_3"></div>
+          <div class="rank" id="rank_4"></div>
+          <div class="rank" id="rank_5"></div>
+          <div class="rank" id="rank_6"></div>
+          <div class="rank" id="rank_7"></div>
+          <div class="rank" id="rank_8"></div>
+        </div>
+    </div>
   </body>
 </html>

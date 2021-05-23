@@ -1,0 +1,98 @@
+.rank{
+  margin: 0px;
+  display: flex;
+  width: 640px;
+  height: 80px;
+}
+.square{
+  display: inline-block;
+  height: 100%;
+  width: 12.5%;
+}
+.dark{
+  background-color: #316448;
+}
+.light{
+  background-color: #eee;
+}
+.piece{
+  width: 80px;
+  height: 80px;
+}
+.board{
+  width: 640px;
+}
+p{
+  font-family: "Righteous", monospace;
+}
+.page{
+  margin: 5px 20px;
+  display: none;
+}
+.active{
+  display: block;
+}
+.button{
+  padding: 10px;
+  padding-top: 15px;
+  font-size: 25px;
+  display: inline-block;
+  background-color: #313131;
+  text-decoration: none;
+  color: #d8dee9;
+}
+.activeButton{
+  background-color: #4a4a4a;
+}
+.button:hover{
+  background-color: #0b0b0b;
+}
+.pieces{
+  display: table;
+}
+.setting{
+  display: table;
+  text-align: left;
+  width: 80%;
+  padding: 20px;
+  background-color: #242424;
+  border-radius: 3px;
+  border: 1px solid #000;
+}
+.setting > *{
+  display: table-cell;
+}
+.option{
+  height: 80px;
+  width: 80px;
+}
+.side{
+  display: table-cell;
+  background-color: #242424;
+  border-radius: 4px;
+}
+.reset{
+  font-size: 40px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 15px 20px 0px 20px;
+}
+.side:hover{
+  background-color: #0b0b0b;
+}
+.spacer{
+  display: table-cell;
+}
+.moveList::-webkit-scrollbar {
+  display: none;
+}
+.moveList{
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  border-radius: 5px;
+  padding: 8px;
+  width: 400px;
+  height: 375px;
+  background-color: #242424;
+}
