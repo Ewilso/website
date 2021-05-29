@@ -5,7 +5,12 @@
   --accent: #458588;
   --black: #4e4e4e;
 }
+*::-webkit-scrollbar {
+  display: none;
+}
 *{
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
   margin: 0;
 }
 html, body{

@@ -9,12 +9,6 @@
   height: 100%;
   width: 12.5%;
 }
-.dark{
-  background-color: #316448;
-}
-.light{
-  background-color: #eee;
-}
 .piece{
   width: 80px;
   height: 80px;
@@ -22,8 +16,20 @@
 .board{
   width: 640px;
 }
-p{
-  font-family: "Righteous", monospace;
+.container{
+  background-color: #000;
+  border: 5px solid #000;
+  width: 1190px;
+  margin: auto;
+  margin-top: 3%;
+  display: flex;
+}
+.info{
+  border-left: 5px solid #000;
+  background-color: var(--bg-alt);
+  color: var(--fg);
+  width: 550px;
+  display: inline-block;
 }
 .page{
   margin: 5px 20px;
@@ -32,23 +38,33 @@ p{
 .active{
   display: block;
 }
+.chess-navbar{
+  display flex;
+  width: 97%;
+  background-color: var(--bg);
+  padding: 0 8px;
+}
 .button{
   padding: 10px;
   padding-top: 15px;
   font-size: 25px;
   display: inline-block;
-  background-color: #313131;
+  background-color: var(--bg-alt);
   text-decoration: none;
-  color: #d8dee9;
+  color: var(--fg);
 }
 .activeButton{
-  background-color: #4a4a4a;
+  background-color: var(--black);
 }
 .button:hover{
-  background-color: #0b0b0b;
+  background-color: var(--black);
+}
+h2{
+  font-size: 35px;
 }
 .pieces{
   display: table;
+  padding: 10px;
 }
 .setting{
   display: table;
@@ -68,7 +84,7 @@ p{
 }
 .side{
   display: table-cell;
-  background-color: #242424;
+  background-color: var(--bg);
   border-radius: 4px;
 }
 .reset{
@@ -78,7 +94,7 @@ p{
   padding: 15px 20px 0px 20px;
 }
 .side:hover{
-  background-color: #0b0b0b;
+  background-color: var(--black);
 }
 .spacer{
   display: table-cell;
@@ -95,4 +111,15 @@ p{
   width: 400px;
   height: 375px;
   background-color: #242424;
+}
+.dark{
+  background-color: var(--accent);
+}
+.light{
+  background-color: #fff;
+}
+*, *:before, *:after {
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
 }
