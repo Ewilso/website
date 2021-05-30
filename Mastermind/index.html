@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Mastermind | Arcorad.org</title>
+    <link rel="stylesheet" href="../Assets/master.css">
+    <script type="text/javascript" src="mastermind.js"></script>
+  </head>
+  <body onload="setup()">
+    <div class="Header">
+      <div id="Title">
+        <h1>Arcorad.org</h1>
+      </div>
+      <div id="Navbar">
+        <ul class="navbar-items">
+          <li class="navbar"><a class="navbar-active" href="/">Home</a></li>
+          <li class="navbar"><a href="../Chess/">Chess</a></li>
+          <li class="navbar"><a href="">RPU</a></li>
+          <li class="navbar"><a href="">Misc</a></li>
+          <li class="navbar"><a href="">Gallery</a></li>
+          <li class="navbar-right"><a href="../Home/credits.html">Credits</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="Main">
+      <div id="Sidebar">
+        <ul class="sidebar-items">
+          <li class="sidebar"><a class="sidebar-active">Interface/</a></li>
+        </ul>
+      </div>
+      <div id="Content">
+        <h3>Interactive Demonstration</h3>
+        <p>To use this, think of a combination of numbers between 1-6 (ie 1244), The computer will make a guess and ask
+        for a response. Use the mastermind peg system - black = right number in the right place, white = right number
+        in the wrong place to rate the guess. Leave it blank if there are no pegs to be used.<br><br>Example: <br>
+        Your number - 1223 <br>Computer's guess - 4223 <br>Response - BB <br>(two 2's in the right place)</p><br>
+        <div class="log">
+          <div id="output">
+          </div>
+          <form class="prompt" onsubmit="return enter(document.getElementById('input').value);" autocomplete="off">
+            <input type="text" id="input" value="" autocomplete="off">
+          </form>
+        </div>
+      </div>
+  </body>
+</html>
