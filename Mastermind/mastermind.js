@@ -5,20 +5,38 @@ function output(text) {
 
 function enter (input) {
   document.getElementById('input').value = ''
-  if (input.length <= 4 && window.input === true) {
+  window.possible = ["W","B","WW","WB","BB","WWW","WWB","WBB","BBB","WWWW","WWWWB","WWBB","WBBB","BBBB"]
+  if (window.input === true) {
     output(input.toUpperCase())
     if (input === "BBBB") {
       output("Program ended.")
       window.input = false
       window.location.reload();
     }
-    else{
+    else {
       window.input = false
-      calc(input)
+      window.guess = scores[scores.length - 1]
+      output('Guess: ' + window.guess)
       window.input = true
     }
   }
   return false;
+}
+
+function gen() {
+  scores = [[0, 0]]
+  for (var i = 0; i < window.s.length; i++) {
+    window.guess = window.s[i]
+    for (var j = 0; j < possible.length; j++) {
+      score = calc(possible[j])
+      if (score > scores[scores.length - 1][0]){
+        scores.push([score, window.s[i]])
+      }
+    }
+    scores.sort();
+    window.scores = scores
+  }
+ 
 }
 
 function calc(input) {
@@ -46,15 +64,14 @@ function calc(input) {
     }
     result.push([score, window.s[i], window.guess])
   }
-  matching = []
   split = input.split('')
+  matching = []
   for (var i = 0; i < result.length; i++) {
     if (result[i][0].equals(split) === true) {
       matching.push(result[i][1])
     }
   }
-  window.guess = matching[0]
-  output('Guess: ' + matching[0])
+  return matching.length;
 }
 
 function setup() {
@@ -76,6 +93,8 @@ function setup() {
     }
     fourth += 1
   }
+  output("Loading...")
+  gen()
   output("Guess: 1,1,2,2")
   window.guess = [1, 1, 2, 2]
   window.input = true
