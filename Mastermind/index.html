@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Mastermind | Arcorad.org</title>
     <link rel="stylesheet" href="../Assets/master.css">
-    <script type="text/javascript" src="mastermind.js"></script>
+    <script type="text/javascript" src="new.js"></script>
   </head>
   <body onload="setup()">
 	<div class="Header">
@@ -13,9 +13,9 @@
       </div>
       <div id="Navbar">
         <ul class="navbar-items">
-          <li class="navbar"><a class="navbar-active" href="/">Home</a></li>
+          <li class="navbar"><a href="/">Home</a></li>
           <li class="navbar"><a href="../Chess/">Chess</a></li>
-          <li class="navbar"><a href="">RPU</a></li>
+          <li class="navbar"><a class="navbar-active">Mastermind</a></li>
           <li class="navbar"><a href="">Misc</a></li>
           <li class="navbar"><a href="">Gallery</a></li>
           <li class="navbar-right"><a href="../Home/credits.html">Credits</a></li>
@@ -30,15 +30,19 @@
       </div>
       <div id="Content">
         <h3>Interactive Demonstration</h3>
-        <p>To use this, think of a combination of numbers between 1-6 (ie 1244), The computer will make a guess and ask
-        for a response. Use the mastermind peg system - black = right number in the right place, white = right number
-        in the wrong place to rate the guess. Leave it blank if there are no pegs to be used.<br><br>Example: <br>
-        Your number - 1223 <br>Computer's guess - 4223 <br>Response - BB <br>(two 2's in the right place)</p><br>
+        <p><strong>How to use:</strong><br>Start by thinking of a 4-digit number, consisting only of the numbers 1 to 6 (0 is excluded).
+        The Algorithm will take a guess at what the number is and it is your job to respond. This takes the format of the mastermind
+        peg system. For each digit that is correct and in the right position, type "B", and for each digit that is correct but in the
+        wrong position, type "W". Hit return when you have formulated this and the Algorithm will calculate it's next guess. It should
+        take no more than 5 guesses to work out your number.</p><br>
+        <p><strong>When Finished:</strong><br>When the Algorithm has finished, either type REL into the input box or reload the page,
+        either of these will start the Algorithm again.</p><br>
         <div class="log">
           <div id="output">
           </div>
-          <form class="prompt" onsubmit="return enter(document.getElementById('input').value);" autocomplete="off">
-            <input type="text" id="input" value="" autocomplete="off">
+          <div id="input" onkeypress="enter(this.innerHTML, event)" contenteditable="true">
+            
+          </div>
           </form>
         </div>
       </div>

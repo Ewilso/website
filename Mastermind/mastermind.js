@@ -5,7 +5,6 @@ function output(text) {
 
 function enter (input) {
   document.getElementById('input').value = ''
-  window.possible = ["W","B","WW","WB","BB","WWW","WWB","WBB","BBB","WWWW","WWWWB","WWBB","WBBB","BBBB"]
   if (window.input === true) {
     output(input.toUpperCase())
     if (input === "BBBB") {
@@ -15,6 +14,7 @@ function enter (input) {
     }
     else {
       window.input = false
+      valid = calc(input, window.s)
       window.guess = scores[scores.length - 1]
       output('Guess: ' + window.guess)
       window.input = true
@@ -27,8 +27,8 @@ function gen() {
   scores = [[0, 0]]
   for (var i = 0; i < window.s.length; i++) {
     window.guess = window.s[i]
-    for (var j = 0; j < possible.length; j++) {
-      score = calc(possible[j])
+    for (var j = 0; j < window.possible.length; j++) {
+      score = calc(window.possible[j]).length
       if (score > scores[scores.length - 1][0]){
         scores.push([score, window.s[i]])
       }
@@ -36,10 +36,10 @@ function gen() {
     scores.sort();
     window.scores = scores
   }
- 
+
 }
 
-function calc(input) {
+function calc(input, array) {
   result = []
   for (var i = 0; i < window.s.length; i++) {
     score = []
@@ -71,10 +71,11 @@ function calc(input) {
       matching.push(result[i][1])
     }
   }
-  return matching.length;
+  return matching;
 }
 
 function setup() {
+  window.possible = ["W","B","WW","WB","BB","WWW","WWB","WBB","BBB","WWWW","WWWWB","WWBB","WBBB","BBBB"]
   window.s = []
   first = 1
   second = 1

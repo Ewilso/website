@@ -19,7 +19,7 @@ html, body{
   height: 100%;
   color: var(--bg);
   font-family: monospace;
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 h3{
   font-weight: bold;
@@ -128,19 +128,23 @@ tr:nth-child(even) a{
   color: var(--fg);
 }
 .log{
-  background-color: var(--fg);
-  color: var(--bg);
+  background-color: var(--black);
+  color: var(--fg);
   border: 1px solid var(--bg);
   border-radius: 4px;
   width: 800px;
   height: 300px;
   padding: 10px;
+  padding-bottom: 15px;
 }
 #input{
-  margin-left: 5px;
+  border-radius: 5px;
+  color: var(--bg);
+  margin: auto;
+  padding: 10px 10px 0 10px;
+  background-color: #fff;
+  height: 30px;
   width: 780px;
-  font-size: 15px;
-  font-family: monospace;
 }
 #output{
   height: 85%;
