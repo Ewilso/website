@@ -10,6 +10,7 @@
   </head>
   <body onLoad="setup()">
     <div class="Header">
+      <!--
       <div id="Title">
         <h1>Arcorad.org</h1>
       </div>
@@ -23,8 +24,10 @@
           <li class="navbar-right"><a href="../Home/credits.html">Credits</a></li>
         </ul>
       </div>
+      -->
     </div>
     <div id="Main">
+      <!--
       <div id="Sidebar">
         <ul class="sidebar-items">
           <li class="sidebar"><a class="sidebar-active">Interface/</a></li>
@@ -32,6 +35,7 @@
           <li class="sidebar"><a href="source.html">Source Code/</a></li>
         </ul>
       </div>
+      -->
       <div id="Content">
         <div class="container">
           <div id="board">
@@ -57,11 +61,11 @@
                 <p>A Program and Analysis Algorithm</p>
                 <p> <a href="https://github.com/ewilso/7300" target="_blank">Open Source Code</a> Written by HEW</p>
                 <div class="pieces">
-                  <div class="side"><img src="lib/pieces/90.svg" class="option" onclick="choose()" title="Play with the white Pieces"></div>
+                  <div class="side"><img src="lib/pieces/90.svg" class="option" onclick="choose('white')" title="Play with the white Pieces"></div>
                   <div class="spacer">&nbsp;</div>
                   <br><div class="side reset" onclick="reset()" title="Reset Board"><i class="fas fa-redo"></i></div>
                   <div class="spacer">&nbsp;</div>
-                  <div class="side"><img src="lib/pieces/170.svg" class="option" onclick="choose()" title="Play with the black pieces"></div>
+                  <div class="side"><img src="lib/pieces/170.svg" class="option" onclick="choose('black')" title="Play with the black pieces"></div>
                 </div>
                 <p>Select a Piece Colour To Start</p>
                 <p>To move, select a piece, then select the target square</p>

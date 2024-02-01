@@ -311,15 +311,19 @@ function setup () {
 
 function reset () {
   button = document.getElementsByClassName("option")
-  button[0].onclick=function(){choose()};
-  button[0].onclick=function(){choose()};
+  button[0].onclick=function(){choose('white')};
+  button[1].onclick=function(){choose('black')};
   board();
 }
 
-function choose () {
+function choose (side) {
   button = document.getElementsByClassName("option")
   button[0].onclick = "";
-  button[0].onclick = "";
-  loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
+  button[1].onclick = "";
+  if (side === "white") {
+    loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
+  } else if (side === "black") {
+    loadFEN("RNBQKBNR/PPPPPPPP/8/8/8/8/pppppppp/rnbqkbnr")
+  }
   genLegal()
 }
