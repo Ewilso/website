@@ -2,11 +2,11 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Chess | Arcorad.org</title>
+    <title>Chess</title>
     <link rel="stylesheet" href="../Assets/master.css">
     <link rel="stylesheet" href="chess.css">
     <link rel="stylesheet" href="lib/fontawesome/css/all.css">
-    <script type="text/javascript" src="chess.js"></script>
+    <script type="text/javascript" src="new.js"></script>
   </head>
   <body onLoad="setup()">
     <div class="Header">
@@ -39,6 +39,7 @@
       <div id="Content">
         <div class="container">
           <div id="board">
+            <div class="rank" id="rank_0"></div>
             <div class="rank" id="rank_1"></div>
             <div class="rank" id="rank_2"></div>
             <div class="rank" id="rank_3"></div>
@@ -46,7 +47,6 @@
             <div class="rank" id="rank_5"></div>
             <div class="rank" id="rank_6"></div>
             <div class="rank" id="rank_7"></div>
-            <div class="rank" id="rank_8"></div>
           </div>
           <div class="info">
             <div class="chess-navbar">
@@ -87,8 +87,8 @@
                 <h2>Settings</h2>
                 <div class="setting">
                   <p>FEN string: </p>
-                  <input type="text" id="fenstring" readonly="readonly"></input>
-                  <button id="load" type="submit" disabled="disabled" onclick="loadFEN(document.getElementById('fenstring').value)">Load</button>
+                  <input type="text" id="fenstring" disabled="disabled"></input>
+                  <button id="load" type="submit" readonly="readonly" onclick="loadFEN(document.getElementById('fenstring').value)">Load</button>
                 </div><br>
                 <div class="setting">
                   <p>Sound: </p>
